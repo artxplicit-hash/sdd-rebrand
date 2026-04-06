@@ -73,7 +73,7 @@ function createCategoryCard(category) {
     div.className = 'category-card reveal';
 
     const description = category.description?.trim() || 'Custom print solutions for business, personal projects, and easy-apply installs.';
-    const imageUrl = category.image || '/premium-biz-cards.png';
+    const imageUrl = category.image || './public/premium-biz-cards.png';
 
     div.innerHTML = `
         <div class="card-img">
@@ -97,7 +97,7 @@ function createProductCard(product) {
     const rawPrice = product.discounted_price ?? product.selling_price ?? product.base_price ?? product.price ?? 0;
     const numericPrice = Number(rawPrice);
     const formattedPrice = Number.isFinite(numericPrice) ? `$${numericPrice.toFixed(2)}` : `${rawPrice}`;
-    const imageUrl = product.image || product.images?.[0]?.image || '/premium-biz-cards.png';
+    const imageUrl = product.image || product.images?.[0]?.image || './public/premium-biz-cards.png';
     const productLink = product.slug
         ? `https://specialty-decals-design.mydukaan.io/products/${product.slug}`
         : '#contact';

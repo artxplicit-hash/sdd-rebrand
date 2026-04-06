@@ -349,7 +349,7 @@ p {
   border-radius: 24px;
   background:
     linear-gradient(90deg, rgba(18, 24, 30, 0.72) 0%, rgba(18, 24, 30, 0.2) 48%, rgba(18, 24, 30, 0.15) 100%),
-    url('/hero-bg-v2.png') center/cover no-repeat;
+    url('./public/hero-bg-v2.png') center/cover no-repeat;
   box-shadow: 0 18px 40px rgba(26, 35, 51, 0.18);
   display: flex;
   align-items: flex-end;
