@@ -1,0 +1,30 @@
+<svg width="860" height="220" viewBox="0 0 860 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@500;700&display=swap');
+    .kicker { font-family: 'Inter', Arial, sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 0.28em; }
+    .title { font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 700; letter-spacing: 0.04em; }
+    .tag { font-family: 'Inter', Arial, sans-serif; font-size: 16px; font-weight: 600; letter-spacing: 0.2em; }
+  </style>
+
+  <g>
+    <rect x="24" y="30" width="160" height="160" rx="34" fill="#2B3139"/>
+    <rect x="24" y="30" width="160" height="160" rx="34" stroke="#18C3C8" stroke-width="6"/>
+
+    <path d="M76 84L117 67C124 64 132 69 133 77L139 119C140 126 136 132 129 135L88 151C81 154 73 149 72 141L66 99C65 92 69 86 76 84Z" fill="#F7F9FB"/>
+    <path d="M93 75L137 58C144 55 152 60 153 68L160 113C161 120 157 126 150 129L105 146" stroke="#18C3C8" stroke-width="9" stroke-linecap="round"/>
+    <path d="M82 103H126" stroke="#2B3139" stroke-width="8" stroke-linecap="round"/>
+    <path d="M87 123H120" stroke="#6F7783" stroke-width="6" stroke-linecap="round"/>
+    <path d="M122 84L149 57" stroke="#18C3C8" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="150" cy="57" r="10" fill="#18C3C8"/>
+  </g>
+
+  <g transform="translate(220 0)">
+    <text x="0" y="74" class="kicker" fill="#6F7783">THE</text>
+    <text x="0" y="128" class="title" fill="#2A2F36" font-size="76">GRAPHICS</text>
+
+    <rect x="0" y="142" width="172" height="44" rx="12" fill="#18C3C8"/>
+    <text x="21" y="176" class="title" fill="#FFFFFF" font-size="42">SHOP</text>
+
+    <text x="195" y="172" class="tag" fill="#6F7783">VINYL • DECALS • SIGNS</text>
+  </g>
+</svg>
