@@ -3,232 +3,4329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Graphics Shop | Custom Vinyl That Ships Fast</title>
-    <meta name="description" content="The Graphics Shop creates custom vinyl decals, signs, labels, and easy-apply graphics for businesses, gamers, and DIY projects.">
-    <link rel="stylesheet" href="./style.css">
+    <title>The Graphics Shop | Premium Vinyl Graphics & Signage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS RESET & BASE ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --teal: #18C3C8;
+            --teal-light: #5FD6DB;
+            --teal-dark: #0FAFA3;
+            --teal-glow: rgba(24, 195, 200, 0.3);
+            --dark: #16191E;
+            --darkgrey: #2B3139;
+            --medgrey: #363E48;
+            --lightgrey: #A8B5C1;
+            --white: #FFFFFF;
+            --font-heading: 'Poppins', sans-serif;
+            --font-barlow: 'Barlow', sans-serif;
+            --font-barlow-condensed: 'Barlow Condensed', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-barlow);
+            color: var(--white);
+            background: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== CUSTOM SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--off-white); }
+        ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--teal-dark); }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(22, 25, 30, 0.45);
+            backdrop-filter: blur(12px);
+        }
+
+        nav.scrolled {
+            background: rgba(22, 25, 30, 0.5) !important;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 1px 0 rgba(24, 195, 200, 0.1), 0 4px 30px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(24, 195, 200, 0.08);
+            padding: 0.75rem 2rem;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-logo:hover {
+            opacity: 0.85;
+        }
+
+        .nav-logo img {
+            height: 2.5rem;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--lightgrey);
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--teal);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--teal);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--teal) !important;
+            color: #2B3139 !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 800 !important;
+            transition: all 0.3s ease !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-cta::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--teal-light);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+        }
+
+        .nav-cta:hover::before { transform: scaleX(1); }
+
+        .nav-cta:hover {
+            color: #2B3139 !important;
+            box-shadow: 0 0 30px rgba(24, 195, 200, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .nav-cta::after { display: none !important; }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 2.5px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--dark);
+        }
+
+        /* Halftone dot pattern */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(24,195,200,0.07) 1px, transparent 1px);
+            background-size: 16px 16px;
+            opacity: 0.6;
+            z-index: 2;
+        }
+
+        /* Grunge texture overlay */
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.05'/%3E%3C/svg%3E");
+            background-size: 512px 512px;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* Vignette */
+        .hero > .hero-vignette {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, transparent 40%, rgba(22,25,30,0.6) 100%);
+            z-index: 4;
+        }
+
+        @keyframes heroGradientShift {
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.1) rotate(2deg); opacity: 0.8; }
+            100% { transform: scale(1) rotate(-1deg); opacity: 1; }
+        }
+
+        /* Floating geometric shapes */
+        .hero-shapes {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border: 1px solid rgba(24, 195, 200, 0.1);
+            animation: floatShape linear infinite;
+        }
+
+        .shape-1 {
+            width: 300px; height: 300px;
+            top: -5%; right: -2%;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation-duration: 20s;
+        }
+
+        .shape-2 {
+            width: 200px; height: 200px;
+            bottom: 10%; left: 5%;
+            border-radius: 50%;
+            animation-duration: 15s;
+            animation-delay: -3s;
+        }
+
+        .shape-3 {
+            width: 150px; height: 150px;
+            top: 30%; right: 15%;
+            transform: rotate(45deg);
+            animation-duration: 18s;
+            animation-delay: -7s;
+        }
+
+        .shape-4 {
+            width: 100px; height: 100px;
+            bottom: 25%; right: 30%;
+            border-radius: 20% 80% 20% 80% / 20% 20% 80% 80%;
+            animation-duration: 22s;
+            animation-delay: -5s;
+        }
+
+        .shape-5 {
+            width: 400px; height: 400px;
+            top: 10%; left: -5%;
+            border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+            animation-duration: 25s;
+        }
+
+        @keyframes floatShape {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            25% { transform: translateY(-20px) rotate(90deg); opacity: 0.6; }
+            50% { transform: translateY(10px) rotate(180deg); opacity: 0.3; }
+            75% { transform: translateY(-15px) rotate(270deg); opacity: 0.5; }
+        }
+
+        /* Grid pattern overlay */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            background-image:
+                linear-gradient(rgba(24, 195, 200, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(24, 195, 200, 0.06) 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+
+        /* GS watermark */
+        .hero-watermark {
+            position: absolute;
+            right: -5%;
+            top: 25%;
+            width: 55%;
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 4;
+            transform: translateY(-50%);
+        }
+
+        /* Animated particles */
+        .particles {
+            position: absolute;
+            inset: 0;
+            z-index: 6;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--teal);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(24, 195, 200, 0.08);
+            border: 1px solid rgba(24, 195, 200, 0.2);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--teal);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+
+        .hero-badge span {
+            color: var(--teal);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            font-family: var(--font-barlow-condensed);
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 7vw, 5.5rem);
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--teal), var(--teal-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            color: var(--lightgrey);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            font-weight: 300;
+            line-height: 1.7;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--teal);
+            color: #2B3139;
+            padding: 1rem 2.25rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--teal-light);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before { transform: scaleX(1); }
+
+        .btn-primary:hover {
+            color: #2B3139;
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(24, 195, 200, 0.35);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            color: var(--white);
+            padding: 1rem 2.25rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+            transform: translateY(-2px);
+            background: rgba(24, 195, 200, 0.08);
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            animation: fadeInUp 0.8s ease 1s forwards, bounce 2s ease-in-out infinite 1.5s;
+            opacity: 0;
+        }
+
+        .scroll-indicator span {
+            color: var(--lightgrey);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+            opacity: 0.4;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--teal), transparent);
+            animation: scrollLine 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollLine {
+            0%, 100% { transform: scaleY(1); opacity: 1; }
+            50% { transform: scaleY(0.5); opacity: 0.3; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-8px); }
+        }
+
+        /* ===== SECTION STYLES ===== */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-barlow-condensed);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: 1rem;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 30px;
+            height: 2px;
+            background: var(--teal);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3.25rem);
+            font-weight: 800;
+            color: var(--white);
+            letter-spacing: -1px;
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--lightgrey);
+            max-width: 600px;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* Section divider line */
+        .section-divider {
+            background: linear-gradient(90deg, transparent, var(--teal), transparent);
+            height: 1px;
+            border: none;
+        }
+
+        /* Teal accent underline */
+        .teal-line {
+            width: 48px;
+            height: 2px;
+            background: var(--teal);
+            border: none;
+        }
+
+        /* ===== MARQUEE / TICKER ===== */
+        .ticker {
+            background: var(--darkgrey);
+            padding: 1rem 0;
+            overflow: hidden;
+            border-top: 1px solid rgba(24, 195, 200, 0.1);
+            border-bottom: 1px solid rgba(24, 195, 200, 0.1);
+        }
+
+        .ticker-track {
+            display: flex;
+            animation: tickerScroll 30s linear infinite;
+            width: max-content;
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 0 2rem;
+            white-space: nowrap;
+        }
+
+        .ticker-item span {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--lightgrey);
+            opacity: 0.5;
+        }
+
+        .ticker-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--teal);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        @keyframes tickerScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ===== SERVICES SECTION ===== */
+        .services {
+            background: var(--medgrey);
+        }
+
+        .services-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .services-header .section-subtitle {
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--darkgrey);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--teal), var(--teal-light));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), 0 0 30px rgba(24, 195, 200, 0.08);
+            border-color: rgba(24, 195, 200, 0.4) !important;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(24, 195, 200, 0.1);
+            border: 1px solid rgba(24, 195, 200, 0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--teal);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            background: rgba(24, 195, 200, 0.2);
+            transform: scale(1.1);
+        }
+
+        .service-card h3 {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--white);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .service-card:hover h3 {
+            color: var(--teal);
+        }
+
+        .service-card p {
+            color: var(--lightgrey);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* ===== ABOUT / EQUIPMENT SECTION ===== */
+        .about {
+            background: var(--dark);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 500px;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, var(--darkgrey), var(--medgrey));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(0.8) contrast(1.1);
+            transition: transform 0.6s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(22, 25, 30, 0.6), transparent 50%);
+        }
+
+        .about-accent-box {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--teal);
+            color: #2B3139;
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            font-family: var(--font-barlow-condensed);
+        }
+
+        .about-accent-box .number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .about-accent-box .label {
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .about-content .section-subtitle {
+            margin-bottom: 2rem;
+        }
+
+        .equipment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .equipment-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: var(--darkgrey);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .equipment-item:hover {
+            border-color: rgba(24, 195, 200, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transform: translateX(5px);
+        }
+
+        .equipment-icon {
+            width: 42px;
+            height: 42px;
+            background: rgba(24, 195, 200, 0.1);
+            border: 1px solid rgba(24, 195, 200, 0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .equipment-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--teal);
+        }
+
+        .equipment-info h4 {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--white);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .equipment-info p {
+            font-size: 0.85rem;
+            color: var(--lightgrey);
+        }
+
+        /* ===== GALLERY SECTION ===== */
+        .gallery {
+            background: var(--darkgrey);
+        }
+
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 280px);
+            gap: 1.25rem;
+        }
+
+        .gallery-item {
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: saturate(0.85) contrast(1.05);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(22, 25, 30, 0.8) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: end;
+            padding: 1.5rem;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay span {
+            color: var(--white);
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .gallery-item:nth-child(4) {
+            grid-column: span 2;
+        }
+
+        /* ===== STATS SECTION ===== */
+        .stats {
+            background: var(--teal);
+            padding: 3rem 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-item .stat-number {
+            font-family: var(--font-barlow-condensed);
+            font-size: 2.75rem;
+            font-weight: 900;
+            color: #2B3139;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-item .stat-label {
+            font-size: 0.75rem;
+            color: rgba(43, 49, 57, 0.7);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-family: var(--font-barlow-condensed);
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            background: var(--medgrey);
+        }
+
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .testimonials-header .section-subtitle {
+            margin: 0 auto;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--darkgrey);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-4px);
+            border-color: rgba(24, 195, 200, 0.2);
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 3px;
+            margin-bottom: 1.25rem;
+        }
+
+        .testimonial-stars svg {
+            width: 18px;
+            height: 18px;
+            fill: #FBBF24;
+        }
+
+        .testimonial-card blockquote {
+            font-size: 1rem;
+            color: var(--lightgrey);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .author-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2B3139;
+            font-family: var(--font-barlow-condensed);
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .author-info h4 {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--white);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .author-info p {
+            font-size: 0.85rem;
+            color: var(--lightgrey);
+            opacity: 0.7;
+        }
+
+        /* ===== GOOGLE REVIEWS WIDGET ===== */
+        .google-reviews-section {
+            background: var(--dark);
+        }
+
+        .google-reviews-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .google-reviews-header .section-label {
+            justify-content: center;
+        }
+
+        .google-reviews-header .section-subtitle {
+            margin: 0 auto;
+        }
+
+        .google-reviews-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(24, 195, 200, 0.08);
+            border: 1px solid rgba(24, 195, 200, 0.2);
+            border-radius: 50px;
+            padding: 0.5rem 1.25rem;
+            margin: 1.75rem auto;
+        }
+
+        .google-reviews-badge svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .google-reviews-badge .badge-text {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--lightgrey);
+        }
+
+        .google-reviews-badge .badge-rating {
+            color: var(--teal);
+            font-weight: 700;
+        }
+
+        .reviews-controls-wrapper {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .google-reviews-grid {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reviews-slider {
+            display: flex;
+            gap: 1.5rem;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .review-slide {
+            flex: 0 0 calc(33.333% - 1rem);
+            min-width: 0;
+        }
+
+        .review-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(55, 71, 79, 0.9);
+            border: 1px solid rgba(38, 198, 218, 0.3);
+            color: #26C6DA;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            padding: 0;
+        }
+
+        .review-arrow:hover {
+            background: rgba(38, 198, 218, 0.15);
+            box-shadow: 0 0 20px rgba(38, 198, 218, 0.2);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .review-arrow:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .review-arrow svg {
+            width: 20px;
+            height: 20px;
+            stroke: #26C6DA;
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .review-arrow-left {
+            left: -48px;
+        }
+
+        .review-arrow-right {
+            right: -48px;
+        }
+
+        .reviews-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.75rem;
+        }
+
+        .reviews-slide-label {
+            font-family: var(--font-heading);
+            font-size: 0.8rem;
+            color: var(--lightgrey);
+            text-align: center;
+            margin-top: 0.75rem;
+            opacity: 0.6;
+        }
+
+        .review-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(38, 198, 218, 0.25);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+            border: none;
+        }
+
+        .review-dot.active {
+            background: #26C6DA;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .review-dot:hover {
+            background: rgba(38, 198, 218, 0.5);
+        }
+
+        .review-card {
+            background: #37474F;
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            flex-shrink: 0;
+        }
+
+        .review-stars {
+            display: flex;
+            gap: 2px;
+            margin-bottom: 1rem;
+            flex-shrink: 0;
+        }
+
+        .review-text {
+            flex-grow: 1;
+        }
+
+        .review-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+            border-color: rgba(38, 198, 218, 0.25);
+        }
+
+        .review-author-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .review-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #26C6DA, #18C3C8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #16191E;
+            font-weight: 700;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+        }
+
+        .review-author-name {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--white);
+        }
+
+        .review-date {
+            font-family: var(--font-heading);
+            font-size: 0.75rem;
+            color: var(--lightgrey);
+            opacity: 0.6;
+            margin-top: 0.15rem;
+        }
+
+        .review-google-icon {
+            width: 20px;
+            height: 20px;
+            opacity: 0.5;
+        }
+
+        .review-stars svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .review-stars .star-filled {
+            fill: #26C6DA;
+        }
+
+        .review-stars .star-empty {
+            fill: rgba(38, 198, 218, 0.2);
+        }
+
+        .review-text {
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            color: var(--lightgrey);
+            line-height: 1.7;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .review-loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .review-loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(38, 198, 218, 0.15);
+            border-top-color: #26C6DA;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .review-loading p {
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            color: var(--lightgrey);
+            opacity: 0.7;
+        }
+
+        .review-error {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .review-error p {
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            color: var(--lightgrey);
+            margin-bottom: 1rem;
+        }
+
+        .review-error a {
+            font-family: var(--font-heading);
+            color: #26C6DA;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .review-error a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1024px) {
+            .review-slide {
+                flex: 0 0 calc(50% - 0.75rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .review-slide {
+                flex: 0 0 100%;
+            }
+            .review-card {
+                padding: 1.5rem;
+            }
+            .review-arrow {
+                display: none;
+            }
+        }
+
+        .review-g-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact {
+            background: var(--darkgrey);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .contact-info > p {
+            color: var(--lightgrey);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-detail-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(24, 195, 200, 0.1);
+            border: 1px solid rgba(24, 195, 200, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-detail-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--teal);
+        }
+
+        .contact-detail-text h4 {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--white);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .contact-detail-text p {
+            font-size: 0.9rem;
+            color: var(--lightgrey);
+        }
+
+        .contact-form {
+            background: var(--darkgrey);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 2.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--lightgrey);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.9rem 1.25rem;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            font-family: var(--font-barlow);
+            font-size: 0.95rem;
+            color: var(--white);
+            transition: all 0.3s ease;
+            background: var(--dark);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder,
+        .form-group select::placeholder {
+            color: var(--lightgrey);
+            opacity: 0.4;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 4px rgba(24, 195, 200, 0.1);
+            background: var(--dark);
+        }
+
+        .form-group select option {
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 1rem;
+            background: var(--teal);
+            color: #2B3139;
+            border: none;
+            border-radius: 12px;
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-submit::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--teal-light);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+        }
+
+        .form-submit:hover::before { transform: scaleX(1); }
+
+        .form-submit:hover {
+            color: #2B3139;
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(24, 195, 200, 0.35);
+        }
+
+        /* ===== QUOTE FORM SECTION ===== */
+        .quote-section {
+            background: var(--dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 30% 50%, rgba(24, 195, 200, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 50%, rgba(24, 195, 200, 0.05) 0%, transparent 50%);
+        }
+
+        .quote-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .quote-header .section-subtitle {
+            margin: 0 auto;
+        }
+
+        .quote-container {
+            background: #21272b;
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .quote-container {
+                padding: 3rem;
+            }
+        }
+
+        .quote-container,
+        .quote-container * {
+            font-family: var(--font-heading) !important;
+        }
+
+        .quote-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .quote-grid {
+                grid-template-columns: 8fr 4fr;
+                gap: 2.5rem;
+                align-items: start;
+            }
+        }
+
+        .estimate-panel {
+            background: #37474F;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .estimate-panel {
+                padding: 2rem;
+            }
+        }
+
+        .estimate-panel h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .estimate-panel .estimate-subtitle {
+            font-size: 0.85rem;
+            color: var(--lightgrey);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .estimate-breakdown-box {
+            background: rgba(22, 25, 30, 0.4);
+            border: 1px solid rgba(38, 198, 218, 0.15);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .estimate-breakdown-title {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: 0.75rem;
+        }
+
+        .estimate-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.4rem 0;
+            font-size: 0.85rem;
+            color: var(--lightgrey);
+        }
+
+        .estimate-line .est-label {
+            opacity: 0.7;
+        }
+
+        .estimate-line .est-value {
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .estimate-line-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.75rem;
+            margin-top: 0.5rem;
+            border-top: 1px solid rgba(38, 198, 218, 0.15);
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--white);
+        }
+
+        .estimate-deposit-note {
+            background: rgba(38, 198, 218, 0.06);
+            border: 1px solid rgba(38, 198, 218, 0.2);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .estimate-deposit-note strong {
+            display: block;
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: 0.25rem;
+        }
+
+        .estimate-deposit-note p {
+            font-size: 0.82rem;
+            color: var(--lightgrey);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .estimate-info-text {
+            font-size: 0.82rem;
+            color: var(--lightgrey);
+            line-height: 1.6;
+            opacity: 0.75;
+        }
+
+        .estimate-info-text p {
+            margin-bottom: 0.75rem;
+        }
+
+        .estimate-info-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .quote-disclaimer {
+            text-align: left;
+            font-family: var(--font-heading);
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+            margin-top: 1rem;
+            padding: 0 0.5rem;
+        }
+
+        .form-footer {
+            color: #26C6DA;
+        }
+
+        .quote-form-row {
+            margin-top: 0;
+        }
+
+        /* Quote Form — Structured Row Layout */
+        .quote-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .quote-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .quote-row.two-col {
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .quote-row.three-equal {
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .quote-row.four-col {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+
+        @media (max-width: 768px) {
+            .quote-row.four-col {
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+
+        .quote-row.five-col {
+            grid-template-columns: 1fr 1fr auto 1fr 1fr;
+            gap: 0.6rem;
+            align-items: end;
+        }
+
+        .quote-row.checkbox-row-wrap {
+            grid-template-columns: 1fr;
+        }
+
+        .quote-row.submit-row {
+            grid-template-columns: 1fr;
+        }
+
+        .quote-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .quote-field label {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--lightgrey);
+            opacity: 0.85;
+        }
+
+        .quote-dim .dimension-input-group {
+            gap: 0.35rem;
+        }
+
+        .quote-qty .quantity-control {
+            gap: 0;
+        }
+
+        /* Inline Estimate */
+        .estimate-box.inline {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1rem;
+            margin-bottom: 0.5rem;
+            background: rgba(24, 195, 200, 0.08);
+            border: 1px solid rgba(24, 195, 200, 0.2);
+            border-radius: 10px;
+            font-size: 0;
+        }
+
+        .estimate-inline-label {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: var(--teal);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .estimate-box.inline .price {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 800;
+            font-size: 1.35rem;
+            color: var(--white);
+        }
+
+        .estimate-box.inline .separator {
+            color: var(--lightgrey);
+            opacity: 0.4;
+            font-weight: 300;
+            font-size: 1.1rem;
+        }
+
+        .estimate-inline-hint {
+            font-size: 0.68rem;
+            color: var(--lightgrey);
+            opacity: 0.5;
+            margin-left: auto;
+        }
+
+        .estimate-box.inline.hidden {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .quote-form-container {
+                padding: 1rem;
+            }
+            .quote-form-row .quote-form-container {
+                padding: 0.75rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .quote-form-container {
+                padding: 1.25rem;
+            }
+        }
+
+        /* Estimate Display - Compact */
+        .estimate-box {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .estimate-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(24, 195, 200, 0.15), transparent 70%);
+            pointer-events: none;
+        }
+
+        .estimate-box.hidden {
+            display: none;
+        }
+
+        .estimate-range {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        .estimate-range .price {
+            font-family: var(--font-barlow-condensed);
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1;
+        }
+
+        .estimate-range .separator {
+            color: var(--lightgrey);
+            font-size: 1.25rem;
+            font-weight: 300;
+        }
+
+        .estimate-breakdown {
+            margin-top: 0.6rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem 1rem;
+            position: relative;
+        }
+
+        .breakdown-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.72rem;
+            color: var(--lightgrey);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 0.28rem 0.65rem;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .breakdown-chip .chip-icon {
+            color: var(--teal);
+            font-size: 0.72rem;
+        }
+
+        .estimate-note {
+            font-size: 0.78rem;
+            color: var(--lightgrey);
+            opacity: 0.5;
+            margin-top: 0.65rem;
+            line-height: 1.4;
+            position: relative;
+        }
+
+        /* Quote Select Dropdowns — uniform style */
+        .quote-form select,
+        .quote-field select {
+            width: 100%;
+            padding: 0.55rem 2.2rem 0.55rem 0.85rem;
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            font-family: var(--font-barlow);
+            font-size: 0.9rem;
+            color: var(--white);
+            background: var(--darkgrey);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            appearance: none;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23A8B5C1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.7rem center;
+        }
+
+        .quote-form select option,
+        .quote-field select option {
+            background: var(--darkgrey);
+            color: var(--white);
+            padding: 0.5rem;
+        }
+
+        .quote-form select:focus,
+        .quote-field select:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(24, 195, 200, 0.1), 0 0 16px rgba(24, 195, 200, 0.05);
+            background: var(--dark);
+        }
+
+        .quote-form select::placeholder,
+        .quote-field select::placeholder {
+            color: var(--lightgrey);
+            opacity: 0.4;
+        }
+
+        /* Quote Extras — Styled Checkboxes */
+        .extras-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+        }
+
+        .extras-checkbox {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.7rem 0.85rem;
+            background: #37474F;
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .extras-checkbox:hover {
+            border-color: rgba(24, 195, 200, 0.25);
+            background: rgba(24, 195, 200, 0.04);
+        }
+
+        .extras-checkbox input[type="checkbox"] {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            background: var(--dark);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .extras-checkbox input[type="checkbox"]:checked {
+            background: var(--teal);
+            border-color: var(--teal);
+        }
+
+        .extras-checkbox input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 1px;
+            width: 5px;
+            height: 9px;
+            border: solid #2B3139;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .extras-checkbox input[type="checkbox"]:focus-visible {
+            box-shadow: 0 0 0 2px rgba(24, 195, 200, 0.2);
+        }
+
+        .extras-checkbox-label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
+
+        .extras-checkbox-title {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--white);
+            letter-spacing: 0.02em;
+        }
+
+        .extras-checkbox-hint {
+            font-size: 0.78rem;
+            color: var(--lightgrey);
+            opacity: 0.55;
+        }
+
+        /* File Upload */
+        .file-upload-area {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            border: 2px dashed rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            background: rgba(55, 71, 79, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-height: 80px;
+        }
+
+        .file-upload-area:hover {
+            border-color: rgba(24, 195, 200, 0.3);
+            background: rgba(24, 195, 200, 0.04);
+        }
+
+        .file-upload-area input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-upload-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            pointer-events: none;
+        }
+
+        .file-upload-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--lightgrey);
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-area:hover .file-upload-icon svg {
+            stroke: var(--teal);
+            opacity: 0.7;
+        }
+
+        .file-upload-text {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--lightgrey);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .file-upload-hint {
+            font-size: 0.72rem;
+            color: var(--lightgrey);
+            opacity: 0.4;
+        }
+
+        .file-name-display {
+            font-size: 0.82rem;
+            color: var(--teal);
+            margin-top: 0.3rem;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Form Sections */
+        .form-section {
+            margin-bottom: 0.75rem;
+        }
+
+        .form-section:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 0.7rem;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--lightgrey);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group label .required,
+        .quote-field label .required {
+            color: var(--teal);
+        }
+
+        .form-group .field-hint,
+        .quote-field .field-hint {
+            font-family: var(--font-barlow) !important;
+            font-weight: 400 !important;
+            font-size: 0.65rem !important;
+            letter-spacing: 0 !important;
+            text-transform: none !important;
+            color: var(--lightgrey) !important;
+            opacity: 0.5 !important;
+            margin-left: 0.4rem;
+        }
+
+        /* Form Inputs - Compact */
+        .quote-form select,
+        .quote-form input,
+        .quote-form textarea,
+        .quote-field select,
+        .quote-field input,
+        .quote-field textarea {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            font-family: var(--font-barlow);
+            font-size: 0.88rem;
+            color: var(--white);
+            background: #37474F;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            appearance: none;
+        }
+
+        .quote-field textarea {
+            min-height: 80px;
+            line-height: 1.4;
+        }
+
+        .quote-form select,
+        .quote-field select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23A8B5C1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.7rem center;
+            padding-right: 2.2rem;
+            cursor: pointer;
+        }
+
+        .quote-form select option,
+        .quote-field select option {
+            background: #37474F;
+            color: var(--white);
+        }
+
+        .quote-form select:focus,
+        .quote-form input:focus,
+        .quote-form textarea:focus,
+        .quote-field select:focus,
+        .quote-field input:focus,
+        .quote-field textarea:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(24, 195, 200, 0.1), 0 0 16px rgba(24, 195, 200, 0.05);
+            background: #2B3139;
+        }
+
+        .quote-form input::placeholder,
+        .quote-form textarea::placeholder,
+        .quote-field input::placeholder,
+        .quote-field textarea::placeholder {
+            color: var(--lightgrey);
+            opacity: 0.4;
+        }
+
+        /* Dimension Inputs with Unit Label */
+        .dimension-input-group {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 0.4rem;
+            align-items: center;
+        }
+
+        .dimension-input-group .unit-label {
+            font-size: 0.9rem;
+            color: var(--lightgrey);
+            opacity: 0.5;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* Dimension inputs specific style */
+        .quote-dim .dimension-input-group input,
+        .quote-dim input[type="number"] {
+            width: 100%;
+            padding: 0.55rem 0.4rem;
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            font-family: var(--font-barlow);
+            font-size: 0.92rem;
+            color: var(--white);
+            background: #37474F;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            -moz-appearance: textfield;
+        }
+
+        .quote-dim .dimension-input-group input:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(24, 195, 200, 0.1), 0 0 16px rgba(24, 195, 200, 0.05);
+            background: #2B3139;
+        }
+
+        .quote-dim .dimension-input-group input::placeholder {
+            color: var(--lightgrey);
+            opacity: 0.35;
+        }
+
+        .quote-dim .dimension-input-group input::-webkit-inner-spin-button,
+        .quote-dim .dimension-input-group input::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Quantity Control */
+        .quantity-control {
+            display: inline-flex;
+            align-items: center;
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            overflow: hidden;
+            background: #37474F;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 36px;
+            background: transparent;
+            border: none;
+            color: var(--lightgrey);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-btn:hover {
+            color: var(--teal);
+            background: rgba(24, 195, 200, 0.08);
+        }
+
+        .quantity-btn:active {
+            background: rgba(24, 195, 200, 0.15);
+        }
+
+        .quantity-input {
+            width: 40px !important;
+            text-align: center;
+            border: none !important;
+            border-radius: 0 !important;
+            background: transparent !important;
+            padding: 0.55rem 0.25rem !important;
+            box-shadow: none !important;
+            font-size: 0.92rem;
+            font-weight: 600;
+            -moz-appearance: textfield;
+        }
+
+        .quantity-input::-webkit-inner-spin-button,
+        .quantity-input::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .quantity-input:focus {
+            box-shadow: none !important;
+        }
+
+        /* Inline Checkbox Labels */
+        .checkbox-inline-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 0.82rem !important;
+            opacity: 1 !important;
+            white-space: nowrap;
+            padding-bottom: 0.15rem;
+        }
+
+        .checkbox-inline-label input[type="checkbox"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .checkbox-inline-label input[type="checkbox"]:checked {
+            background: #26C6DA;
+            border-color: #26C6DA;
+        }
+
+        .checkbox-inline-label span {
+            color: var(--lightgrey);
+            font-size: 0.82rem;
+            transition: color 0.2s ease;
+        }
+
+        .checkbox-inline-label input[type="checkbox"]:checked + span,
+        .checkbox-inline-label:hover span {
+            color: var(--white);
+        }
+
+        /* Service Type - Visual Cards */
+        .service-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-card-option {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .service-card-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .service-card-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1.1rem 0.75rem;
+            background: #37474F;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+        }
+
+        .service-card-label:hover {
+            border-color: rgba(24, 195, 200, 0.2);
+            background: rgba(24, 195, 200, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .service-card-option input:checked + .service-card-label {
+            border-color: var(--teal);
+            background: rgba(24, 195, 200, 0.1);
+            box-shadow: 0 0 0 4px rgba(24, 195, 200, 0.1), 0 4px 20px rgba(24, 195, 200, 0.15);
+        }
+
+        .service-card-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--lightgrey);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .service-card-option input:checked + .service-card-label .service-card-icon {
+            color: var(--teal);
+            opacity: 1;
+        }
+
+        .service-card-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .service-card-name {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 600;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--lightgrey);
+            line-height: 1.3;
+            transition: color 0.3s ease;
+        }
+
+        .service-card-option input:checked + .service-card-label .service-card-name {
+            color: var(--white);
+        }
+
+        /* Material Type - Visual Cards */
+        .material-cards {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.3rem;
+        }
+
+        /* Form Divider */
+        .form-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            margin: 1rem 0;
+        }
+
+        /* Quote textarea fields */
+        .quote-form textarea,
+        .quote-field textarea {
+            width: 100%;
+            padding: 0.65rem 0.85rem;
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            font-family: var(--font-barlow);
+            font-size: 0.88rem;
+            color: var(--white);
+            background: var(--darkgrey);
+            resize: vertical;
+            min-height: 80px;
+            line-height: 1.5;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .quote-form textarea:focus,
+        .quote-field textarea:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(24, 195, 200, 0.1), 0 0 16px rgba(24, 195, 200, 0.05);
+            background: var(--dark);
+        }
+
+        .quote-form textarea::placeholder,
+        .quote-field textarea::placeholder {
+            color: var(--lightgrey);
+            opacity: 0.35;
+        }
+
+        /* Section Header for Contact */
+        .contact-section-title {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .contact-section-title .sub {
+            font-weight: 400;
+            color: var(--lightgrey);
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 0.8rem;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 0.95rem 1.5rem;
+            background: var(--teal);
+            color: #2B3139;
+            border: none;
+            border-radius: 12px;
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--teal-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(24, 195, 200, 0.3);
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn .btn-text {
+            position: relative;
+            z-index: 1;
+        }
+
+        .submit-btn .btn-icon {
+            position: relative;
+            z-index: 1;
+            display: flex;
+        }
+
+        .submit-btn .btn-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .submit-btn.success {
+            background: #059669;
+            pointer-events: none;
+        }
+
+        .form-footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--lightgrey);
+            opacity: 0.5;
+            margin-top: 1rem;
+        }
+
+        /* Conditional Sections */
+        .conditional-section {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, margin 0.3s ease;
+            margin-top: 0;
+        }
+
+        .conditional-section.visible,
+        .conditional-section.always-show {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        /* Always visible compact layout */
+        .conditional-section.always-show {
+            max-height: none;
+            overflow: visible;
+            opacity: 1;
+        }
+
+        .map-container {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            min-height: 400px;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            border: 0;
+            filter: saturate(1.3) contrast(1.05) brightness(0.9) hue-rotate(-5deg);
+            transition: filter 0.4s ease;
+        }
+
+        .map-container:hover iframe {
+            filter: saturate(1.5) contrast(1.1) brightness(1) hue-rotate(-8deg);
+        }
+
+        .map-overlay {
+            position: absolute;
+            bottom: 1.25rem;
+            left: 1.25rem;
+            background: rgba(22, 25, 30, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(24, 195, 200, 0.25);
+            border-radius: 14px;
+            padding: 0.7rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(24, 195, 200, 0.08);
+        }
+
+        .map-overlay-pin {
+            width: 32px;
+            height: 32px;
+            background: var(--teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .map-overlay-pin svg {
+            width: 16px;
+            height: 16px;
+            fill: #2B3139;
+        }
+
+        .map-overlay-title {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--teal);
+            line-height: 1;
+            margin-bottom: 0.15rem;
+        }
+
+        .map-overlay-address {
+            font-size: 0.78rem;
+            color: var(--lightgrey);
+            opacity: 0.75;
+        }
+
+        .map-wrapper {
+            position: relative;
+        }
+
+        .map-wrapper .map-container {
+            width: 100%;
+            min-height: 380px;
+            height: 100%;
+        }
+
+        .map-wrapper .map-container iframe {
+            min-height: 380px;
+        }
+
+        .quote-form-row {
+            margin-top: 3rem;
+        }
+
+        .quote-form-row .quote-form-container {
+            background: var(--dark);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 1.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+        }
+
+        .form-grid-compact {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.6rem;
+        }
+
+        @media (max-width: 1024px) {
+            .quote-row,
+            .quote-row.three-equal,
+            .quote-row.four-col {
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .quote-row,
+            .quote-row.three-equal,
+            .quote-row.four-col,
+            .quote-row.two-col,
+            .quote-row.checkbox-row-wrap {
+                grid-template-columns: 1fr !important;
+            }
+            .quote-form-container {
+                padding: 1.25rem;
+            }
+            .extras-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== MOBILE NAV OVERLAY ===== */
+        .nav-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(22, 25, 30, 0.8);
+            z-index: 998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--darkgrey);
+            color: var(--white);
+            padding: 5rem 2rem 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .footer-brand .footer-logo {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-brand .footer-logo img {
+            height: 72px;
+            width: auto;
+            display: block;
+        }
+
+        @media (min-width: 768px) {
+            .footer-brand .footer-logo img {
+                height: 90px;
+            }
+        }
+
+        .footer-brand p {
+            color: var(--lightgrey);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 340px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--teal);
+            border-color: var(--teal);
+            transform: translateY(-2px);
+        }
+
+        .footer-social a svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--lightgrey);
+            transition: fill 0.3s ease;
+        }
+
+        .footer-social a:hover svg {
+            fill: var(--dark);
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 800;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-col a {
+            color: var(--lightgrey);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--teal);
+            padding-left: 5px;
+        }
+
+        .footer-divider {
+            max-width: 1200px;
+            margin: 0 auto;
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.75rem 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: var(--lightgrey);
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* Scale-in animation */
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.85); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+        .animate-scale-in {
+            animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+            }
+
+            .gallery-item:nth-child(1) {
+                grid-column: span 2;
+                grid-row: span 1;
+                height: 350px;
+            }
+
+            .gallery-item { height: 250px; }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section { padding: 4rem 1.5rem; }
+
+            .hamburger { display: flex; }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                max-width: 320px;
+                height: 100vh;
+                background: var(--dark);
+                border-left: 1px solid rgba(255, 255, 255, 0.05);
+                flex-direction: column;
+                justify-content: center;
+                padding: 2rem;
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-links.open { right: 0; }
+
+            .nav-links a {
+                color: var(--white) !important;
+                font-size: 1rem !important;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .about-image { height: 350px; }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item:nth-child(1) {
+                grid-column: span 1;
+                height: 300px;
+            }
+
+            .gallery-item { height: 250px; }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .form-row { grid-template-columns: 1fr; }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { letter-spacing: -1px; }
+
+            .services-grid { grid-template-columns: 1fr; }
+
+            .testimonial-grid { grid-template-columns: 1fr; }
+
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
 </head>
 <body>
-    <div class="page-frame">
-        <div class="site-shell">
-            <div class="browser-bar" aria-hidden="true">
-                <div class="browser-dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <p>thegraphicsshop.ca</p>
+
+    <!-- Navigation -->
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav id="navbar">
+        <a href="#hero" class="nav-logo">
+            <img src="artwork/tgs_logo/tgs_logo_darkbg_long.svg" alt="The Graphics Shop" />
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#gallery">Portfolio</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#quote" class="nav-cta">Get a Quote</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-vignette"></div>
+        <div class="hero-grid"></div>
+        <img src="artwork/tgs_logo/gs_only_teal.png" alt="" class="hero-watermark" />
+        <div class="hero-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+        </div>
+        <div class="particles" id="particles"></div>
+
+        <div class="hero-content">
+            <div class="hero-badge">
+                <div class="hero-badge-dot"></div>
+                <span>Precision Graphics &amp; Custom Decals</span>
             </div>
+            <h1>
+                <span style="display: block; color: var(--white); font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem;">Small Shop,</span>
+                <span class="highlight" style="display: block; font-size: clamp(5rem, 15vw, 12rem); font-weight: 900; letter-spacing: -5px; background: linear-gradient(135deg, var(--teal), var(--teal-light), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 60px rgba(24,195,200,0.3)); line-height: 1; margin: 0.1em 0;">BIG</span>
+                <span style="display: block; color: var(--white); font-size: clamp(2rem, 5vw, 4rem); font-weight: 800; letter-spacing: -2px; margin-top: -0.2em; filter: drop-shadow(0 0 40px rgba(24,195,200,0.15)); line-height: 1;">IMPACT</span>
+            </h1>
+            <hr class="teal-line hero-divider" style="width: 60px; height: 3px; background: linear-gradient(to right, transparent, var(--teal), transparent); border: none; margin: 1rem auto 0;">
+            <p class="hero-subtitle" style="font-size: clamp(1.1rem, 2.2vw, 1.3rem);">Custom vinyl graphics, decals, signage, and printing — delivered with precision equipment and an eye for detail. Serving from the North Shore of Nova Scotia.</p>
+            <div class="hero-buttons">
+                <a href="#quote" class="btn-primary">
+                    Start Your Project
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#gallery" class="btn-secondary">View Our Work</a>
+            </div>
+        </div>
 
-            <header class="site-header">
-                <nav class="container nav-wrap" aria-label="Primary navigation">
-                    <a href="#hero" class="brand" aria-label="The Graphics Shop home">
-                        <span class="brand-wordmark-text">The Graphics Shop</span>
-                    </a>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
 
-                    <ul class="nav-links">
-                        <li><a href="#shop">Shop</a></li>
-                        <li><a href="#business">For Business</a></li>
-                        <li><a href="#products">For Gamers</a></li>
-                        <li><a href="#diy">DIY Kits</a></li>
-                    </ul>
-
-                    <div class="nav-actions">
-                        <a href="#contact" class="icon-link" aria-label="Contact us">⌕</a>
-                        <a href="#contact" class="btn btn-primary btn-small">Track My Order</a>
-                    </div>
-
-                    <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </nav>
-            </header>
-
-            <main>
-                <section id="hero" class="hero-section">
-                    <div class="container hero-grid">
-                        <div class="hero-copy reveal">
-                            <span class="eyebrow">Belleville, Ontario • decals, labels, signs &amp; wraps</span>
-                            <h1 class="hero-title">YOUR VISION. OUR VINYL. SHIPPED FAST.</h1>
-                            <p class="hero-subtitle">Professional-grade graphics for storefronts, vehicles, branded packaging, and personalized projects — built to look clean and apply easily.</p>
-                            <div class="hero-actions">
-                                <a href="#shop" class="btn btn-primary">Shop All Decals</a>
-                                <a href="#contact" class="btn btn-secondary">Request a Quote</a>
-                            </div>
-                            <ul class="hero-highlights">
-                                <li>Fast proof turnaround</li>
-                                <li>Durable weather-ready vinyl</li>
-                                <li>Canada-wide shipping</li>
-                            </ul>
-                        </div>
-
-                        <div class="hero-visual reveal">
-                            <div class="hero-image-panel">
-                                <div class="hero-badge">Featured vinyl finish • 5+ year outdoor durability</div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="shop" class="section-padding">
-                    <div class="container">
-                        <div class="section-heading reveal">
-                            <div>
-                                <span class="eyebrow">Popular categories</span>
-                                <h2>Clean layouts inspired by modern storefronts.</h2>
-                            </div>
-                            <p class="section-copy">Browse popular decal categories for business branding, personal projects, and easy-apply installs.</p>
-                        </div>
-
-                        <div class="category-grid" id="dukaan-categories">
-                            <article class="category-card reveal">
-                                <div class="card-img">
-                                    <img src="./public/premium-biz-cards.png" alt="Brand your packaging">
-                                </div>
-                                <div class="card-info">
-                                    <span class="card-kicker">Business branding</span>
-                                    <h3>Brand Your Packaging</h3>
-                                    <p>Labels, seal stickers, branded inserts, and polished finishing touches.</p>
-                                    <a href="#products" class="card-link">Explore <span aria-hidden="true">→</span></a>
-                                </div>
-                            </article>
-
-                            <article class="category-card reveal">
-                                <div class="card-img">
-                                    <img src="./public/diy-cornhole.png" alt="Make it personal">
-                                </div>
-                                <div class="card-info">
-                                    <span class="card-kicker">Personal projects</span>
-                                    <h3>Make It Personal</h3>
-                                    <p>Custom decals and easy-apply designs for laptops, gifts, gear, and more.</p>
-                                    <a href="#products" class="card-link">Explore <span aria-hidden="true">→</span></a>
-                                </div>
-                            </article>
-
-                            <article class="category-card reveal">
-                                <div class="card-img">
-                                    <img src="./public/hero-bg-v3.png" alt="Easy application graphics">
-                                </div>
-                                <div class="card-info">
-                                    <span class="card-kicker">Easy application</span>
-                                    <h3>Pro Graphics, Simple Install</h3>
-                                    <p>Vehicle graphics, signage, and DIY-friendly kits designed for a smooth finish.</p>
-                                    <a href="#products" class="card-link">Explore <span aria-hidden="true">→</span></a>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="trust-strip">
-                    <div class="container trust-grid reveal">
-                        <div class="trust-item">
-                            <strong>Fast Shipping</strong>
-                            <span>Quick turnaround on proofs and dispatch.</span>
-                        </div>
-                        <div class="trust-item">
-                            <strong>Durable Vinyl</strong>
-                            <span>Made for clean installs and long-lasting wear.</span>
-                        </div>
-                        <div class="trust-item">
-                            <strong>Custom Designs</strong>
-                            <span>Business, gaming, promo, and personal projects.</span>
-                        </div>
-                        <div class="trust-item">
-                            <strong>Canada-Wide</strong>
-                            <span>Serving customers across the country.</span>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="products" class="section-padding section-soft">
-                    <div class="container">
-                        <div class="section-heading reveal">
-                            <div>
-                                <span class="eyebrow">Featured picks</span>
-                                <h2>Shop ready-to-ship favourites.</h2>
-                            </div>
-                            <p class="section-copy">A quick look at featured vinyl products available to order now.</p>
-                        </div>
-
-                        <div class="product-grid" id="dukaan-products">
-                            <article class="product-card reveal">
-                                <div class="prod-img">
-                                    <img src="./public/premium-biz-cards.png" alt="Loading featured products">
-                                </div>
-                                <div class="prod-info">
-                                    <div class="prod-top">
-                                        <span class="pill">Ready to ship</span>
-                                        <span class="price">Loading...</span>
-                                    </div>
-                                    <h3>Featured catalog items are loading.</h3>
-                                    <div class="prod-footer">
-                                        <p>Fresh storefront items will appear here automatically.</p>
-                                        <a href="#contact" class="btn-sm btn-primary">Contact Us</a>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="diy" class="section-padding">
-                    <div class="container split-feature">
-                        <div class="feature-image reveal">
-                            <img src="./public/diy-cornhole.png" alt="DIY vinyl project application">
-                        </div>
-
-                        <div id="business" class="feature-copy reveal">
-                            <span class="eyebrow">DIY install made simple</span>
-                            <h2>Ready to ship. Ready to apply.</h2>
-                            <p>We love graphics that look professional without making installation feel intimidating. From cornhole boards and windows to packaging and gear, our DIY-friendly vinyl is built for a smooth, clean finish.</p>
-                            <ul class="check-list">
-                                <li>Pre-spaced and masked for easier alignment</li>
-                                <li>Application instructions included with every order</li>
-                                <li>Durable vinyl designed for clean, long-lasting results</li>
-                                <li>Perfect for personal projects, gifts, signage, and more</li>
-                            </ul>
-                            <a href="#shop" class="btn btn-secondary">Explore DIY Options</a>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="contact" class="cta-band">
-                    <div class="container cta-wrap">
-                        <div>
-                            <span class="eyebrow eyebrow-dark">Need something unique?</span>
-                            <h2>Bring your next decal idea to life.</h2>
-                            <p>Send over your logo, rough concept, or print-ready artwork and get a quick quote back.</p>
-                        </div>
-                        <div class="cta-actions">
-                            <a href="mailto:info@specialtydd.ca" class="btn btn-primary">Email for a Quote</a>
-                            <a href="#shop" class="btn btn-ghost">Browse Categories</a>
-                        </div>
-                    </div>
-                </section>
-            </main>
-
-            <footer class="site-footer">
-                <div class="container footer-grid">
-                    <div>
-                        <h3>The Graphics Shop</h3>
-                        <p>Custom vinyl for business, gaming, and everyday projects.</p>
-                    </div>
-                    <div class="footer-links">
-                        <a href="#shop">About Us</a>
-                        <a href="#contact">Contact</a>
-                        <a href="#diy">FAQ</a>
-                    </div>
-                    <div class="footer-meta">
-                        <span>We ship proofs &amp; tees • Vinyl</span>
-                        <span>Canada-wide shipping</span>
-                    </div>
-                </div>
-            </footer>
+    <!-- Ticker -->
+    <div class="ticker">
+        <div class="ticker-track">
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Vinyl Graphics</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Vehicle Graphics</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Fleet Branding</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Window Graphics</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Custom Signage</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Wall Murals</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Decals &amp; Labels</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Laminated Finishes</span></div>
+            <!-- Duplicate for seamless loop -->
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Vinyl Graphics</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Vehicle Graphics</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Fleet Branding</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Window Graphics</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Custom Signage</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Wall Murals</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Decals &amp; Labels</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Laminated Finishes</span></div>
         </div>
     </div>
 
-    <script type="module" src="./main.js"></script>
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="services-header reveal">
+                <div class="section-label">What We Do</div>
+                <h2 class="section-title">Graphics That Work<br>As Hard As You Do</h2>
+                <p class="section-subtitle">From fleet graphics to storefront windows, we deliver commercial-grade vinyl solutions that turn heads and drive results.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card reveal reveal-delay-1">
+                    <div class="service-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                    </div>
+                    <h3>Vehicle Graphics</h3>
+                    <p>Custom vinyl graphics for trucks, vans, and trailers that transform your fleet into mobile billboards. We use premium cast vinyl for conformability on complex curves and lasting durability.</p>
+                </div>
+
+                <div class="service-card reveal reveal-delay-2">
+                    <div class="service-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    </div>
+                    <h3>Window Graphics</h3>
+                    <p>Static-cling, frosted, and printed window graphics that add privacy, branding, and visual impact to any commercial or residential space.</p>
+                </div>
+
+                <div class="service-card reveal reveal-delay-3">
+                    <div class="service-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h3>Fleet Branding</h3>
+                    <p>Turn every vehicle on your team into a moving advertisement. We design and install cohesive fleet graphics that build brand recognition across your entire operation.</p>
+                </div>
+
+                <div class="service-card reveal reveal-delay-1">
+                    <div class="service-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    </div>
+                    <h3>Decals & Labels</h3>
+                    <p>Precision-cut vinyl decals and custom labels for products, equipment, packaging, and displays. Our computer-controlled cutting ensures pixel-perfect accuracy every time.</p>
+                </div>
+
+                <div class="service-card reveal reveal-delay-2">
+                    <div class="service-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    </div>
+                    <h3>Signage & Banners</h3>
+                    <p>Indoor and outdoor signage built to withstand the elements. From storefront signs to event banners, we produce graphics that make a lasting impression.</p>
+                </div>
+
+                <div class="service-card reveal reveal-delay-3">
+                    <div class="service-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    </div>
+                    <h3>Laminated Finishes</h3>
+                    <p>All our graphics are laminated for UV protection and scratch resistance, ensuring your investment looks pristine for years — not just months.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Equipment Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image-wrapper reveal">
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80" alt="Vinyl graphics production workspace with professional equipment">
+                        <div class="about-image-overlay"></div>
+                    </div>
+                    <div class="about-accent-box">
+                        <div class="number">20+</div>
+                        <div class="label">Years Experience</div>
+                    </div>
+                </div>
+
+                <div class="about-content reveal reveal-delay-2">
+                    <div class="section-label">About Us</div>
+                    <h2 class="section-title">Precision Equipment.<br>Exceptional Results.</h2>
+                    <p class="section-subtitle">The Graphics Shop combines cutting-edge technology with skilled craftsmanship to deliver vinyl graphics that exceed industry standards. Every project is produced in-house using professional-grade equipment, ensuring tight color control, sharp detail, and long-lasting durability.</p>
+
+                    <div class="equipment-list">
+                        <div class="equipment-item">
+                            <div class="equipment-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><line x1="12" y1="12" x2="12" y2="15"/></svg>
+                            </div>
+                            <div class="equipment-info">
+                                <h4>Roland SG-300 Printer</h4>
+                                <p>Solvent-grade wide-format printing with vibrant, fade-resistant colors and 1440dpi resolution</p>
+                            </div>
+                        </div>
+
+                        <div class="equipment-item">
+                            <div class="equipment-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+                            </div>
+                            <div class="equipment-info">
+                                <h4>GCC Jaguar Cutter</h4>
+                                <p>Computer-controlled plotter for pixel-perfect die-cutting of logos, lettering, and intricate designs</p>
+                            </div>
+                        </div>
+
+                        <div class="equipment-item">
+                            <div class="equipment-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                            </div>
+                            <div class="equipment-info">
+                                <h4>30" Royal Sovereign Laminator</h4>
+                                <p>Hot/cold lamination for UV protection, scratch resistance, and extended graphic lifespan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="gallery-header reveal">
+                <div>
+                    <div class="section-label">Our Work</div>
+                    <h2 class="section-title">Crafted with Precision</h2>
+                </div>
+                <a href="https://www.instagram.com/specialtydd" target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 0.75rem 1.5rem; font-size: 0.85rem;">
+                    Follow on Instagram
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item reveal">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=900&q=80" alt="Vehicle wrap with bold branding graphics on a commercial van">
+                    <div class="gallery-overlay"><span>Custom Vehicle Graphics</span></div>
+                </div>
+                <div class="gallery-item reveal reveal-delay-1">
+                    <img src="https://images.unsplash.com/photo-1588647022690-3b20694c01fe?w=600&q=80" alt="Custom die-cut logo applied to glass storefront window">
+                    <div class="gallery-overlay"><span>Window Graphics</span></div>
+                </div>
+                <div class="gallery-item reveal reveal-delay-2">
+                    <img src="https://images.unsplash.com/photo-1562577309-4932fdd64cd1?w=600&q=80" alt="Fleet branding on multiple commercial vehicles with consistent graphics">
+                    <div class="gallery-overlay"><span>Fleet Branding</span></div>
+                </div>
+                <div class="gallery-item reveal reveal-delay-3">
+                    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900&q=80" alt="Modern office wall with large format vinyl mural graphics and branding">
+                    <div class="gallery-overlay"><span>Wall Murals & Signage</span></div>
+                </div>
+                <div class="gallery-item reveal reveal-delay-4">
+                    <img src="https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=600&q=80" alt="Close-up of precision-cut vinyl lettering with clean edges and professional finish">
+                    <div class="gallery-overlay"><span>Precision Die-Cut</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item reveal">
+                <div class="stat-number" data-target="20">0</div>
+                <div class="stat-label">Years of Experience</div>
+            </div>
+            <div class="stat-item reveal reveal-delay-1">
+                <div class="stat-number" data-target="1000">0</div>
+                <div class="stat-label">Completed Projects</div>
+            </div>
+            <div class="stat-item reveal reveal-delay-2">
+                <div class="stat-number" data-target="98">0</div>
+                <div class="stat-label">% Client Satisfaction</div>
+            </div>
+            <div class="stat-item reveal reveal-delay-3">
+                <div class="stat-number" data-target="100">0</div>
+                <div class="stat-label">Repeat Customers</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Reviews Section -->
+    <section class="google-reviews-section" id="reviews">
+        <div class="container">
+            <div class="google-reviews-header reveal">
+                <div class="section-label">Reviews</div>
+                <h2 class="section-title">What Our Clients Say</h2>
+                <p class="section-subtitle">Real reviews from real customers — see what people are saying about The Graphics Shop.</p>
+                <div class="google-reviews-badge">
+                    <svg viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    <span class="badge-text">
+                        <span class="badge-rating" id="avgRatingDisplay">5.0</span>
+                        <span>Average on Google</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="reviews-controls-wrapper">
+                <button class="review-arrow review-arrow-left" id="reviewArrowLeft" aria-label="Previous reviews">
+                    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+
+                <div class="google-reviews-grid" id="googleReviewsGrid"></div>
+
+                <button class="review-arrow review-arrow-right" id="reviewArrowRight" aria-label="Next reviews">
+                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+            </div>
+
+            <div class="reviews-dots" id="reviewsDots"></div>
+            <div class="reviews-slide-label" id="reviewsSlideLabel"></div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info reveal">
+                    <div class="section-label">Get In Touch</div>
+                    <h2 class="section-title">Let's Talk About<br>Your Project</h2>
+                    <p>Whether you need a single vehicle graphic or a full fleet branding overhaul, we're here to help. Reach out and let's discuss how we can bring your vision to life.</p>
+
+                    <div class="contact-details">
+                        <div class="contact-detail">
+                            <div class="contact-detail-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </div>
+                            <div class="contact-detail-text">
+                                <h4>Location</h4>
+                                <p>Serving Nova Scotia from the North Shore</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-detail">
+                            <div class="contact-detail-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            </div>
+                            <div class="contact-detail-text">
+                                <h4>Phone</h4>
+                                <p><a href="tel:2898932553" style="color: inherit; text-decoration: none;">289 893 2553</a></p>
+                            </div>
+                        </div>
+
+                        <div class="contact-detail">
+                            <div class="contact-detail-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            </div>
+                            <div class="contact-detail-text">
+                                <h4>Email</h4>
+                                <p><a href="mailto:info@thegraphicsshop.ca" style="color: inherit; text-decoration: none;">info@thegraphicsshop.ca</a></p>
+                            </div>
+                        </div>
+
+                        <div class="contact-detail">
+                            <div class="contact-detail-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            </div>
+                            <div class="contact-detail-text">
+                                <h4>Hours</h4>
+                                <p>Mon – Fri: 8AM – 5PM | Sat: 9AM – 1PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-wrapper reveal reveal-delay-2">
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2840.5!2d-63.3681!3d45.2735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4b57c6b5e4e4b5ef%3A0x0!2s70+Skinners+Cove+East+Road%2C+Melville%2C+NS!5e0!3m2!1sen!2sca!4v1700000000000!5m2!1sen!2sca"
+                            title="The Graphics Shop location"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                        <div class="map-overlay">
+                            <div class="map-overlay-pin">
+                                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            </div>
+                            <div>
+                                <div class="map-overlay-title">The Graphics Shop</div>
+                                <div class="map-overlay-address">70 Skinners Cove East Road, Melville, NS</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section" id="quote">
+        <div class="container">
+            <div class="quote-header reveal">
+                <div class="section-label">Get a Quote</div>
+                <h2 class="section-title">Start Your<br>Project Today</h2>
+                <p class="section-subtitle">Tell us about your project and get a free estimate. Our team will respond within 1 business day.</p>
+            </div>
+
+            <div class="quote-container reveal">
+                <div class="quote-grid">
+                    <!-- LEFT: Form Fields -->
+                    <div class="quote-form-row">
+                        <form id="quoteForm" class="quote-form">
+
+                            <!-- Row 1: Product | Material | Laminate | Substrate (4 cols) -->
+                            <div class="quote-row four-col">
+                                <div class="quote-field">
+                                    <label>Product / Service</label>
+                                    <select id="serviceSelect" name="serviceType" required>
+                                        <option value="">Select product…</option>
+                                        <option value="decals">Decals &amp; Stickers</option>
+                                        <option value="labels">Labels</option>
+                                        <option value="storefront">Storefront Graphics</option>
+                                        <option value="vehicle">Vehicle Graphics</option>
+                                        <option value="signage">Signage</option>
+                                        <option value="smallformat">Small Format Print</option>
+                                        <option value="largeformat">Large Format Print</option>
+                                        <option value="businesscards">Business Cards</option>
+                                        <option value="custom">Custom Project</option>
+                                    </select>
+                                </div>
+                                <div class="quote-field">
+                                    <label>Material</label>
+                                    <select id="materialSelect" name="materialType">
+                                        <option value="standard">Standard Vinyl</option>
+                                        <option value="premium">Premium Vinyl</option>
+                                        <option value="clear">Clear Vinyl</option>
+                                        <option value="magnetic">Magnetic</option>
+                                        <option value="perforated">Perforated One-Way</option>
+                                        <option value="other">Not Sure</option>
+                                    </select>
+                                </div>
+                                <div class="quote-field">
+                                    <label>Laminate</label>
+                                    <select id="laminateSelect" name="laminateType">
+                                        <option value="gloss">Gloss</option>
+                                        <option value="matte">Matte</option>
+                                        <option value="satin">Satin</option>
+                                        <option value="none">None</option>
+                                    </select>
+                                </div>
+                                <div class="quote-field">
+                                    <label>Substrate</label>
+                                    <select id="substrateSelect" name="substrateType">
+                                        <option value="">Select substrate…</option>
+                                        <option value="4mm-coroplast">4mm Coroplast</option>
+                                        <option value="6mm-coroplast">6mm Coroplast</option>
+                                        <option value="8mm-coroplast">8mm Coroplast</option>
+                                        <option value="10mm-coroplast">10mm Coroplast</option>
+                                        <option value="3mm-alupanel">3mm Alupanel</option>
+                                        <option value="6mm-alupanel">6mm Alupanel</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Row 2: Width | Height | Qty | Design | Installation (5 cols) -->
+                            <div class="quote-row five-col">
+                                <div class="quote-field quote-dim">
+                                    <label>WIDTH (IN)</label>
+                                    <input type="number" id="dimWidth" name="dimWidth" placeholder="W" min="0.5" step="0.5">
+                                </div>
+                                <div class="quote-field quote-dim">
+                                    <label>HEIGHT (IN)</label>
+                                    <input type="number" id="dimHeight" name="dimHeight" placeholder="H" min="0.5" step="0.5">
+                                </div>
+                                <div class="quote-field quote-qty">
+                                    <label>Qty</label>
+                                    <div class="quantity-control">
+                                        <button type="button" class="quantity-btn" id="qtyMinus">−</button>
+                                        <input type="number" id="quantity" name="quantity" class="quantity-input" value="1" min="1" max="10000" step="1">
+                                        <button type="button" class="quantity-btn" id="qtyPlus">+</button>
+                                    </div>
+                                </div>
+                                <div class="quote-field">
+                                    <label class="checkbox-inline-label">
+                                        <input type="checkbox" id="designHelp" name="designHelp">
+                                        <span>Design required?</span>
+                                    </label>
+                                </div>
+                                <div class="quote-field">
+                                    <label class="checkbox-inline-label">
+                                        <input type="checkbox" id="installServices" name="installServices">
+                                        <span>Installation required?</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Row 3: Project Description | File Upload (2 cols) -->
+                            <div class="quote-row two-col">
+                                <div class="quote-field">
+                                    <label>Project Description</label>
+                                    <textarea id="description" name="description" placeholder="Colors, deadline, surface details, or any special requirements…"></textarea>
+                                </div>
+                                <div class="quote-field">
+                                    <label>Upload File(s)</label>
+                                    <div class="file-upload-area" id="fileUploadArea">
+                                        <input type="file" id="fileUpload" name="fileUpload" multiple accept=".pdf,.ai,.psd,.svg,.png,.jpg,.jpeg,.eps,.webp">
+                                        <div class="file-upload-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                                <polyline points="17 8 12 3 7 8"/>
+                                                <line x1="12" y1="3" x2="12" y2="15"/>
+                                            </svg>
+                                            <span class="file-upload-text">Upload file(s)</span>
+                                            <span class="file-upload-hint">PDF, AI, PSD, SVG, PNG, JPG</span>
+                                        </div>
+                                        <div class="file-name-display" id="fileNameDisplay"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Row 4: Name | Email | Phone | Company (4 cols) -->
+                            <div class="quote-row four-col">
+                                <div class="quote-field">
+                                    <label>Name *</label>
+                                    <input type="text" id="contactName" name="contactName" placeholder="Your name" required>
+                                </div>
+                                <div class="quote-field">
+                                    <label>Email *</label>
+                                    <input type="email" id="contactEmail" name="contactEmail" placeholder="you@example.com" required>
+                                </div>
+                                <div class="quote-field">
+                                    <label>Phone</label>
+                                    <input type="tel" id="contactPhone" name="contactPhone" placeholder="289 000 0000">
+                                </div>
+                                <div class="quote-field">
+                                    <label>Company</label>
+                                    <input type="text" id="contactCompany" name="contactCompany" placeholder="Company">
+                                </div>
+                            </div>
+
+                            <!-- Row 5: Submit button (full width) -->
+                            <div class="quote-row submit-row">
+                                <button type="submit" class="submit-btn">
+                                    <span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg></span>
+                                    <span class="btn-text">Request Quote</span>
+                                </button>
+                            </div>
+
+                            <p class="form-footer">We typically respond within 1 business day.</p>
+
+                            <p class="quote-disclaimer">All quotes are estimates based on standard production timelines and materials. Final pricing may vary depending on project complexity, file preparation, and installation requirements. We use premium commercial-grade materials from leading manufacturers, all backed by our quality guarantee. Professional installation available for all project types.</p>
+                        </form>
+                    </div>
+
+                    <!-- RIGHT: Estimate Panel -->
+                    <div class="estimate-panel">
+                        <h3>Estimate Area</h3>
+                        <p class="estimate-subtitle">Real-time pricing as you configure your project.</p>
+
+                        <div class="estimate-breakdown-box">
+                            <div class="estimate-breakdown-title">Basic Breakdown</div>
+                            <div class="estimate-line">
+                                <span class="est-label">Base Price</span>
+                                <span class="est-value" id="estBase">$0.00</span>
+                            </div>
+                            <div class="estimate-line">
+                                <span class="est-label">Material Upgrade</span>
+                                <span class="est-value" id="estMaterial">$0.00</span>
+                            </div>
+                            <div class="estimate-line">
+                                <span class="est-label">Laminate</span>
+                                <span class="est-value" id="estLaminate">$0.00</span>
+                            </div>
+                            <div class="estimate-line">
+                                <span class="est-label">Quantity</span>
+                                <span class="est-value" id="estQty">x1</span>
+                            </div>
+                            <div class="estimate-line-total">
+                                <span>Estimated Total</span>
+                                <span id="estTotal">$0.00</span>
+                            </div>
+                        </div>
+
+                        <div class="estimate-deposit-note">
+                            <strong>Deposit Required</strong>
+                            <p>Note: 50% deposit required on all custom projects. The remaining balance is due upon completion before delivery or installation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#hero" class="footer-logo">
+                    <img src="artwork/tgs_logo/tgs_logo_darkgreybg_stacked.png" alt="The Graphics Shop">
+                </a>
+                <p>Premium vinyl graphics and signage solutions. Professional-grade equipment, exceptional craftsmanship, results that speak for themselves.</p>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/specialtydd" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a href="#" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="#" aria-label="X (Twitter)">
+                        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#services">Vehicle Graphics</a></li>
+                    <li><a href="#services">Fleet Branding</a></li>
+                    <li><a href="#services">Window Graphics</a></li>
+                    <li><a href="#services">Die-Cut Logos</a></li>
+                    <li><a href="#services">Signage</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#gallery">Portfolio</a></li>
+                    <li><a href="#reviews">Google Reviews</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Vinyl Care Guide</a></li>
+                    <li><a href="#">Material Options</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <hr class="footer-divider">
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 The Graphics Shop. All rights reserved.</p>
+            <p>Crafted with precision. Delivered with pride.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // ===== NAVBAR SCROLL EFFECT =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ===== MOBILE MENU =====
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const navOverlay = document.getElementById('navOverlay');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('open');
+            navOverlay.classList.toggle('active');
+        });
+
+        navOverlay.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('open');
+            navOverlay.classList.remove('active');
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('open');
+                navOverlay.classList.remove('active');
+            });
+        });
+
+        // ===== PARTICLES =====
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 8 + 6) + 's';
+            particle.style.animationDelay = (Math.random() * 10) + 's';
+            particle.style.width = (Math.random() * 4 + 2) + 'px';
+            particle.style.height = particle.style.width;
+            particlesContainer.appendChild(particle);
+        }
+
+        // ===== SCROLL REVEAL ANIMATIONS =====
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ===== COUNTER ANIMATION =====
+        const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+        let countersStarted = false;
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !countersStarted) {
+                    countersStarted = true;
+                    statNumbers.forEach(num => {
+                        const target = parseInt(num.getAttribute('data-target'));
+                        const duration = 2000;
+                        const step = target / (duration / 16);
+                        let current = 0;
+
+                        const updateCounter = () => {
+                            current += step;
+                            if (current < target) {
+                                num.textContent = Math.floor(current) + '+';
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                num.textContent = target + '+';
+                            }
+                        };
+                        updateCounter();
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statNumbers.forEach(el => counterObserver.observe(el));
+
+        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // ===== QUANTITY BUTTONS =====
+        document.getElementById('qtyMinus').addEventListener('click', function() {
+            const input = document.getElementById('quantity');
+            let val = parseInt(input.value) || 1;
+            if (val > 1) {
+                input.value = val - 1;
+                calculateEstimate();
+            }
+        });
+
+        document.getElementById('qtyPlus').addEventListener('click', function() {
+            const input = document.getElementById('quantity');
+            let val = parseInt(input.value) || 1;
+            if (val < 10000) {
+                input.value = val + 1;
+                calculateEstimate();
+            }
+        });
+
+        // ===== QUOTE CALCULATOR =====
+        const servicePricing = {
+            decals:        { sqftLow: 5,   sqftHigh: 9,   perUnitLow: 2,  perUnitHigh: 5,  setupLow: 10,  setupHigh: 20  },
+            labels:        { sqftLow: 8,   sqftHigh: 14,  perUnitLow: 1.50, perUnitHigh: 4, setupLow: 15,  setupHigh: 30  },
+            storefront:    { sqftLow: 6,   sqftHigh: 12,  perUnitLow: 5,  perUnitHigh: 10, setupLow: 50,  setupHigh: 100 },
+            vehicle:       { sqftLow: 8,   sqftHigh: 18,  perUnitLow: 8,  perUnitHigh: 18, setupLow: 40,  setupHigh: 80  },
+            signage:       { sqftLow: 10,  sqftHigh: 20,  perUnitLow: 15, perUnitHigh: 35, setupLow: 50,  setupHigh: 120 },
+            businesscards: { sqftLow: 0,   sqftHigh: 0,   perUnitLow: 25, perUnitHigh: 60, setupLow: 20,  setupHigh: 50  },
+            smallformat:   { sqftLow: 5,   sqftHigh: 12,  perUnitLow: 3,  perUnitHigh: 8,  setupLow: 10,  setupHigh: 25  },
+            largeformat:   { sqftLow: 6,   sqftHigh: 14,  perUnitLow: 5,  perUnitHigh: 12, setupLow: 25,  setupHigh: 60  },
+            custom:        { sqftLow: 0,   sqftHigh: 0,   perUnitLow: 50, perUnitHigh: 200, setupLow: 50, setupHigh: 150 }
+        };
+
+        const materialMultipliers = {
+            standard: 1.0,
+            premium: 1.25,
+            clear: 1.35,
+            magnetic: 1.5,
+            perforated: 1.2,
+            other: 1.1
+        };
+
+        const laminateMultipliers = {
+            gloss: 1.0,
+            matte: 1.08,
+            satin: 1.05,
+            none: 1.0
+        };
+
+        function getQuantityDiscount(qty) {
+            if (qty >= 100) return 0.20;
+            if (qty >= 50) return 0.15;
+            if (qty >= 25) return 0.10;
+            if (qty >= 10) return 0.05;
+            return 0;
+        }
+
+        function calculateEstimate() {
+            const serviceType = document.getElementById('serviceSelect').value;
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+            const dimWidth = parseFloat(document.getElementById('dimWidth').value) || 0;
+            const dimHeight = parseFloat(document.getElementById('dimHeight').value) || 0;
+            const materialType = document.getElementById('materialSelect').value;
+            const laminateType = document.getElementById('laminateSelect').value;
+            const designHelp = document.getElementById('designHelp').checked;
+            const installServices = document.getElementById('installServices').checked;
+
+            const estBaseEl = document.getElementById('estBase');
+            const estMatEl = document.getElementById('estMaterial');
+            const estLamEl = document.getElementById('estLaminate');
+            const estQtyEl = document.getElementById('estQty');
+            const estTotalEl = document.getElementById('estTotal');
+
+            if (!serviceType) {
+                estBaseEl.textContent = '$0.00';
+                estMatEl.textContent = '$0.00';
+                estLamEl.textContent = '$0.00';
+                estQtyEl.textContent = 'x1';
+                estTotalEl.textContent = '$0.00';
+                return;
+            }
+
+            const pricing = servicePricing[serviceType];
+            const matMult = materialMultipliers[materialType] || 1.0;
+            const finishMult = laminateMultipliers[laminateType] || 1.0;
+            const qtyDiscount = getQuantityDiscount(quantity);
+
+            let sqft = 0;
+            if (dimWidth > 0 && dimHeight > 0) {
+                sqft = (dimWidth / 12) * (dimHeight / 12);
+            }
+
+            let unitLow = 0;
+            let unitHigh = 0;
+
+            if (serviceType === 'businesscards') {
+                const basePer500Low = pricing.perUnitLow * Math.max(quantity, Math.ceil(quantity / 500) * 500) / 500;
+                const basePer500High = pricing.perUnitHigh * Math.max(quantity, Math.ceil(quantity / 500) * 500) / 500;
+                unitLow = basePer500Low;
+                unitHigh = basePer500High;
+            } else if (sqft > 0) {
+                unitLow = sqft * pricing.sqftLow;
+                unitHigh = sqft * pricing.sqftHigh;
+            } else {
+                unitLow = pricing.perUnitLow;
+                unitHigh = pricing.perUnitHigh;
+            }
+
+            let baseLow = (unitLow + pricing.setupLow) * quantity * (1 - qtyDiscount);
+            let baseHigh = (unitHigh + pricing.setupHigh) * quantity * (1 - qtyDiscount);
+
+            let matExtra = (unitLow + pricing.setupLow) * quantity * (matMult - 1) * (1 - qtyDiscount);
+            let lamExtra = (unitLow + pricing.setupLow) * quantity * (finishMult - 1) * (1 - qtyDiscount);
+
+            let totalLow = baseLow + matExtra + lamExtra;
+            let totalHigh = baseHigh + matExtra + lamExtra;
+
+            if (designHelp) {
+                totalLow += 75;
+                totalHigh += 200;
+            }
+
+            if (installServices) {
+                totalLow += 75;
+                totalHigh += 200;
+            }
+
+            totalLow = Math.max(totalLow, pricing.setupLow * 0.5);
+            totalHigh = Math.max(totalHigh, totalLow * 1.0);
+
+            const baseAvg = Math.round((totalLow + totalHigh) / 2);
+
+            estBaseEl.textContent = '$' + baseAvg.toLocaleString();
+            estMatEl.textContent = matMult !== 1.0 ? '+$' + Math.round(matExtra).toLocaleString() : '$0.00';
+            estLamEl.textContent = finishMult !== 1.0 ? '+$' + Math.round(lamExtra).toLocaleString() : '$0.00';
+            estQtyEl.textContent = 'x' + quantity.toLocaleString();
+            estTotalEl.textContent = '$' + baseAvg.toLocaleString();
+
+            estTotalEl.style.color = 'var(--teal)';
+        }
+
+        function animateValue(el, finalLow, finalHigh, isLow) {
+            const target = isLow ? finalLow : finalHigh;
+            const startText = el.textContent.replace(/[$,]/g, '');
+            const startNum = parseFloat(startText) || 0;
+            const duration = 400;
+            const startTime = performance.now();
+
+            function step(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = startNum + (target - startNum) * eased;
+                el.textContent = '$' + Math.round(current).toLocaleString();
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                }
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        const calcInputs = ['serviceSelect', 'quantity', 'dimWidth', 'dimHeight', 'designHelp', 'installServices', 'materialSelect', 'laminateSelect'];
+        calcInputs.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('change', calculateEstimate);
+                el.addEventListener('input', calculateEstimate);
+            }
+        });
+
+        // File upload display
+        const fileInput = document.getElementById('fileUpload');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        if (fileInput) {
+            fileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    const names = Array.from(this.files).map(f => f.name).join(', ');
+                    fileNameDisplay.textContent = this.files.length === 1 ? names : names + ' (+' + (this.files.length - 1) + ' more)';
+                } else {
+                    fileNameDisplay.textContent = '';
+                }
+            });
+        }
+
+        document.getElementById('quoteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+
+            const serviceEl = document.getElementById('serviceSelect');
+            const serviceName = serviceEl.options[serviceEl.selectedIndex].text;
+
+            let body = 'QUOTE REQUEST\n';
+            body += '===================\n\n';
+            body += 'Service: ' + serviceName + '\n';
+            body += 'Quantity: ' + (data.quantity || 'N/A') + '\n';
+
+            if (data.dimWidth || data.dimHeight) {
+                body += 'Dimensions: ' + (data.dimWidth || 'N/A') + '" x ' + (data.dimHeight || 'N/A') + '"\n';
+            }
+
+            if (data.materialType) {
+                const matMap = {standard:'Standard Vinyl',premium:'Premium Vinyl',clear:'Clear Vinyl',magnetic:'Magnetic',perforated:'Perforated One-Way',other:'Not Sure'};
+                body += 'Material: ' + (matMap[data.materialType] || data.materialType) + '\n';
+            }
+
+            if (data.laminateType) {
+                const lamMap = {gloss:'Gloss',matte:'Matte',satin:'Satin',none:'None'};
+                body += 'Laminate: ' + (lamMap[data.laminateType] || data.laminateType) + '\n';
+            }
+
+            body += 'Design Help Required: ' + (data.designHelp ? 'Yes' : 'No') + '\n';
+            body += 'Installation Services: ' + (data.installServices ? 'Yes' : 'No') + '\n';
+
+            const fileInput = document.getElementById('fileUpload');
+            if (fileInput && fileInput.files.length > 0) {
+                body += 'Attached Files: ' + Array.from(fileInput.files).map(f => f.name).join(', ') + '\n';
+            }
+
+            body += '\nProject Details:\n' + (data.description || 'None provided') + '\n';
+            body += '\n--- CONTACT INFO ---\n';
+            body += 'Name: ' + data.contactName + '\n';
+            body += 'Email: ' + data.contactEmail + '\n';
+            body += 'Phone: ' + (data.contactPhone || 'N/A') + '\n';
+            body += 'Company: ' + (data.contactCompany || 'N/A') + '\n';
+
+            const subject = encodeURIComponent('Quote Request - ' + serviceName);
+            const mailBody = encodeURIComponent(body);
+            window.location.href = 'mailto:info@thegraphicsshop.ca?subject=' + subject + '&body=' + mailBody;
+
+            const btn = this.querySelector('button[type="submit"]');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.05l-5-5"/></svg> Quote Request Opened — We\'ll be in touch!';
+            btn.style.pointerEvents = 'none';
+            btn.style.opacity = '0.7';
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.style.pointerEvents = '';
+                btn.style.opacity = '';
+                this.reset();
+                document.getElementById('quantity').value = 1;
+                calculateEstimate();
+            }, 4000);
+        });
+
+        // ===== PARALLAX EFFECT ON HERO SHAPES =====
+        window.addEventListener('mousemove', (e) => {
+            const shapes = document.querySelectorAll('.shape');
+            const x = (e.clientX / window.innerWidth - 0.5) * 2;
+            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+            shapes.forEach((shape, i) => {
+                const speed = (i + 1) * 8;
+                shape.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+
+        // ===== GOOGLE REVIEWS WIDGET =====
+        (function () {
+            const reviewsData = [
+                {
+                    name: 'Diana M.',
+                    rating: 5,
+                    text: 'The Graphics Shop did an amazing job on our fleet wrap. From the design to the final installation, everything was top-notch. Our vehicles look incredible and we get compliments constantly. Highly recommend for any vehicle graphics needs!',
+                    date: '2 months ago',
+                    projectType: 'Fleet Graphics'
+                },
+                {
+                    name: 'Robert K.',
+                    rating: 5,
+                    text: 'Needed custom window graphics for our storefront and they exceeded all expectations. The team was professional, quick to respond, and the quality of the materials is outstanding. Our shop looks so much more modern and inviting now.',
+                    date: '3 weeks ago',
+                    projectType: 'Storefront Graphics'
+                },
+                {
+                    name: 'Linda S.',
+                    rating: 5,
+                    text: 'We have been using The Graphics Shop for all our signage and decals for over two years now. The attention to detail is unmatched and the vinyl holds up incredibly well even after harsh Nova Scotia winters. A reliable, quality operation.',
+                    date: '1 month ago',
+                    projectType: 'Signage & Decals'
+                },
+                {
+                    name: 'Michael T.',
+                    rating: 5,
+                    text: 'Ordered custom decals for our small business and the turnaround time was incredibly fast. The quality is excellent — crisp prints, clean edges, and the laminate finish has kept them looking new for months. Will definitely order again.',
+                    date: '5 days ago',
+                    projectType: 'Custom Decals'
+                },
+                {
+                    name: 'Sarah J.',
+                    rating: 5,
+                    text: 'We hired The Graphics Shop for our company truck graphics and couldn\'t be happier. The design process was smooth and the final product exceeded our expectations. Great communication throughout the entire project.',
+                    date: '6 days ago',
+                    projectType: 'Vehicle Graphics'
+                },
+                {
+                    name: 'David L.',
+                    rating: 5,
+                    text: 'Fantastic work on our trade show booth graphics! Everything was perfectly cut and applied. The team was so easy to work with and delivered everything ahead of schedule. Will definitely use them again for future events.',
+                    date: '2 weeks ago',
+                    projectType: 'Trade Show Graphics'
+                },
+                {
+                    name: 'Amanda R.',
+                    rating: 5,
+                    text: 'The wall murals they created for our office are absolutely stunning. It\'s amazing how they transformed our workspace with such creative designs. Our employees and clients are always impressed.',
+                    date: '3 days ago',
+                    projectType: 'Wall Murals'
+                },
+                {
+                    name: 'Chris P.',
+                    rating: 5,
+                    text: 'Best vinyl shop in the area, hands down. I\'ve been buying custom stickers and decals from them for my small business and the quality is always consistent. Fair pricing and excellent customer service every time.',
+                    date: '1 week ago',
+                    projectType: 'Custom Stickers'
+                },
+                {
+                    name: 'Jennifer B.',
+                    rating: 5,
+                    text: 'We needed urgent last-minute banners for our charity event and The Graphics Shop went above and beyond to deliver on time. The quality was outstanding and the event was a huge success thanks to their work!',
+                    date: '4 weeks ago',
+                    projectType: 'Banners'
+                },
+                {
+                    name: 'Mark W.',
+                    rating: 5,
+                    text: 'I\'ve been working with The Graphics Shop for my restaurant\'s menu boards and window decals. They consistently deliver high quality work and are always willing to help with design tweaks. A true professional team.',
+                    date: '10 days ago',
+                    projectType: 'Restaurant Graphics'
+                }
+            ];
+
+            const grid = document.getElementById('googleReviewsGrid');
+            const ratingDisplay = document.getElementById('avgRatingDisplay');
+
+            if (!grid) return;
+
+            if (ratingDisplay) ratingDisplay.textContent = '5.0';
+
+            var slidesPerView = 3;
+            var currentPage = 0;
+            var totalPages = 0;
+            var autoPlayInterval = null;
+            var currentTranslate = 0;
+
+            function getSlidesPerView() {
+                if (window.innerWidth <= 768) return 1;
+                if (window.innerWidth <= 1024) return 2;
+                return 3;
+            }
+
+            function buildSlider() {
+                slidesPerView = getSlidesPerView();
+                totalPages = Math.ceil(reviewsData.length / slidesPerView);
+                currentPage = 0;
+                currentTranslate = 0;
+
+                var html = '<div class="reviews-slider" id="reviewsSlider">';
+                for (var i = 0; i < reviewsData.length; i++) {
+                    var rev = reviewsData[i];
+                    var initials = rev.name.charAt(0).toUpperCase();
+                    var stars = '';
+                    for (var s = 0; s < 5; s++) {
+                        stars += '<svg viewBox="0 0 24 24"><path class="star-filled" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+                    }
+
+                    html += '<div class="review-slide">';
+                    html += '<div class="review-card reveal visible">';
+                    html += '<div class="review-header">';
+                    html += '<div class="review-author-info">';
+                    html += '<div class="review-avatar">' + initials + '</div>';
+                    html += '<div>';
+                    html += '<div class="review-author-name">' + rev.name + '</div>';
+                    html += '<div class="review-date">' + rev.date + '</div>';
+                    html += '</div></div>';
+                    html += '<svg class="review-google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>';
+                    html += '</div>';
+                    html += '<div class="review-stars">' + stars + '</div>';
+                    html += '<p class="review-text">' + rev.text + '</p>';
+                    html += '</div></div>';
+                }
+                html += '</div>';
+
+                grid.innerHTML = html;
+
+                buildDots();
+                updateSlider();
+                setupArrows();
+                startAutoPlay();
+            }
+
+            function buildDots() {
+                var dotsContainer = document.getElementById('reviewsDots');
+                if (!dotsContainer) return;
+                var dotsHtml = '';
+                for (var i = 0; i < totalPages; i++) {
+                    dotsHtml += '<button class="review-dot' + (i === 0 ? ' active' : '') + '" data-page="' + i + '" aria-label="Go to slide ' + (i + 1) + '"></button>';
+                }
+                dotsContainer.innerHTML = dotsHtml;
+
+                var dots = dotsContainer.querySelectorAll('.review-dot');
+                dots.forEach(function (dot) {
+                    dot.addEventListener('click', function () {
+                        currentPage = parseInt(this.getAttribute('data-page'));
+                        updateSlider();
+                        resetAutoPlay();
+                    });
+                });
+            }
+
+            function updateSlider() {
+                var slider = document.getElementById('reviewsSlider');
+                if (!slider) return;
+
+                var slideWidth = 100 / slidesPerView;
+                currentTranslate = currentPage * slidesPerView * slideWidth;
+                slider.style.transform = 'translateX(-' + currentTranslate + '%)';
+
+                var dots = document.querySelectorAll('.review-dot');
+                dots.forEach(function (dot, idx) {
+                    dot.classList.toggle('active', idx === currentPage);
+                });
+
+                var label = document.getElementById('reviewsSlideLabel');
+                if (label) {
+                    label.textContent = (currentPage + 1) + ' of ' + totalPages + ' • ' + (currentPage * slidesPerView + 1) + '-' + Math.min((currentPage + 1) * slidesPerView, reviewsData.length) + ' of ' + reviewsData.length;
+                }
+            }
+
+            function setupArrows() {
+                var leftBtn = document.getElementById('reviewArrowLeft');
+                var rightBtn = document.getElementById('reviewArrowRight');
+
+                if (leftBtn) {
+                    leftBtn.addEventListener('click', function () {
+                        if (currentPage > 0) {
+                            currentPage--;
+                        } else {
+                            currentPage = totalPages - 1;
+                        }
+                        updateSlider();
+                        resetAutoPlay();
+                    });
+                }
+
+                if (rightBtn) {
+                    rightBtn.addEventListener('click', function () {
+                        if (currentPage < totalPages - 1) {
+                            currentPage++;
+                        } else {
+                            currentPage = 0;
+                        }
+                        updateSlider();
+                        resetAutoPlay();
+                    });
+                }
+            }
+
+            function startAutoPlay() {
+                stopAutoPlay();
+                autoPlayInterval = setInterval(function () {
+                    if (currentPage < totalPages - 1) {
+                        currentPage++;
+                    } else {
+                        currentPage = 0;
+                    }
+                    updateSlider();
+                }, 10000);
+            }
+
+            function stopAutoPlay() {
+                if (autoPlayInterval) {
+                    clearInterval(autoPlayInterval);
+                    autoPlayInterval = null;
+                }
+            }
+
+            function resetAutoPlay() {
+                stopAutoPlay();
+                startAutoPlay();
+            }
+
+            grid.addEventListener('mouseenter', function () {
+                stopAutoPlay();
+            });
+
+            grid.addEventListener('mouseleave', function () {
+                startAutoPlay();
+            });
+
+            window.addEventListener('resize', function () {
+                var newSlidesPerView = getSlidesPerView();
+                if (newSlidesPerView !== slidesPerView) {
+                    totalPages = Math.ceil(reviewsData.length / newSlidesPerView);
+                    if (currentPage >= totalPages) {
+                        currentPage = totalPages - 1;
+                    }
+                    slidesPerView = newSlidesPerView;
+                    buildSlider();
+                }
+            });
+
+            buildSlider();
+        })();
+    </script>
 </body>
 </html>
