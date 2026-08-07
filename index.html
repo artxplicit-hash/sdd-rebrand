@@ -28,6 +28,7 @@
             --font-heading: 'Poppins', sans-serif;
             --font-barlow: 'Barlow', sans-serif;
             --font-barlow-condensed: 'Barlow Condensed', sans-serif;
+            --industrial-gradient: linear-gradient(135deg, var(--dark) 0%, var(--darkgrey) 40%, var(--teal-glow) 100%);
         }
 
         html {
@@ -45,7 +46,7 @@
 
         /* ===== CUSTOM SCROLLBAR ===== */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--off-white); }
+        ::-webkit-scrollbar-track { background: var(--darkgrey); }
         ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--teal-dark); }
 
@@ -126,40 +127,6 @@
         .nav-links a:hover::after {
             width: 100%;
         }
-
-        .nav-cta {
-            background: var(--teal) !important;
-            color: #2B3139 !important;
-            padding: 0.6rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 800 !important;
-            transition: all 0.3s ease !important;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-cta::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: var(--teal-light);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: -1;
-        }
-
-        .nav-cta:hover::before { transform: scaleX(1); }
-
-        .nav-cta:hover {
-            color: #2B3139 !important;
-            box-shadow: 0 0 30px rgba(24, 195, 200, 0.35);
-            transform: translateY(-2px);
-        }
-
-        .nav-cta::after { display: none !important; }
-
         /* Mobile Menu */
         .hamburger {
             display: none;
@@ -1565,1392 +1532,6 @@
             box-shadow: 0 0 30px rgba(24, 195, 200, 0.35);
         }
 
-        /* ===== QUOTE FORM SECTION ===== */
-        .quote-section {
-            background: var(--dark);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .quote-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse at 30% 50%, rgba(24, 195, 200, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 50%, rgba(24, 195, 200, 0.05) 0%, transparent 50%);
-        }
-
-        .quote-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .quote-header .section-subtitle {
-            margin: 0 auto;
-        }
-
-        .quote-container {
-            background: #21272b;
-            border-radius: 20px;
-            padding: 2rem;
-        }
-
-        @media (min-width: 1024px) {
-            .quote-container {
-                padding: 3rem;
-            }
-        }
-
-        .quote-container,
-        .quote-container * {
-            font-family: var(--font-heading) !important;
-        }
-
-        .quote-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        @media (min-width: 1024px) {
-            .quote-grid {
-                grid-template-columns: 8fr 4fr;
-                gap: 2.5rem;
-                align-items: start;
-            }
-        }
-
-        .estimate-panel {
-            background: #37474F;
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-
-        @media (min-width: 768px) {
-            .estimate-panel {
-                padding: 2rem;
-            }
-        }
-
-        .estimate-panel h3 {
-            font-family: var(--font-heading);
-            font-weight: 700;
-            font-size: 1.25rem;
-            color: var(--white);
-            margin-bottom: 0.25rem;
-        }
-
-        .estimate-panel .estimate-subtitle {
-            font-size: 0.85rem;
-            color: var(--lightgrey);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-            opacity: 0.8;
-        }
-
-        .estimate-breakdown-box {
-            background: rgba(22, 25, 30, 0.4);
-            border: 1px solid rgba(38, 198, 218, 0.15);
-            border-radius: 12px;
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .estimate-breakdown-title {
-            font-family: var(--font-barlow-condensed);
-            font-weight: 700;
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--teal);
-            margin-bottom: 0.75rem;
-        }
-
-        .estimate-line {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.4rem 0;
-            font-size: 0.85rem;
-            color: var(--lightgrey);
-        }
-
-        .estimate-line .est-label {
-            opacity: 0.7;
-        }
-
-        .estimate-line .est-value {
-            font-weight: 600;
-            color: var(--white);
-        }
-
-        .estimate-line-total {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 0.75rem;
-            margin-top: 0.5rem;
-            border-top: 1px solid rgba(38, 198, 218, 0.15);
-            font-family: var(--font-barlow-condensed);
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--white);
-        }
-
-        .estimate-deposit-note {
-            background: rgba(38, 198, 218, 0.06);
-            border: 1px solid rgba(38, 198, 218, 0.2);
-            border-radius: 10px;
-            padding: 1rem 1.25rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .estimate-deposit-note strong {
-            display: block;
-            font-family: var(--font-barlow-condensed);
-            font-weight: 700;
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            color: var(--teal);
-            margin-bottom: 0.25rem;
-        }
-
-        .estimate-deposit-note p {
-            font-size: 0.82rem;
-            color: var(--lightgrey);
-            line-height: 1.5;
-            margin: 0;
-        }
-
-        .estimate-info-text {
-            font-size: 0.82rem;
-            color: var(--lightgrey);
-            line-height: 1.6;
-            opacity: 0.75;
-        }
-
-        .estimate-info-text p {
-            margin-bottom: 0.75rem;
-        }
-
-        .estimate-info-text p:last-child {
-            margin-bottom: 0;
-        }
-
-        .quote-disclaimer {
-            text-align: left;
-            font-family: var(--font-heading);
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.6);
-            line-height: 1.6;
-            margin-top: 1rem;
-            padding: 0 0.5rem;
-        }
-
-        .form-footer {
-            color: #26C6DA;
-        }
-
-        .quote-form-row {
-            margin-top: 0;
-        }
-
-        /* Quote Form — Structured Row Layout */
-        .quote-form {
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-        }
-
-        .quote-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 0.75rem;
-        }
-
-        .quote-row.two-col {
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-        }
-
-        .quote-row.three-equal {
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 0.75rem;
-        }
-
-        .quote-row.four-col {
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.75rem;
-        }
-
-        @media (max-width: 768px) {
-            .quote-row.four-col {
-                grid-template-columns: 1fr 1fr !important;
-            }
-        }
-
-        .quote-row.five-col {
-            grid-template-columns: 1fr 1fr auto 1fr 1fr;
-            gap: 0.6rem;
-            align-items: end;
-        }
-
-        .quote-row.checkbox-row-wrap {
-            grid-template-columns: 1fr;
-        }
-
-        .quote-row.submit-row {
-            grid-template-columns: 1fr;
-        }
-
-        .quote-field {
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
-        }
-
-        .quote-field label {
-            font-family: var(--font-barlow-condensed);
-            font-weight: 600;
-            font-size: 0.8rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--lightgrey);
-            opacity: 0.85;
-        }
-
-        .quote-dim .dimension-input-group {
-            gap: 0.35rem;
-        }
-
-        .quote-qty .quantity-control {
-            gap: 0;
-        }
-
-        /* Inline Estimate */
-        .estimate-box.inline {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.65rem 1rem;
-            margin-bottom: 0.5rem;
-            background: rgba(24, 195, 200, 0.08);
-            border: 1px solid rgba(24, 195, 200, 0.2);
-            border-radius: 10px;
-            font-size: 0;
-        }
-
-        .estimate-inline-label {
-            font-family: var(--font-barlow-condensed);
-            font-weight: 700;
-            font-size: 0.75rem;
-            color: var(--teal);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .estimate-box.inline .price {
-            font-family: var(--font-barlow-condensed);
-            font-weight: 800;
-            font-size: 1.35rem;
-            color: var(--white);
-        }
-
-        .estimate-box.inline .separator {
-            color: var(--lightgrey);
-            opacity: 0.4;
-            font-weight: 300;
-            font-size: 1.1rem;
-        }
-
-        .estimate-inline-hint {
-            font-size: 0.68rem;
-            color: var(--lightgrey);
-            opacity: 0.5;
-            margin-left: auto;
-        }
-
-        .estimate-box.inline.hidden {
-            display: none;
-        }
-
-        @media (max-width: 1024px) {
-            .quote-form-container {
-                padding: 1rem;
-            }
-            .quote-form-row .quote-form-container {
-                padding: 0.75rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .quote-form-container {
-                padding: 1.25rem;
-            }
-        }
-
-        /* Estimate Display - Compact */
-        .estimate-box {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .estimate-box::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(24, 195, 200, 0.15), transparent 70%);
-            pointer-events: none;
-        }
-
-        .estimate-box.hidden {
-            display: none;
-        }
-
-        .estimate-range {
-            display: flex;
-            align-items: baseline;
-            gap: 0.5rem;
-            position: relative;
-        }
-
-        .estimate-range .price {
-            font-family: var(--font-barlow-condensed);
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--white);
-            line-height: 1;
-        }
-
-        .estimate-range .separator {
-            color: var(--lightgrey);
-            font-size: 1.25rem;
-            font-weight: 300;
-        }
-
-        .estimate-breakdown {
-            margin-top: 0.6rem;
-            padding-top: 0.6rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.35rem 1rem;
-            position: relative;
-        }
-
-        .breakdown-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-            font-size: 0.72rem;
-            color: var(--lightgrey);
-            background: rgba(255, 255, 255, 0.04);
-            padding: 0.28rem 0.65rem;
-            border-radius: 100px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .breakdown-chip .chip-icon {
-            color: var(--teal);
-            font-size: 0.72rem;
-        }
-
-        .estimate-note {
-            font-size: 0.78rem;
-            color: var(--lightgrey);
-            opacity: 0.5;
-            margin-top: 0.65rem;
-            line-height: 1.4;
-            position: relative;
-        }
-
-        /* Quote Select Dropdowns — uniform style */
-        .quote-form select,
-        .quote-field select {
-            width: 100%;
-            padding: 0.55rem 2.2rem 0.55rem 0.85rem;
-            border: 1.5px solid rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            font-family: var(--font-barlow);
-            font-size: 0.9rem;
-            color: var(--white);
-            background: var(--darkgrey);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            appearance: none;
-            cursor: pointer;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23A8B5C1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 0.7rem center;
-        }
-
-        .quote-form select option,
-        .quote-field select option {
-            background: var(--darkgrey);
-            color: var(--white);
-            padding: 0.5rem;
-        }
-
-        .quote-form select:focus,
-        .quote-field select:focus {
-            outline: none;
-            border-color: var(--teal);
-            box-shadow: 0 0 0 3px rgba(24, 195, 200, 0.1), 0 0 16px rgba(24, 195, 200, 0.05);
-            background: var(--dark);
-        }
-
-        .quote-form select::placeholder,
-        .quote-field select::placeholder {
-            color: var(--lightgrey);
-            opacity: 0.4;
-        }
-
-        /* Quote Extras — Styled Checkboxes */
-        .extras-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.6rem;
-        }
-
-        .extras-checkbox {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.7rem 0.85rem;
-            background: #37474F;
-            border: 1.5px solid rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .extras-checkbox:hover {
-            border-color: rgba(24, 195, 200, 0.25);
-            background: rgba(24, 195, 200, 0.04);
-        }
-
-        .extras-checkbox input[type="checkbox"] {
-            appearance: none;
-            width: 18px;
-            height: 18px;
-            min-width: 18px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
-            background: var(--dark);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        .extras-checkbox input[type="checkbox"]:checked {
-            background: var(--teal);
-            border-color: var(--teal);
-        }
-
-        .extras-checkbox input[type="checkbox"]:checked::after {
-            content: '';
-            position: absolute;
-            left: 4px;
-            top: 1px;
-            width: 5px;
-            height: 9px;
-            border: solid #2B3139;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-        }
-
-        .extras-checkbox input[type="checkbox"]:focus-visible {
-            box-shadow: 0 0 0 2px rgba(24, 195, 200, 0.2);
-        }
-
-        .extras-checkbox-label {
-            display: flex;
-            flex-direction: column;
-            gap: 0.1rem;
-        }
-
-        .extras-checkbox-title {
-            font-family: var(--font-barlow-condensed);
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--white);
-            letter-spacing: 0.02em;
-        }
-
-        .extras-checkbox-hint {
-            font-size: 0.78rem;
-            color: var(--lightgrey);
-            opacity: 0.55;
-        }
-
-        /* File Upload */
-        .file-upload-area {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            border: 2px dashed rgba(255, 255, 255, 0.12);
-            border-radius: 12px;
-            background: rgba(55, 71, 79, 0.4);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            min-height: 80px;
-        }
-
-        .file-upload-area:hover {
-            border-color: rgba(24, 195, 200, 0.3);
-            background: rgba(24, 195, 200, 0.04);
-        }
-
-        .file-upload-area input[type="file"] {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .file-upload-icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.4rem;
-            pointer-events: none;
-        }
-
-        .file-upload-icon svg {
-            width: 24px;
-            height: 24px;
-            stroke: var(--lightgrey);
-            opacity: 0.5;
-            transition: all 0.3s ease;
-        }
-
-        .file-upload-area:hover .file-upload-icon svg {
-            stroke: var(--teal);
-            opacity: 0.7;
-        }
-
-        .file-upload-text {
-            font-family: var(--font-barlow-condensed);
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: var(--lightgrey);
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-        .file-upload-hint {
-            font-size: 0.72rem;
-            color: var(--lightgrey);
-            opacity: 0.4;
-        }
-
-        .file-name-display {
-            font-size: 0.82rem;
-            color: var(--teal);
-            margin-top: 0.3rem;
-            max-width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        /* Form Sections */
-        .form-section {
-            margin-bottom: 0.75rem;
-        }
-
-        .form-section:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Form Groups */
-        .form-group {
-            margin-bottom: 0.7rem;
-        }
-
-        .form-group:last-child {
-            margin-bottom: 0;
-        }
-
-        .form-group label {
-            display: block;
-            font-family: var(--font-barlow-condensed);
-            font-weight: 700;
-            font-size: 0.75rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--lightgrey);
-            margin-bottom: 0.4rem;
-        }
-
-        .form-group label .required,
-        .quote-field label .required {
-            color: var(--teal);
-        }
-
-        .form-group .field-hint,
-        .quote-field .field-hint {
-            font-family: var(--font-barlow) !important;
-            font-weight: 400 !important;
-            font-size: 0.65rem !important;
-            letter-spacing: 0 !important;
-            text-transform: none !important;
-            color: var(--lightgrey) !important;
-            opacity: 0.5 !important;
-            margin-left: 0.4rem;
-        }
-
-        /* Form Inputs - Compact */
-        .quote-form select,
-        .quote-form input,
-        .quote-form textarea,
-        .quote-field select,
-        .quote-field input,
-        .quote-field textarea {
-            width: 100%;
-            padding: 0.5rem 0.75rem;
-            border: 1.5px solid rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            font-family: var(--font-barlow);
-            font-size: 0.88rem;
-            color: var(--white);
-            background: #37474F;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            appearance: none;
-        }
-
-        .quote-field textarea {
-            min-height: 80px;
-            line-height: 1.4;
-        }
-
-        .quote-form select,
-        .quote-field select {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23A8B5C1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 0.7rem center;
-            padding-right: 2.2rem;
-            cursor: pointer;
-        }
-
-        .quote-form select option,
-        .quote-field select option {
-            background: #37474F;
-            color: var(--white);
-        }
-
-        .quote-form select:focus,
-        .quote-form input:focus,
-        .quote-form textarea:focus,
-        .quote-field select:focus,
-        .quote-field input:focus,
-        .quote-field textarea:focus {
-            outline: none;
-            border-color: var(--teal);
-            box-shadow: 0 0 0 3px rgba(24, 195, 200, 0.1), 0 0 16px rgba(24, 195, 200, 0.05);
-            background: #2B3139;
-        }
-
-        .quote-form input::placeholder,
-        .quote-form textarea::placeholder,
-        .quote-field input::placeholder,
-        .quote-field textarea::placeholder {
-            color: var(--lightgrey);
-            opacity: 0.4;
-        }
-
-        /* Dimension Inputs with Unit Label */
-        .dimension-input-group {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 0.4rem;
-            align-items: center;
-        }
-
-        .dimension-input-group .unit-label {
-            font-size: 0.9rem;
-            color: var(--lightgrey);
-            opacity: 0.5;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        /* Dimension inputs specific style */
-        .quote-dim .dimension-input-group input,
-        .quote-dim input[type="number"] {
-            width: 100%;
-            padding: 0.55rem 0.4rem;
-            border: 1.5px solid rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            font-family: var(--font-barlow);
-            font-size: 0.92rem;
-            color: var(--white);
-            background: #37474F;
-            text-align: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            -moz-appearance: textfield;
-        }
-
-        .quote-dim .dimension-input-group input:focus {
-            outline: none;
-            border-color: var(--teal);
-            box-shadow: 0 0 0 3px rgba(24, 195, 200, 0.1), 0 0 16px rgba(24, 195, 200, 0.05);
-            background: #2B3139;
-        }
-
-        .quote-dim .dimension-input-group input::placeholder {
-            color: var(--lightgrey);
-            opacity: 0.35;
-        }
-
-        .quote-dim .dimension-input-group input::-webkit-inner-spin-button,
-        .quote-dim .dimension-input-group input::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        /* Quantity Control */
-        .quantity-control {
-            display: inline-flex;
-            align-items: center;
-            border: 1.5px solid rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            overflow: hidden;
-            background: #37474F;
-        }
-
-        .quantity-btn {
-            width: 30px;
-            height: 36px;
-            background: transparent;
-            border: none;
-            color: var(--lightgrey);
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .quantity-btn:hover {
-            color: var(--teal);
-            background: rgba(24, 195, 200, 0.08);
-        }
-
-        .quantity-btn:active {
-            background: rgba(24, 195, 200, 0.15);
-        }
-
-        .quantity-input {
-            width: 40px !important;
-            text-align: center;
-            border: none !important;
-            border-radius: 0 !important;
-            background: transparent !important;
-            padding: 0.55rem 0.25rem !important;
-            box-shadow: none !important;
-            font-size: 0.92rem;
-            font-weight: 600;
-            -moz-appearance: textfield;
-        }
-
-        .quantity-input::-webkit-inner-spin-button,
-        .quantity-input::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        .quantity-input:focus {
-            box-shadow: none !important;
-        }
-
-        /* Inline Checkbox Labels */
-        .checkbox-inline-label {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            font-size: 0.82rem !important;
-            opacity: 1 !important;
-            white-space: nowrap;
-            padding-bottom: 0.15rem;
-        }
-
-        .checkbox-inline-label input[type="checkbox"] {
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            min-width: 20px;
-            border: 1.5px solid rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-            background: transparent;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
-            flex-shrink: 0;
-        }
-
-        .checkbox-inline-label input[type="checkbox"]:checked {
-            background: #26C6DA;
-            border-color: #26C6DA;
-        }
-
-        .checkbox-inline-label span {
-            color: var(--lightgrey);
-            font-size: 0.82rem;
-            transition: color 0.2s ease;
-        }
-
-        .checkbox-inline-label input[type="checkbox"]:checked + span,
-        .checkbox-inline-label:hover span {
-            color: var(--white);
-        }
-
-        /* Service Type - Visual Cards */
-        .service-cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.75rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .service-card-option {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .service-card-option input {
-            position: absolute;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .service-card-label {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1.1rem 0.75rem;
-            background: #37474F;
-            border: 2px solid rgba(255, 255, 255, 0.06);
-            border-radius: 14px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: center;
-        }
-
-        .service-card-label:hover {
-            border-color: rgba(24, 195, 200, 0.2);
-            background: rgba(24, 195, 200, 0.05);
-            transform: translateY(-2px);
-        }
-
-        .service-card-option input:checked + .service-card-label {
-            border-color: var(--teal);
-            background: rgba(24, 195, 200, 0.1);
-            box-shadow: 0 0 0 4px rgba(24, 195, 200, 0.1), 0 4px 20px rgba(24, 195, 200, 0.15);
-        }
-
-        .service-card-icon {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--lightgrey);
-            opacity: 0.7;
-            transition: all 0.3s ease;
-        }
-
-        .service-card-option input:checked + .service-card-label .service-card-icon {
-            color: var(--teal);
-            opacity: 1;
-        }
-
-        .service-card-icon svg {
-            width: 22px;
-            height: 22px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 1.5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .service-card-name {
-            font-family: var(--font-barlow-condensed);
-            font-weight: 600;
-            font-size: 0.75rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--lightgrey);
-            line-height: 1.3;
-            transition: color 0.3s ease;
-        }
-
-        .service-card-option input:checked + .service-card-label .service-card-name {
-            color: var(--white);
-        }
-
-        /* Material Type - Visual Cards */
-        .material-cards {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 0.3rem;
-        }
-
-        /* Form Divider */
-        .form-divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-            margin: 1rem 0;
-        }
-
-        /* Quote textarea fields */
-        .quote-form textarea,
-        .quote-field textarea {
-            width: 100%;
-            padding: 0.65rem 0.85rem;
-            border: 1.5px solid rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            font-family: var(--font-barlow);
-            font-size: 0.88rem;
-            color: var(--white);
-            background: var(--darkgrey);
-            resize: vertical;
-            min-height: 80px;
-            line-height: 1.5;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .quote-form textarea:focus,
-        .quote-field textarea:focus {
-            outline: none;
-            border-color: var(--teal);
-            box-shadow: 0 0 0 3px rgba(24, 195, 200, 0.1), 0 0 16px rgba(24, 195, 200, 0.05);
-            background: var(--dark);
-        }
-
-        .quote-form textarea::placeholder,
-        .quote-field textarea::placeholder {
-            color: var(--lightgrey);
-            opacity: 0.35;
-        }
-
-        /* Section Header for Contact */
-        .contact-section-title {
-            font-family: var(--font-barlow-condensed);
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--white);
-            margin-bottom: 1rem;
-        }
-
-        .contact-section-title .sub {
-            font-weight: 400;
-            color: var(--lightgrey);
-            text-transform: none;
-            letter-spacing: 0;
-            font-size: 0.8rem;
-        }
-
-        /* Submit Button */
-        .submit-btn {
-            width: 100%;
-            padding: 0.95rem 1.5rem;
-            background: var(--teal);
-            color: #2B3139;
-            border: none;
-            border-radius: 12px;
-            font-family: var(--font-barlow-condensed);
-            font-weight: 700;
-            font-size: 0.9rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .submit-btn:hover {
-            background: var(--teal-light);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 24px rgba(24, 195, 200, 0.3);
-        }
-
-        .submit-btn:hover::before {
-            left: 100%;
-        }
-
-        .submit-btn:active {
-            transform: translateY(0);
-        }
-
-        .submit-btn .btn-text {
-            position: relative;
-            z-index: 1;
-        }
-
-        .submit-btn .btn-icon {
-            position: relative;
-            z-index: 1;
-            display: flex;
-        }
-
-        .submit-btn .btn-icon svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .submit-btn.success {
-            background: #059669;
-            pointer-events: none;
-        }
-
-        .form-footer {
-            text-align: center;
-            font-size: 0.75rem;
-            color: var(--lightgrey);
-            opacity: 0.5;
-            margin-top: 1rem;
-        }
-
-        /* Conditional Sections */
-        .conditional-section {
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, margin 0.3s ease;
-            margin-top: 0;
-        }
-
-        .conditional-section.visible,
-        .conditional-section.always-show {
-            max-height: 400px;
-            opacity: 1;
-        }
-
-        /* Always visible compact layout */
-        .conditional-section.always-show {
-            max-height: none;
-            overflow: visible;
-            opacity: 1;
-        }
-
-        .map-container {
-            position: relative;
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            min-height: 400px;
-        }
-
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            min-height: 400px;
-            border: 0;
-            filter: saturate(1.3) contrast(1.05) brightness(0.9) hue-rotate(-5deg);
-            transition: filter 0.4s ease;
-        }
-
-        .map-container:hover iframe {
-            filter: saturate(1.5) contrast(1.1) brightness(1) hue-rotate(-8deg);
-        }
-
-        .map-overlay {
-            position: absolute;
-            bottom: 1.25rem;
-            left: 1.25rem;
-            background: rgba(22, 25, 30, 0.85);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(24, 195, 200, 0.25);
-            border-radius: 14px;
-            padding: 0.7rem 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(24, 195, 200, 0.08);
-        }
-
-        .map-overlay-pin {
-            width: 32px;
-            height: 32px;
-            background: var(--teal);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .map-overlay-pin svg {
-            width: 16px;
-            height: 16px;
-            fill: #2B3139;
-        }
-
-        .map-overlay-title {
-            font-family: var(--font-barlow-condensed);
-            font-weight: 700;
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            color: var(--teal);
-            line-height: 1;
-            margin-bottom: 0.15rem;
-        }
-
-        .map-overlay-address {
-            font-size: 0.78rem;
-            color: var(--lightgrey);
-            opacity: 0.75;
-        }
-
-        .map-wrapper {
-            position: relative;
-        }
-
-        .map-wrapper .map-container {
-            width: 100%;
-            min-height: 380px;
-            height: 100%;
-        }
-
-        .map-wrapper .map-container iframe {
-            min-height: 380px;
-        }
-
-        .quote-form-row {
-            margin-top: 3rem;
-        }
-
-        .quote-form-row .quote-form-container {
-            background: var(--dark);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 1.5rem;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.6rem;
-        }
-
-        .form-grid-compact {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 0.6rem;
-        }
-
-        @media (max-width: 1024px) {
-            .quote-row,
-            .quote-row.three-equal,
-            .quote-row.four-col {
-                grid-template-columns: 1fr 1fr !important;
-            }
-        }
-        }
-
-        @media (max-width: 768px) {
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            .quote-row,
-            .quote-row.three-equal,
-            .quote-row.four-col,
-            .quote-row.two-col,
-            .quote-row.checkbox-row-wrap {
-                grid-template-columns: 1fr !important;
-            }
-            .quote-form-container {
-                padding: 1.25rem;
-            }
-            .extras-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ===== MOBILE NAV OVERLAY ===== */
-        .nav-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(22, 25, 30, 0.8);
-            z-index: 998;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .nav-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: var(--darkgrey);
-            color: var(--white);
-            padding: 5rem 2rem 0;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-bottom: 3rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        @media (min-width: 768px) {
-            .footer-grid {
-                grid-template-columns: 2fr 1fr 1fr 1fr;
-                gap: 2rem;
-            }
-        }
-
-        .footer-brand .footer-logo {
-            display: inline-block;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-brand .footer-logo img {
-            height: 72px;
-            width: auto;
-            display: block;
-        }
-
-        @media (min-width: 768px) {
-            .footer-brand .footer-logo img {
-                height: 90px;
-            }
-        }
-
-        .footer-brand p {
-            color: var(--lightgrey);
-            font-size: 0.9rem;
-            line-height: 1.7;
-            max-width: 340px;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-social a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .footer-social a:hover {
-            background: var(--teal);
-            border-color: var(--teal);
-            transform: translateY(-2px);
-        }
-
-        .footer-social a svg {
-            width: 18px;
-            height: 18px;
-            fill: var(--lightgrey);
-            transition: fill 0.3s ease;
-        }
-
-        .footer-social a:hover svg {
-            fill: var(--dark);
-        }
-
-        .footer-col h4 {
-            font-family: var(--font-barlow-condensed);
-            font-weight: 800;
-            font-size: 0.75rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--white);
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-col ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .footer-col a {
-            color: var(--lightgrey);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .footer-col a:hover {
-            color: var(--teal);
-            padding-left: 5px;
-        }
-
-        .footer-divider {
-            max-width: 1200px;
-            margin: 0 auto;
-            border: none;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1.75rem 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .footer-bottom p {
-            color: var(--lightgrey);
-            font-size: 0.8rem;
-            opacity: 0.5;
-        }
 
         /* ===== SCROLL ANIMATIONS ===== */
         .reveal {
@@ -2977,6 +1558,102 @@
         .animate-scale-in {
             animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--dark);
+            padding: 5rem 2rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+        }
+        .footer-brand .footer-logo img {
+            height: 2.5rem;
+            width: auto;
+            margin-bottom: 1.25rem;
+        }
+        .footer-brand p {
+            color: var(--lightgrey);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: var(--darkgrey);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .footer-social a:hover {
+            background: rgba(24, 195, 200, 0.1);
+            border-color: rgba(24, 195, 200, 0.3);
+            transform: translateY(-2px);
+        }
+        .footer-social a svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--lightgrey);
+            transition: fill 0.3s ease;
+        }
+        .footer-social a:hover svg {
+            fill: var(--teal);
+        }
+        .footer-col h4 {
+            font-family: var(--font-barlow-condensed);
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .footer-col ul li a {
+            color: var(--lightgrey);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+        .footer-col ul li a:hover {
+            color: var(--teal);
+        }
+        .footer-divider {
+            border: none;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.05);
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+        }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--lightgrey);
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
@@ -3092,7 +1769,6 @@
             <li><a href="#about">About</a></li>
             <li><a href="#gallery">Portfolio</a></li>
             <li><a href="#process">Process</a></li>
-            <li><a href="#quote" class="nav-cta">Get a Quote</a></li>
         </ul>
         <div class="hamburger" id="hamburger">
             <span></span>
@@ -3128,10 +1804,6 @@
             <hr class="teal-line hero-divider" style="width: 60px; height: 3px; background: linear-gradient(to right, transparent, var(--teal), transparent); border: none; margin: 1rem auto 0;">
             <p class="hero-subtitle" style="font-size: clamp(1.1rem, 2.2vw, 1.3rem);">Custom vinyl graphics, decals, signage, and printing — delivered with precision equipment and an eye for detail. Serving from the North Shore of Nova Scotia.</p>
             <div class="hero-buttons">
-                <a href="#quote" class="btn-primary">
-                    Start Your Project
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
                 <a href="#gallery" class="btn-secondary">View Our Work</a>
             </div>
         </div>
@@ -3180,26 +1852,18 @@
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
                     </div>
                     <h3>Vehicle Graphics</h3>
-                    <p>Custom vinyl graphics for trucks, vans, and trailers that transform your fleet into mobile billboards. We use premium cast vinyl for conformability on complex curves and lasting durability.</p>
+                    <p>Transform cars, trucks, and entire commercial fleets into mobile billboards with durable cast vinyl. Also featuring custom boat names and registration license numbers.</p>
                 </div>
 
                 <div class="service-card reveal reveal-delay-2">
                     <div class="service-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
                     </div>
-                    <h3>Window Graphics</h3>
-                    <p>Static-cling, frosted, and printed window graphics that add privacy, branding, and visual impact to any commercial or residential space.</p>
+                    <h3>Small & Large Format Printing</h3>
+                    <p>High-resolution digital printing on vinyl, paper, fabric, and rigid substrates. From business cards to large-format banners, we handle it all in-house.</p>
                 </div>
 
                 <div class="service-card reveal reveal-delay-3">
-                    <div class="service-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                    </div>
-                    <h3>Fleet Branding</h3>
-                    <p>Turn every vehicle on your team into a moving advertisement. We design and install cohesive fleet graphics that build brand recognition across your entire operation.</p>
-                </div>
-
-                <div class="service-card reveal reveal-delay-1">
                     <div class="service-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
                     </div>
@@ -3207,20 +1871,12 @@
                     <p>Precision-cut vinyl decals and custom labels for products, equipment, packaging, and displays. Our computer-controlled cutting ensures pixel-perfect accuracy every time.</p>
                 </div>
 
-                <div class="service-card reveal reveal-delay-2">
+                <div class="service-card reveal reveal-delay-1">
                     <div class="service-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
                     </div>
-                    <h3>Signage & Banners</h3>
+                    <h3>Signage</h3>
                     <p>Indoor and outdoor signage built to withstand the elements. From storefront signs to event banners, we produce graphics that make a lasting impression.</p>
-                </div>
-
-                <div class="service-card reveal reveal-delay-3">
-                    <div class="service-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-                    </div>
-                    <h3>Laminated Finishes</h3>
-                    <p>All our graphics are laminated for UV protection and scratch resistance, ensuring your investment looks pristine for years — not just months.</p>
                 </div>
             </div>
         </div>
@@ -3232,7 +1888,7 @@
             <div class="about-grid">
                 <div class="about-image-wrapper reveal">
                     <div class="about-image">
-                        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80" alt="Vinyl graphics production workspace with professional equipment">
+                        <img src="equipment_images/roland_truevis_sg3_300.png" alt="Roland TrueVis SG3-300 Print & Cut — professional vinyl graphics production">
                         <div class="about-image-overlay"></div>
                     </div>
                     <div class="about-accent-box">
@@ -3252,7 +1908,7 @@
                                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><line x1="12" y1="12" x2="12" y2="15"/></svg>
                             </div>
                             <div class="equipment-info">
-                                <h4>Roland SG-300 Printer</h4>
+                                <h4>Roland TrueVis SG3-300 Print & Cut</h4>
                                 <p>Solvent-grade wide-format printing with vibrant, fade-resistant colors and 1440dpi resolution</p>
                             </div>
                         </div>
@@ -3262,7 +1918,7 @@
                                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
                             </div>
                             <div class="equipment-info">
-                                <h4>GCC Jaguar Cutter</h4>
+                                <h4>GCC Puma IV LX Cutter</h4>
                                 <p>Computer-controlled plotter for pixel-perfect die-cutting of logos, lettering, and intricate designs</p>
                             </div>
                         </div>
@@ -3385,11 +2041,16 @@
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
+            <div class="contact-header reveal" style="text-align: center; margin-bottom: 4rem;">
+                <div class="section-label" style="justify-content: center;">Get In Touch</div>
+                <h2 class="section-title">Let's Talk About Your Project</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">Whether you need a single vehicle graphic or a full fleet branding overhaul, we're here to help. Reach out and let's discuss how we can bring your vision to life.</p>
+            </div>
+
             <div class="contact-grid">
                 <div class="contact-info reveal">
-                    <div class="section-label">Get In Touch</div>
-                    <h2 class="section-title">Let's Talk About<br>Your Project</h2>
-                    <p>Whether you need a single vehicle graphic or a full fleet branding overhaul, we're here to help. Reach out and let's discuss how we can bring your vision to life.</p>
+                    <h3>Contact Information</h3>
+                    <p>Ready to start your project or have questions about materials and specs? Get in touch with our team directly.</p>
 
                     <div class="contact-details">
                         <div class="contact-detail">
@@ -3434,224 +2095,41 @@
                     </div>
                 </div>
 
-                <div class="map-wrapper reveal reveal-delay-2">
-                    <div class="map-container">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2840.5!2d-63.3681!3d45.2735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4b57c6b5e4e4b5ef%3A0x0!2s70+Skinners+Cove+East+Road%2C+Melville%2C+NS!5e0!3m2!1sen!2sca!4v1700000000000!5m2!1sen!2sca"
-                            title="The Graphics Shop location"
-                            allowfullscreen=""
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                        <div class="map-overlay">
-                            <div class="map-overlay-pin">
-                                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                <div class="reveal reveal-delay-2">
+                    <form id="contact-form" class="contact-form" action="#" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contact-name">Name *</label>
+                                <input type="text" id="contact-name" name="name" placeholder="Your Name" required>
                             </div>
-                            <div>
-                                <div class="map-overlay-title">The Graphics Shop</div>
-                                <div class="map-overlay-address">70 Skinners Cove East Road, Melville, NS</div>
+                            <div class="form-group">
+                                <label for="contact-email">Email *</label>
+                                <input type="email5" id="contact-email" name="email" placeholder="your@email.com" required>
                             </div>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label for="contact-service">Service Needed</label>
+                            <select id="contact-service" name="service">
+                                <option value="" disabled selected>Select a service...</option>
+                                <option value="vehicle">Vehicle Graphics &amp; Wraps</option>
+                                <option value="fleet">Fleet Branding</option>
+                                <option value="window">Window Graphics</option>
+                                <option value="decals">Decals &amp; Labels</option>
+                                <option value="signage">Signage &amp; Banners</option>
+                                <option value="other">Other Custom Project</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Project Details *</label>
+                            <textarea id="contact-message" name="message" placeholder="Tell us about your project, dimensions, or timelines..." required></textarea>
+                        </div>
+                        <button type="submit" class="form-submit">Send Message</button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Quote Section -->
-    <section class="quote-section" id="quote">
-        <div class="container">
-            <div class="quote-header reveal">
-                <div class="section-label">Get a Quote</div>
-                <h2 class="section-title">Start Your<br>Project Today</h2>
-                <p class="section-subtitle">Tell us about your project and get a free estimate. Our team will respond within 1 business day.</p>
-            </div>
-
-            <div class="quote-container reveal">
-                <div class="quote-grid">
-                    <!-- LEFT: Form Fields -->
-                    <div class="quote-form-row">
-                        <form id="quoteForm" class="quote-form">
-
-                            <!-- Row 1: Product | Material | Laminate | Substrate (4 cols) -->
-                            <div class="quote-row four-col">
-                                <div class="quote-field">
-                                    <label>Product / Service</label>
-                                    <select id="serviceSelect" name="serviceType" required>
-                                        <option value="">Select product…</option>
-                                        <option value="decals">Decals &amp; Stickers</option>
-                                        <option value="labels">Labels</option>
-                                        <option value="storefront">Storefront Graphics</option>
-                                        <option value="vehicle">Vehicle Graphics</option>
-                                        <option value="signage">Signage</option>
-                                        <option value="smallformat">Small Format Print</option>
-                                        <option value="largeformat">Large Format Print</option>
-                                        <option value="businesscards">Business Cards</option>
-                                        <option value="custom">Custom Project</option>
-                                    </select>
-                                </div>
-                                <div class="quote-field">
-                                    <label>Material</label>
-                                    <select id="materialSelect" name="materialType">
-                                        <option value="standard">Standard Vinyl</option>
-                                        <option value="premium">Premium Vinyl</option>
-                                        <option value="clear">Clear Vinyl</option>
-                                        <option value="magnetic">Magnetic</option>
-                                        <option value="perforated">Perforated One-Way</option>
-                                        <option value="other">Not Sure</option>
-                                    </select>
-                                </div>
-                                <div class="quote-field">
-                                    <label>Laminate</label>
-                                    <select id="laminateSelect" name="laminateType">
-                                        <option value="gloss">Gloss</option>
-                                        <option value="matte">Matte</option>
-                                        <option value="satin">Satin</option>
-                                        <option value="none">None</option>
-                                    </select>
-                                </div>
-                                <div class="quote-field">
-                                    <label>Substrate</label>
-                                    <select id="substrateSelect" name="substrateType">
-                                        <option value="">Select substrate…</option>
-                                        <option value="4mm-coroplast">4mm Coroplast</option>
-                                        <option value="6mm-coroplast">6mm Coroplast</option>
-                                        <option value="8mm-coroplast">8mm Coroplast</option>
-                                        <option value="10mm-coroplast">10mm Coroplast</option>
-                                        <option value="3mm-alupanel">3mm Alupanel</option>
-                                        <option value="6mm-alupanel">6mm Alupanel</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <!-- Row 2: Width | Height | Qty | Design | Installation (5 cols) -->
-                            <div class="quote-row five-col">
-                                <div class="quote-field quote-dim">
-                                    <label>WIDTH (IN)</label>
-                                    <input type="number" id="dimWidth" name="dimWidth" placeholder="W" min="0.5" step="0.5">
-                                </div>
-                                <div class="quote-field quote-dim">
-                                    <label>HEIGHT (IN)</label>
-                                    <input type="number" id="dimHeight" name="dimHeight" placeholder="H" min="0.5" step="0.5">
-                                </div>
-                                <div class="quote-field quote-qty">
-                                    <label>Qty</label>
-                                    <div class="quantity-control">
-                                        <button type="button" class="quantity-btn" id="qtyMinus">−</button>
-                                        <input type="number" id="quantity" name="quantity" class="quantity-input" value="1" min="1" max="10000" step="1">
-                                        <button type="button" class="quantity-btn" id="qtyPlus">+</button>
-                                    </div>
-                                </div>
-                                <div class="quote-field">
-                                    <label class="checkbox-inline-label">
-                                        <input type="checkbox" id="designHelp" name="designHelp">
-                                        <span>Design required?</span>
-                                    </label>
-                                </div>
-                                <div class="quote-field">
-                                    <label class="checkbox-inline-label">
-                                        <input type="checkbox" id="installServices" name="installServices">
-                                        <span>Installation required?</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- Row 3: Project Description | File Upload (2 cols) -->
-                            <div class="quote-row two-col">
-                                <div class="quote-field">
-                                    <label>Project Description</label>
-                                    <textarea id="description" name="description" placeholder="Colors, deadline, surface details, or any special requirements…"></textarea>
-                                </div>
-                                <div class="quote-field">
-                                    <label>Upload File(s)</label>
-                                    <div class="file-upload-area" id="fileUploadArea">
-                                        <input type="file" id="fileUpload" name="fileUpload" multiple accept=".pdf,.ai,.psd,.svg,.png,.jpg,.jpeg,.eps,.webp">
-                                        <div class="file-upload-icon">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                                <polyline points="17 8 12 3 7 8"/>
-                                                <line x1="12" y1="3" x2="12" y2="15"/>
-                                            </svg>
-                                            <span class="file-upload-text">Upload file(s)</span>
-                                            <span class="file-upload-hint">PDF, AI, PSD, SVG, PNG, JPG</span>
-                                        </div>
-                                        <div class="file-name-display" id="fileNameDisplay"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Row 4: Name | Email | Phone | Company (4 cols) -->
-                            <div class="quote-row four-col">
-                                <div class="quote-field">
-                                    <label>Name *</label>
-                                    <input type="text" id="contactName" name="contactName" placeholder="Your name" required>
-                                </div>
-                                <div class="quote-field">
-                                    <label>Email *</label>
-                                    <input type="email" id="contactEmail" name="contactEmail" placeholder="you@example.com" required>
-                                </div>
-                                <div class="quote-field">
-                                    <label>Phone</label>
-                                    <input type="tel" id="contactPhone" name="contactPhone" placeholder="289 000 0000">
-                                </div>
-                                <div class="quote-field">
-                                    <label>Company</label>
-                                    <input type="text" id="contactCompany" name="contactCompany" placeholder="Company">
-                                </div>
-                            </div>
-
-                            <!-- Row 5: Submit button (full width) -->
-                            <div class="quote-row submit-row">
-                                <button type="submit" class="submit-btn">
-                                    <span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg></span>
-                                    <span class="btn-text">Request Quote</span>
-                                </button>
-                            </div>
-
-                            <p class="form-footer">We typically respond within 1 business day.</p>
-
-                            <p class="quote-disclaimer">All quotes are estimates based on standard production timelines and materials. Final pricing may vary depending on project complexity, file preparation, and installation requirements. We use premium commercial-grade materials from leading manufacturers, all backed by our quality guarantee. Professional installation available for all project types.</p>
-                        </form>
-                    </div>
-
-                    <!-- RIGHT: Estimate Panel -->
-                    <div class="estimate-panel">
-                        <h3>Estimate Area</h3>
-                        <p class="estimate-subtitle">Real-time pricing as you configure your project.</p>
-
-                        <div class="estimate-breakdown-box">
-                            <div class="estimate-breakdown-title">Basic Breakdown</div>
-                            <div class="estimate-line">
-                                <span class="est-label">Base Price</span>
-                                <span class="est-value" id="estBase">$0.00</span>
-                            </div>
-                            <div class="estimate-line">
-                                <span class="est-label">Material Upgrade</span>
-                                <span class="est-value" id="estMaterial">$0.00</span>
-                            </div>
-                            <div class="estimate-line">
-                                <span class="est-label">Laminate</span>
-                                <span class="est-value" id="estLaminate">$0.00</span>
-                            </div>
-                            <div class="estimate-line">
-                                <span class="est-label">Quantity</span>
-                                <span class="est-value" id="estQty">x1</span>
-                            </div>
-                            <div class="estimate-line-total">
-                                <span>Estimated Total</span>
-                                <span id="estTotal">$0.00</span>
-                            </div>
-                        </div>
-
-                        <div class="estimate-deposit-note">
-                            <strong>Deposit Required</strong>
-                            <p>Note: 50% deposit required on all custom projects. The remaining balance is due upon completion before delivery or installation.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer>
@@ -3821,251 +2299,6 @@
             });
         });
 
-        // ===== QUANTITY BUTTONS =====
-        document.getElementById('qtyMinus').addEventListener('click', function() {
-            const input = document.getElementById('quantity');
-            let val = parseInt(input.value) || 1;
-            if (val > 1) {
-                input.value = val - 1;
-                calculateEstimate();
-            }
-        });
-
-        document.getElementById('qtyPlus').addEventListener('click', function() {
-            const input = document.getElementById('quantity');
-            let val = parseInt(input.value) || 1;
-            if (val < 10000) {
-                input.value = val + 1;
-                calculateEstimate();
-            }
-        });
-
-        // ===== QUOTE CALCULATOR =====
-        const servicePricing = {
-            decals:        { sqftLow: 5,   sqftHigh: 9,   perUnitLow: 2,  perUnitHigh: 5,  setupLow: 10,  setupHigh: 20  },
-            labels:        { sqftLow: 8,   sqftHigh: 14,  perUnitLow: 1.50, perUnitHigh: 4, setupLow: 15,  setupHigh: 30  },
-            storefront:    { sqftLow: 6,   sqftHigh: 12,  perUnitLow: 5,  perUnitHigh: 10, setupLow: 50,  setupHigh: 100 },
-            vehicle:       { sqftLow: 8,   sqftHigh: 18,  perUnitLow: 8,  perUnitHigh: 18, setupLow: 40,  setupHigh: 80  },
-            signage:       { sqftLow: 10,  sqftHigh: 20,  perUnitLow: 15, perUnitHigh: 35, setupLow: 50,  setupHigh: 120 },
-            businesscards: { sqftLow: 0,   sqftHigh: 0,   perUnitLow: 25, perUnitHigh: 60, setupLow: 20,  setupHigh: 50  },
-            smallformat:   { sqftLow: 5,   sqftHigh: 12,  perUnitLow: 3,  perUnitHigh: 8,  setupLow: 10,  setupHigh: 25  },
-            largeformat:   { sqftLow: 6,   sqftHigh: 14,  perUnitLow: 5,  perUnitHigh: 12, setupLow: 25,  setupHigh: 60  },
-            custom:        { sqftLow: 0,   sqftHigh: 0,   perUnitLow: 50, perUnitHigh: 200, setupLow: 50, setupHigh: 150 }
-        };
-
-        const materialMultipliers = {
-            standard: 1.0,
-            premium: 1.25,
-            clear: 1.35,
-            magnetic: 1.5,
-            perforated: 1.2,
-            other: 1.1
-        };
-
-        const laminateMultipliers = {
-            gloss: 1.0,
-            matte: 1.08,
-            satin: 1.05,
-            none: 1.0
-        };
-
-        function getQuantityDiscount(qty) {
-            if (qty >= 100) return 0.20;
-            if (qty >= 50) return 0.15;
-            if (qty >= 25) return 0.10;
-            if (qty >= 10) return 0.05;
-            return 0;
-        }
-
-        function calculateEstimate() {
-            const serviceType = document.getElementById('serviceSelect').value;
-            const quantity = parseInt(document.getElementById('quantity').value) || 1;
-            const dimWidth = parseFloat(document.getElementById('dimWidth').value) || 0;
-            const dimHeight = parseFloat(document.getElementById('dimHeight').value) || 0;
-            const materialType = document.getElementById('materialSelect').value;
-            const laminateType = document.getElementById('laminateSelect').value;
-            const designHelp = document.getElementById('designHelp').checked;
-            const installServices = document.getElementById('installServices').checked;
-
-            const estBaseEl = document.getElementById('estBase');
-            const estMatEl = document.getElementById('estMaterial');
-            const estLamEl = document.getElementById('estLaminate');
-            const estQtyEl = document.getElementById('estQty');
-            const estTotalEl = document.getElementById('estTotal');
-
-            if (!serviceType) {
-                estBaseEl.textContent = '$0.00';
-                estMatEl.textContent = '$0.00';
-                estLamEl.textContent = '$0.00';
-                estQtyEl.textContent = 'x1';
-                estTotalEl.textContent = '$0.00';
-                return;
-            }
-
-            const pricing = servicePricing[serviceType];
-            const matMult = materialMultipliers[materialType] || 1.0;
-            const finishMult = laminateMultipliers[laminateType] || 1.0;
-            const qtyDiscount = getQuantityDiscount(quantity);
-
-            let sqft = 0;
-            if (dimWidth > 0 && dimHeight > 0) {
-                sqft = (dimWidth / 12) * (dimHeight / 12);
-            }
-
-            let unitLow = 0;
-            let unitHigh = 0;
-
-            if (serviceType === 'businesscards') {
-                const basePer500Low = pricing.perUnitLow * Math.max(quantity, Math.ceil(quantity / 500) * 500) / 500;
-                const basePer500High = pricing.perUnitHigh * Math.max(quantity, Math.ceil(quantity / 500) * 500) / 500;
-                unitLow = basePer500Low;
-                unitHigh = basePer500High;
-            } else if (sqft > 0) {
-                unitLow = sqft * pricing.sqftLow;
-                unitHigh = sqft * pricing.sqftHigh;
-            } else {
-                unitLow = pricing.perUnitLow;
-                unitHigh = pricing.perUnitHigh;
-            }
-
-            let baseLow = (unitLow + pricing.setupLow) * quantity * (1 - qtyDiscount);
-            let baseHigh = (unitHigh + pricing.setupHigh) * quantity * (1 - qtyDiscount);
-
-            let matExtra = (unitLow + pricing.setupLow) * quantity * (matMult - 1) * (1 - qtyDiscount);
-            let lamExtra = (unitLow + pricing.setupLow) * quantity * (finishMult - 1) * (1 - qtyDiscount);
-
-            let totalLow = baseLow + matExtra + lamExtra;
-            let totalHigh = baseHigh + matExtra + lamExtra;
-
-            if (designHelp) {
-                totalLow += 75;
-                totalHigh += 200;
-            }
-
-            if (installServices) {
-                totalLow += 75;
-                totalHigh += 200;
-            }
-
-            totalLow = Math.max(totalLow, pricing.setupLow * 0.5);
-            totalHigh = Math.max(totalHigh, totalLow * 1.0);
-
-            const baseAvg = Math.round((totalLow + totalHigh) / 2);
-
-            estBaseEl.textContent = '$' + baseAvg.toLocaleString();
-            estMatEl.textContent = matMult !== 1.0 ? '+$' + Math.round(matExtra).toLocaleString() : '$0.00';
-            estLamEl.textContent = finishMult !== 1.0 ? '+$' + Math.round(lamExtra).toLocaleString() : '$0.00';
-            estQtyEl.textContent = 'x' + quantity.toLocaleString();
-            estTotalEl.textContent = '$' + baseAvg.toLocaleString();
-
-            estTotalEl.style.color = 'var(--teal)';
-        }
-
-        function animateValue(el, finalLow, finalHigh, isLow) {
-            const target = isLow ? finalLow : finalHigh;
-            const startText = el.textContent.replace(/[$,]/g, '');
-            const startNum = parseFloat(startText) || 0;
-            const duration = 400;
-            const startTime = performance.now();
-
-            function step(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const eased = 1 - Math.pow(1 - progress, 3);
-                const current = startNum + (target - startNum) * eased;
-                el.textContent = '$' + Math.round(current).toLocaleString();
-                if (progress < 1) {
-                    requestAnimationFrame(step);
-                }
-            }
-
-            requestAnimationFrame(step);
-        }
-
-        const calcInputs = ['serviceSelect', 'quantity', 'dimWidth', 'dimHeight', 'designHelp', 'installServices', 'materialSelect', 'laminateSelect'];
-        calcInputs.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) {
-                el.addEventListener('change', calculateEstimate);
-                el.addEventListener('input', calculateEstimate);
-            }
-        });
-
-        // File upload display
-        const fileInput = document.getElementById('fileUpload');
-        const fileNameDisplay = document.getElementById('fileNameDisplay');
-        if (fileInput) {
-            fileInput.addEventListener('change', function() {
-                if (this.files.length > 0) {
-                    const names = Array.from(this.files).map(f => f.name).join(', ');
-                    fileNameDisplay.textContent = this.files.length === 1 ? names : names + ' (+' + (this.files.length - 1) + ' more)';
-                } else {
-                    fileNameDisplay.textContent = '';
-                }
-            });
-        }
-
-        document.getElementById('quoteForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
-
-            const serviceEl = document.getElementById('serviceSelect');
-            const serviceName = serviceEl.options[serviceEl.selectedIndex].text;
-
-            let body = 'QUOTE REQUEST\n';
-            body += '===================\n\n';
-            body += 'Service: ' + serviceName + '\n';
-            body += 'Quantity: ' + (data.quantity || 'N/A') + '\n';
-
-            if (data.dimWidth || data.dimHeight) {
-                body += 'Dimensions: ' + (data.dimWidth || 'N/A') + '" x ' + (data.dimHeight || 'N/A') + '"\n';
-            }
-
-            if (data.materialType) {
-                const matMap = {standard:'Standard Vinyl',premium:'Premium Vinyl',clear:'Clear Vinyl',magnetic:'Magnetic',perforated:'Perforated One-Way',other:'Not Sure'};
-                body += 'Material: ' + (matMap[data.materialType] || data.materialType) + '\n';
-            }
-
-            if (data.laminateType) {
-                const lamMap = {gloss:'Gloss',matte:'Matte',satin:'Satin',none:'None'};
-                body += 'Laminate: ' + (lamMap[data.laminateType] || data.laminateType) + '\n';
-            }
-
-            body += 'Design Help Required: ' + (data.designHelp ? 'Yes' : 'No') + '\n';
-            body += 'Installation Services: ' + (data.installServices ? 'Yes' : 'No') + '\n';
-
-            const fileInput = document.getElementById('fileUpload');
-            if (fileInput && fileInput.files.length > 0) {
-                body += 'Attached Files: ' + Array.from(fileInput.files).map(f => f.name).join(', ') + '\n';
-            }
-
-            body += '\nProject Details:\n' + (data.description || 'None provided') + '\n';
-            body += '\n--- CONTACT INFO ---\n';
-            body += 'Name: ' + data.contactName + '\n';
-            body += 'Email: ' + data.contactEmail + '\n';
-            body += 'Phone: ' + (data.contactPhone || 'N/A') + '\n';
-            body += 'Company: ' + (data.contactCompany || 'N/A') + '\n';
-
-            const subject = encodeURIComponent('Quote Request - ' + serviceName);
-            const mailBody = encodeURIComponent(body);
-            window.location.href = 'mailto:info@thegraphicsshop.ca?subject=' + subject + '&body=' + mailBody;
-
-            const btn = this.querySelector('button[type="submit"]');
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.05l-5-5"/></svg> Quote Request Opened — We\'ll be in touch!';
-            btn.style.pointerEvents = 'none';
-            btn.style.opacity = '0.7';
-            setTimeout(() => {
-                btn.innerHTML = originalHTML;
-                btn.style.pointerEvents = '';
-                btn.style.opacity = '';
-                this.reset();
-                document.getElementById('quantity').value = 1;
-                calculateEstimate();
-            }, 4000);
-        });
 
         // ===== PARALLAX EFFECT ON HERO SHAPES =====
         window.addEventListener('mousemove', (e) => {
