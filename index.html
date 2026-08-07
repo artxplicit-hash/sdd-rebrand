@@ -828,77 +828,241 @@
             color: var(--lightgrey);
         }
 
-        /* ===== GALLERY SECTION ===== */
+        /* ===== PORTFOLIO / GALLERY SECTION ===== */
         .gallery {
             background: var(--darkgrey);
+            overflow: hidden;
         }
 
         .gallery-header {
             display: flex;
             justify-content: space-between;
             align-items: end;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
             gap: 1rem;
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(2, 280px);
-            gap: 1.25rem;
+        /* Category Filter Tabs */
+        .gallery-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
         }
 
-        .gallery-item {
+        .gallery-tab {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--lightgrey);
+            font-family: var(--font-barlow-condensed);
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-tab:hover {
+            color: var(--white);
+            border-color: var(--teal);
+        }
+
+        .gallery-tab.active {
+            background: var(--teal);
+            color: #2B3139;
+            border-color: var(--teal);
+        }
+
+        /* Horizontal Scrolling Gallery Strip */
+        .gallery-strip-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .gallery-strip {
+            display: flex;
+            gap: 1.25rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 0.5rem;
+            scrollbar-width: none;
+        }
+
+        .gallery-strip::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-card {
+            flex: 0 0 auto;
+            width: 320px;
+            scroll-snap-align: start;
             border-radius: 16px;
             overflow: hidden;
             position: relative;
             cursor: pointer;
+            background: var(--dark);
         }
 
-        .gallery-item img {
+        .gallery-card img {
             width: 100%;
-            height: 100%;
+            height: 240px;
             object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            display: block;
             filter: saturate(0.85) contrast(1.05);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
         }
 
-        .gallery-item:hover img {
-            transform: scale(1.08);
+        .gallery-card:hover img {
+            transform: scale(1.06);
+            filter: saturate(1) contrast(1.1);
         }
 
-        .gallery-overlay {
+        .gallery-card-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(22, 25, 30, 0.8) 0%, transparent 60%);
+            background: linear-gradient(to top, rgba(22, 25, 30, 0.85) 0%, transparent 50%);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.3s ease;
             display: flex;
             align-items: end;
-            padding: 1.5rem;
+            padding: 1.25rem;
         }
 
-        .gallery-item:hover .gallery-overlay {
+        .gallery-card:hover .gallery-card-overlay {
             opacity: 1;
         }
 
-        .gallery-overlay span {
+        .gallery-card-info h4 {
             color: var(--white);
             font-family: var(--font-barlow-condensed);
-            font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             letter-spacing: 0.05em;
             text-transform: uppercase;
+            margin-bottom: 0.25rem;
         }
 
-        .gallery-item:nth-child(1) {
-            grid-column: span 2;
-            grid-row: span 2;
+        .gallery-card-info span {
+            color: var(--teal-light);
+            font-family: var(--font-barlow);
+            font-size: 0.78rem;
+            opacity: 0.8;
         }
 
-        .gallery-item:nth-child(4) {
-            grid-column: span 2;
+        /* Lightbox */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(22, 25, 30, 0.95);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-image-wrapper {
+            position: relative;
+            max-width: 90vw;
+            max-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .lightbox-image-wrapper img {
+            max-width: 100%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(22, 25, 30, 0.75);
+            backdrop-filter: blur(8px);
+            padding: 0.85rem 1.25rem;
+            text-align: center;
+            color: var(--white);
+            font-family: var(--font-barlow-condensed);
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 0;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            color: var(--teal);
+        }
+
+        .lightbox-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(43, 49, 57, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--white);
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10001;
+        }
+
+        .lightbox-arrow-left {
+            left: 2rem;
+        }
+
+        .lightbox-arrow-right {
+            right: 2rem;
+        }
+
+        .lightbox-arrow:hover {
+            background: var(--teal);
+            color: #2B3139;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--lightgrey);
+            font-family: var(--font-barlow-condensed);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
         }
 
         /* ===== STATS SECTION ===== */
@@ -1655,20 +1819,44 @@
         }
 
 
+
+        /* ===== QUOTE SECTION ===== */
+        .quote-section {
+            background: var(--dark);
+        }
+
+        .quote-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .quote-card {
+            background: var(--darkgrey);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .quote-form .form-group label {
+            color: var(--lightgrey);
+        }
+
+        @media (max-width: 768px) {
+            .quote-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: auto;
+            .gallery-card {
+                width: 280px;
             }
 
-            .gallery-item:nth-child(1) {
-                grid-column: span 2;
-                grid-row: span 1;
-                height: 350px;
+            .gallery-strip {
+                gap: 1rem;
             }
-
-            .gallery-item { height: 250px; }
 
             .footer-grid {
                 grid-template-columns: 1fr;
@@ -1716,16 +1904,17 @@
                 gap: 2.5rem;
             }
 
-            .gallery-grid {
-                grid-template-columns: 1fr;
+            .gallery-card {
+                width: 260px;
             }
 
-            .gallery-item:nth-child(1) {
-                grid-column: span 1;
-                height: 300px;
+            .lightbox-arrow-left {
+                left: -10px;
             }
 
-            .gallery-item { height: 250px; }
+            .lightbox-arrow-right {
+                right: -10px;
+            }
 
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -1817,23 +2006,28 @@
     <!-- Ticker -->
     <div class="ticker">
         <div class="ticker-track">
-            <div class="ticker-item"><div class="ticker-dot"></div><span>Vinyl Graphics</span></div>
             <div class="ticker-item"><div class="ticker-dot"></div><span>Vehicle Graphics</span></div>
-            <div class="ticker-item"><div class="ticker-dot"></div><span>Fleet Branding</span></div>
-            <div class="ticker-item"><div class="ticker-dot"></div><span>Window Graphics</span></div>
-            <div class="ticker-item"><div class="ticker-dot"></div><span>Custom Signage</span></div>
-            <div class="ticker-item"><div class="ticker-dot"></div><span>Wall Murals</span></div>
-            <div class="ticker-item"><div class="ticker-dot"></div><span>Decals &amp; Labels</span></div>
-            <div class="ticker-item"><div class="ticker-dot"></div><span>Laminated Finishes</span></div>
-            <!-- Duplicate for seamless loop -->
-            <div class="ticker-item"><div class="ticker-dot"></div><span>Vinyl Graphics</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Signage</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Decals</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Labels</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Banners</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Storefront</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Magnets</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Business Cards</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Flyers</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Promotional Items</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Clothing</span></div>
             <div class="ticker-item"><div class="ticker-dot"></div><span>Vehicle Graphics</span></div>
-            <div class="ticker-item"><div class="ticker-dot"></div><span>Fleet Branding</span></div>
-            <div class="ticker-item"><div class="ticker-dot"></div><span>Window Graphics</span></div>
-            <div class="ticker-item"><div class="ticker-dot"></div><span>Custom Signage</span></div>
-            <div class="ticker-item"><div class="ticker-dot"></div><span>Wall Murals</span></div>
-            <div class="ticker-item"><div class="ticker-dot"></div><span>Decals &amp; Labels</span></div>
-            <div class="ticker-item"><div class="ticker-dot"></div><span>Laminated Finishes</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Signage</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Decals</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Labels</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Banners</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Storefront</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Magnets</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Business Cards</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Flyers</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Promotional Items</span></div>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>Clothing</span></div>
         </div>
     </div>
 
@@ -1946,33 +2140,27 @@
                     <div class="section-label">Our Work</div>
                     <h2 class="section-title">Crafted with Precision</h2>
                 </div>
-                <a href="https://www.instagram.com/specialtydd" target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 0.75rem 1.5rem; font-size: 0.85rem;">
+                <a href="https://www.instagram.com/thegraphicsshop" target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 0.75rem 1.5rem; font-size: 0.85rem;">
                     Follow on Instagram
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 </a>
             </div>
 
-            <div class="gallery-grid">
-                <div class="gallery-item reveal">
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=900&q=80" alt="Vehicle wrap with bold branding graphics on a commercial van">
-                    <div class="gallery-overlay"><span>Custom Vehicle Graphics</span></div>
-                </div>
-                <div class="gallery-item reveal reveal-delay-1">
-                    <img src="https://images.unsplash.com/photo-1588647022690-3b20694c01fe?w=600&q=80" alt="Custom die-cut logo applied to glass storefront window">
-                    <div class="gallery-overlay"><span>Window Graphics</span></div>
-                </div>
-                <div class="gallery-item reveal reveal-delay-2">
-                    <img src="https://images.unsplash.com/photo-1562577309-4932fdd64cd1?w=600&q=80" alt="Fleet branding on multiple commercial vehicles with consistent graphics">
-                    <div class="gallery-overlay"><span>Fleet Branding</span></div>
-                </div>
-                <div class="gallery-item reveal reveal-delay-3">
-                    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900&q=80" alt="Modern office wall with large format vinyl mural graphics and branding">
-                    <div class="gallery-overlay"><span>Wall Murals & Signage</span></div>
-                </div>
-                <div class="gallery-item reveal reveal-delay-4">
-                    <img src="https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=600&q=80" alt="Close-up of precision-cut vinyl lettering with clean edges and professional finish">
-                    <div class="gallery-overlay"><span>Precision Die-Cut</span></div>
-                </div>
+            <!-- Category Filter Tabs -->
+            <div class="gallery-tabs reveal" id="galleryTabs">
+                <button class="gallery-tab active" data-category="all">All Work</button>
+                <button class="gallery-tab" data-category="vehicles">Vehicles</button>
+                <button class="gallery-tab" data-category="signage">Signage</button>
+                <button class="gallery-tab" data-category="large_format">Large Format</button>
+                <button class="gallery-tab" data-category="decals_labels">Decals &amp; Labels</button>
+                <button class="gallery-tab" data-category="graphic_design">Graphic Design</button>
+                <button class="gallery-tab" data-category="small_format">Small Format</button>
+                <button class="gallery-tab" data-category="promo">Promo Items</button>
+            </div>
+
+            <!-- Horizontal Scrolling Gallery Strip -->
+            <div class="gallery-strip-wrapper reveal">
+                <div class="gallery-strip" id="galleryStrip"></div>
             </div>
         </div>
     </section>
@@ -2038,6 +2226,104 @@
         </div>
     </section>
 
+    <!-- Quote Request Sections -->
+    <section class="quote-section" id="quotes">
+        <div class="container">
+            <div class="quote-header reveal" style="text-align: center; margin-bottom: 4rem;">
+                <div class="section-label" style="justify-content: center;">Get a Quote</div>
+                <h2 class="section-title">Request a Free Quote</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">Tell us about your project and we will get back to you with a detailed quote. Choose the category that best fits your needs.</p>
+            </div>
+
+            <div class="quote-grid">
+                <!-- Signage & Decals Quote -->
+                <div class="quote-card reveal reveal-delay-1">
+                    <h3 style="font-family: var(--font-barlow-condensed); font-weight: 700; color: var(--teal); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.08em;">Signage &amp; Decals Quote</h3>
+                    <form class="quote-form" action="https://formsubmit.co/info@thegraphicsshop.ca" method="POST">
+                        <input type="hidden" name="_subject" value="New Signage & Decals Quote Request">
+                        <div class="form-group">
+                            <label for="quote-signage-name">Name *</label>
+                            <input type="text" id="quote-signage-name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="quote-signage-email">Email *</label>
+                                <input type="email" id="quote-signage-email" name="email" placeholder="your@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="quote-signage-phone">Phone</label>
+                                <input type="tel" id="quote-signage-phone" name="phone" placeholder="(xxx) xxx-xxxx">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="quote-signage-type">Project Type</label>
+                            <select id="quote-signage-type" name="project_type">
+                                <option value="" disabled selected>Select project type...</option>
+                                <option value="vinyl_decals">Vinyl Decals</option>
+                                <option value="window_graphics">Window Graphics</option>
+                                <option value="storefront_signage">Storefront Signage</option>
+                                <option value="indoor_signage">Indoor Signage</option>
+                                <option value="outdoor_signage">Outdoor Signage</option>
+                                <option value="labels">Custom Labels</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quote-signage-details">Project Details *</label>
+                            <textarea id="quote-signage-details" name="details" placeholder="Describe your project - dimensions, quantities, materials..." required></textarea>
+                        </div>
+                        <button type="submit" class="form-submit" style="background: var(--teal);">Request Quote</button>
+                    </form>
+                </div>
+
+                <!-- Vehicle Graphics Quote -->
+                <div class="quote-card reveal reveal-delay-2">
+                    <h3 style="font-family: var(--font-barlow-condensed); font-weight: 700; color: var(--teal); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.08em;">Vehicle Graphics Quote</h3>
+                    <form class="quote-form" action="https://formsubmit.co/info@thegraphicsshop.ca" method="POST">
+                        <input type="hidden" name="_subject" value="New Vehicle Graphics Quote Request">
+                        <div class="form-group">
+                            <label for="quote-vehicle-name">Name *</label>
+                            <input type="text" id="quote-vehicle-name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="quote-vehicle-email">Email *</label>
+                                <input type="email" id="quote-vehicle-email" name="email" placeholder="your@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="quote-vehicle-phone">Phone</label>
+                                <input type="tel" id="quote-vehicle-phone" name="phone" placeholder="(xxx) xxx-xxxx">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="quote-vehicle-type">Vehicle Type</label>
+                                <select id="quote-vehicle-type" name="vehicle_type">
+                                    <option value="" disabled selected>Select vehicle type...</option>
+                                    <option value="car">Car / Sedan</option>
+                                    <option value="truck">Pickup Truck</option>
+                                    <option value="van">Van</option>
+                                    <option value="suv">SUV</option>
+                                    <option value="fleet">Fleet (Multiple Vehicles)</option>
+                                    <option value="boat">Boat</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="quote-vehicle-qty">Quantity</label>
+                                <input type="number" id="quote-vehicle-qty" name="quantity" placeholder="Number of vehicles" min="1" value="1">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="quote-vehicle-details">Project Details *</label>
+                            <textarea id="quote-vehicle-details" name="details" placeholder="Describe your vehicle graphics - wrap type, partial/full, design ready or need design help..." required></textarea>
+                        </div>
+                        <button type="submit" class="form-submit" style="background: var(--teal);">Request Quote</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
@@ -2058,8 +2344,8 @@
                                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                             </div>
                             <div class="contact-detail-text">
-                                <h4>Location</h4>
-                                <p>Serving Nova Scotia from the North Shore</p>
+                                <h4>Address</h4>
+                                <p>70 Skinners Cove East Road, Melville, NS</p>
                             </div>
                         </div>
 
@@ -2089,9 +2375,14 @@
                             </div>
                             <div class="contact-detail-text">
                                 <h4>Hours</h4>
-                                <p>Mon – Fri: 8AM – 5PM | Sat: 9AM – 1PM</p>
+                                <p>Mon–Fri 10AM–6PM, Sat 12PM–5PM</p>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Google Maps Embed -->
+                    <div style="margin-top: 2rem; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08);">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d46798.56!2d-64.45!3d45.65!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4b4a9e3c3c3c3c3d%3A0x0!2sMelville%2C+NS!5e0!3m2!1sen!2sca!4v1700000000000!5m2!1sen!2sca" width="100%" height="220" style="border:0; filter: invert(90%) hue-rotate(180deg) brightness(95%) contrast(90%);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
 
@@ -2123,7 +2414,11 @@
                             <label for="contact-message">Project Details *</label>
                             <textarea id="contact-message" name="message" placeholder="Tell us about your project, dimensions, or timelines..." required></textarea>
                         </div>
-                        <button type="submit" class="form-submit">Send Message</button>
+                        <div class="form-group">
+                        <label for="contact-file">Attach File(s)</label>
+                        <input type="file" id="contact-file" name="file" multiple accept=".jpg,.jpeg,.png,.pdf,.ai,.psd,.svg,.cdr" style="padding: 0.75rem 1.25rem; cursor: pointer;">
+                    </div>
+                    <button type="submit" class="form-submit">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -2140,7 +2435,7 @@
                 </a>
                 <p>Premium vinyl graphics and signage solutions. Professional-grade equipment, exceptional craftsmanship, results that speak for themselves.</p>
                 <div class="footer-social">
-                    <a href="https://www.instagram.com/specialtydd" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <a href="https://www.instagram.com/thegraphicsshop" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                         <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                     </a>
                     <a href="#" aria-label="Facebook">
@@ -2558,6 +2853,251 @@
             });
 
             buildSlider();
+        })();
+
+        // ===== PORTFOLIO GALLERY & LIGHTBOX =====
+        (function() {
+            const portfolioData = [
+                // ===== VEHICLES (22 files) =====
+                { category: 'vehicles', title: 'OBC Plumbing Van', subtitle: 'Vehicle Graphics', src: 'project_images/vehicles/obc_plumbing_van.jpg' },
+                { category: 'vehicles', title: 'Atlas Epoxy Trailer', subtitle: 'Trailer Graphics', src: 'project_images/vehicles/atlas_expoxy_trailer.jpg' },
+                { category: 'vehicles', title: 'Chads Mobile Wash Performance Wrap', subtitle: 'Vehicle Graphics', src: 'project_images/vehicles/chads_mobile_wash_perf.jpg' },
+                { category: 'vehicles', title: 'Crossgrain Trailer Branding 1', subtitle: 'Fleet & Trailers', src: 'project_images/vehicles/crossgrain_trailer1.jpg' },
+                { category: 'vehicles', title: 'Crossgrain Trailer Branding 2', subtitle: 'Fleet & Trailers', src: 'project_images/vehicles/crossgrain_trailer2.jpg' },
+                { category: 'vehicles', title: 'CV Contracting Trailer', subtitle: 'Trailer Graphics', src: 'project_images/vehicles/cv_contracting_trailer.jpg' },
+                { category: 'vehicles', title: 'Defosse Masonry Truck & Trailer 1', subtitle: 'Fleet Graphics', src: 'project_images/vehicles/defosseMasonry_truck_trailer.jpg' },
+                { category: 'vehicles', title: 'Defosse Masonry Truck & Trailer 2', subtitle: 'Fleet Graphics', src: 'project_images/vehicles/defosseMasonry_truck_trailer2.jpg' },
+                { category: 'vehicles', title: 'Doohers Bakery Delivery Fleet', subtitle: 'Vehicle Graphics', src: 'project_images/vehicles/doohers_bakery.jpg' },
+                { category: 'vehicles', title: 'Flow Efficient Plumbing Angle', subtitle: 'Vehicle Graphics', src: 'project_images/vehicles/flow_efficient_plumbing_angle.jpg' },
+                { category: 'vehicles', title: 'Flow Efficient Plumbing Side', subtitle: 'Vehicle Graphics', src: 'project_images/vehicles/flow_efficient_plumbing_side.jpg' },
+                { category: 'vehicles', title: 'Frankfords Finest Trailer', subtitle: 'Trailer Graphics', src: 'project_images/vehicles/frankfords_finest_trailer.jpg' },
+                { category: 'vehicles', title: 'James Horne Engineering', subtitle: 'Vehicle Graphics', src: 'project_images/vehicles/james_horne_engineering.jpg' },
+                { category: 'vehicles', title: 'Kiwi Epoxy Trailer', subtitle: 'Trailer Graphics', src: 'project_images/vehicles/kiwi_epoxy_trailer.jpg' },
+                { category: 'vehicles', title: 'LifeLabs Vehicle Wrap', subtitle: 'Vehicle Graphics', src: 'project_images/vehicles/lifelabs.jpg' },
+                { category: 'vehicles', title: 'Ray Anthony Trailer', subtitle: 'Trailer Graphics', src: 'project_images/vehicles/ray_anthony_trailer.jpg' },
+                { category: 'vehicles', title: 'Rock N Rail Custom Truck', subtitle: 'Vehicle Graphics', src: 'project_images/vehicles/rocknrail_truck.jpg' },
+                { category: 'vehicles', title: 'Stonehaven Trailer', subtitle: 'Trailer Graphics', src: 'project_images/vehicles/stonehaven_trailer.jpg' },
+                { category: 'vehicles', title: 'Stonehaven Truck', subtitle: 'Vehicle Graphics', src: 'project_images/vehicles/stonehaven_truck.jpg' },
+                { category: 'vehicles', title: 'Stox Truck 1', subtitle: 'Vehicle Graphics', src: 'project_images/vehicles/stox_truck.jpg' },
+                { category: 'vehicles', title: 'Stox Truck 2', subtitle: 'Vehicle Graphics', src: 'project_images/vehicles/stox_truck_2.jpg' },
+                { category: 'vehicles', title: 'Stox Truck 3', subtitle: 'Vehicle Graphics', src: 'project_images/vehicles/stox_truck_3.jpg' },
+
+                // ===== SIGNAGE (26 files) =====
+                { category: 'signage', title: '300 Donuts A-Frame 1', subtitle: 'Storefront Signage', src: 'project_images/signage/300_donuts_aframe.jpg' },
+                { category: 'signage', title: '300 Donuts A-Frame 2', subtitle: 'Storefront Signage', src: 'project_images/signage/300_donuts_aframe_b.jpg' },
+                { category: 'signage', title: 'All My Friends Beer Interior', subtitle: 'Interior Signage', src: 'project_images/signage/allMyFriendsBeer_interior_wall_graphics.jpg' },
+                { category: 'signage', title: 'BLEAF Door Wrap', subtitle: 'Storefront Graphics', src: 'project_images/signage/bleaf_door_wrap.jpg' },
+                { category: 'signage', title: 'BLEAF Fridge Wrap', subtitle: 'Appliance Graphics', src: 'project_images/signage/bleaf_fridge.jpg' },
+                { category: 'signage', title: 'BSA Coroplast 1', subtitle: 'Coroplast Signage', src: 'project_images/signage/bsa_coroplast_1.jpg' },
+                { category: 'signage', title: 'BSA Coroplast 2', subtitle: 'Coroplast Signage', src: 'project_images/signage/bsa_coroplast_2.jpg' },
+                { category: 'signage', title: 'BSA Coroplast 3', subtitle: 'Coroplast Signage', src: 'project_images/signage/bsa_coroplast_3.jpg' },
+                { category: 'signage', title: 'BSA Coroplast 4', subtitle: 'Coroplast Signage', src: 'project_images/signage/bsa_coroplast_4.jpg' },
+                { category: 'signage', title: 'Champion Automotive Alupanel', subtitle: 'Exterior Signage', src: 'project_images/signage/champion_automotive_alupanel.jpg' },
+                { category: 'signage', title: 'Custom Style Coroplast', subtitle: 'Coroplast Signage', src: 'project_images/signage/customStyle_coroplast.jpg' },
+                { category: 'signage', title: 'CV Contracting Coroplast', subtitle: 'Coroplast Signage', src: 'project_images/signage/cv_contracting_coroplast.jpg' },
+                { category: 'signage', title: 'Dunehopper Doors', subtitle: 'Signage & Graphics', src: 'project_images/signage/dunehopper_doors.jpg' },
+                { category: 'signage', title: 'Dunehopper Icons', subtitle: 'Icon Signage', src: 'project_images/signage/dunehopper_icons.jpg' },
+                { category: 'signage', title: 'DuneHopper Signage', subtitle: 'Outdoor Signage', src: 'project_images/signage/duneHopper_signage.jpg' },
+                { category: 'signage', title: 'Farmers Friend Coroplast', subtitle: 'Coroplast Signage', src: 'project_images/signage/farmersFriend_coroplast.jpg' },
+                { category: 'signage', title: 'Farmers Friend Coroplast Small JPG', subtitle: 'Coroplast Signage', src: 'project_images/signage/farmersFriend_coroplast._smalljpg.jpg' },
+                { category: 'signage', title: 'Flat Rock Farms A-Frame', subtitle: 'Signage & Banners', src: 'project_images/signage/flatRockFarms_aframe.jpg' },
+                { category: 'signage', title: 'Gas Station Graphics 1', subtitle: 'Station Graphics', src: 'project_images/signage/gas_station_1.jpg' },
+                { category: 'signage', title: 'Gas Station Graphics 2', subtitle: 'Station Graphics', src: 'project_images/signage/gas_station_2.jpg' },
+                { category: 'signage', title: 'Golf Simulator Storefront', subtitle: 'Storefront Graphics', src: 'project_images/signage/golf_simulator_storefront.jpg' },
+                { category: 'signage', title: 'Mindful Roofing Coroplast', subtitle: 'Coroplast Signage', src: 'project_images/signage/mindful_roofing_coroplast.jpg' },
+                { category: 'signage', title: 'OBC Plumbing Coroplast', subtitle: 'Coroplast Signage', src: 'project_images/signage/obc_plumbing_coroplast.jpg' },
+                { category: 'signage', title: 'Scott Reynolds Royal LePage Coroplast', subtitle: 'Real Estate Signage', src: 'project_images/signage/scott_reynolds_royalLepage_coroplast.jpg' },
+                { category: 'signage', title: 'Wired For Sound Coroplast', subtitle: 'Coroplast Signage', src: 'project_images/signage/wired_for_sound_coroplast.jpg' },
+
+                // ===== LARGE FORMAT (28 files) =====
+                { category: 'large_format', title: 'B-Awesome Wall Quote', subtitle: 'Wall Graphics', src: 'project_images/large_format/b_awesome_wall_quote.jpg' },
+                { category: 'large_format', title: 'BamBins Signage', subtitle: 'Large Format Print', src: 'project_images/large_format/bamBins.jpg' },
+                { category: 'large_format', title: 'Bedroom Wall Graphics 1', subtitle: 'Wall Graphics', src: 'project_images/large_format/bedroom_wall_graphics.jpg' },
+                { category: 'large_format', title: 'Bedroom Wall Graphics 2', subtitle: 'Wall Graphics', src: 'project_images/large_format/bedroom_wall_graphics_2.jpg' },
+                { category: 'large_format', title: 'Bedroom Wall Graphics 3', subtitle: 'Wall Graphics', src: 'project_images/large_format/bedroom_wall_graphics_3.jpg' },
+                { category: 'large_format', title: 'Bedroom Wall Graphics 4', subtitle: 'Wall Graphics', src: 'project_images/large_format/bedroom_wall_graphics_4.jpg' },
+                { category: 'large_format', title: 'Born To Dance Wall Quote', subtitle: 'Wall Graphics', src: 'project_images/large_format/born_to_dance_wall_quote.jpg' },
+                { category: 'large_format', title: 'Canada Reaper Cornholes', subtitle: 'Large Format Print', src: 'project_images/large_format/canada_reaper_cornholes.jpg' },
+                { category: 'large_format', title: 'HackTheBox Popup Banner', subtitle: 'Display Banners', src: 'project_images/large_format/hackthebox_popup_banner.jpg' },
+                { category: 'large_format', title: 'Hockey Black', subtitle: 'Large Format Print', src: 'project_images/large_format/hockey_black.jpg' },
+                { category: 'large_format', title: 'Hockey Colour', subtitle: 'Large Format Print', src: 'project_images/large_format/hockey_colour.jpg' },
+                { category: 'large_format', title: 'Legion Custom Cornholes', subtitle: 'Large Format Print', src: 'project_images/large_format/legion_cornholes.jpg' },
+                { category: 'large_format', title: 'Mad Hatter Wall Quote', subtitle: 'Wall Graphics', src: 'project_images/large_format/mad_hatter_wall_quote.jpg' },
+                { category: 'large_format', title: 'Misc Cornholes 1', subtitle: 'Large Format Print', src: 'project_images/large_format/misc_cornholes_1.jpg' },
+                { category: 'large_format', title: 'Misc Cornholes 2', subtitle: 'Large Format Print', src: 'project_images/large_format/misc_cornholes_2.jpg' },
+                { category: 'large_format', title: 'Misc Cornholes 3', subtitle: 'Large Format Print', src: 'project_images/large_format/misc_cornholes_3.jpg' },
+                { category: 'large_format', title: 'Misc Cornholes 4', subtitle: 'Large Format Print', src: 'project_images/large_format/misc_cornholes_4.jpg' },
+                { category: 'large_format', title: 'Misc Cornholes 5', subtitle: 'Large Format Print', src: 'project_images/large_format/misc_cornholes_5.jpg' },
+                { category: 'large_format', title: 'Misc Cornholes 6', subtitle: 'Large Format Print', src: 'project_images/large_format/misc_cornholes_6.jpg' },
+                { category: 'large_format', title: 'Misc Cornholes 7', subtitle: 'Large Format Print', src: 'project_images/large_format/misc_cornholes_7.jpg' },
+                { category: 'large_format', title: 'Oilers Mario Cornholes', subtitle: 'Large Format Print', src: 'project_images/large_format/oilers_mario_cornholes.jpg' },
+                { category: 'large_format', title: 'Paris Decor', subtitle: 'Wall Graphics', src: 'project_images/large_format/paris_decor.jpg' },
+                { category: 'large_format', title: 'Seuss Wall Quote', subtitle: 'Wall Graphics', src: 'project_images/large_format/seuss_wall_quote.jpg' },
+                { category: 'large_format', title: 'Shutup And Toss Cornholes', subtitle: 'Large Format Print', src: 'project_images/large_format/shutupAndToss_cornholes.jpg' },
+                { category: 'large_format', title: 'Taylormade Titleist Miller Cornholes', subtitle: 'Large Format Print', src: 'project_images/large_format/taylormade_titleist_miller_cornholes.jpg' },
+                { category: 'large_format', title: 'Toronto Life Is Better Cornholes', subtitle: 'Large Format Print', src: 'project_images/large_format/toronto_lifeIsBetter_cornholes.jpg' },
+                { category: 'large_format', title: 'Wall Name Graphic 1', subtitle: 'Wall Graphics', src: 'project_images/large_format/wall_name_graphic.jpg' },
+                { category: 'large_format', title: 'Wall Name Graphic 2', subtitle: 'Wall Graphics', src: 'project_images/large_format/wall_name_graphic_2.jpg' },
+
+                // ===== DECALS & LABELS (15 files) =====
+                { category: 'decals_labels', title: 'Belleville Swimming Decals', subtitle: 'Custom Decals', src: 'project_images/decals_labels/belleville_swimming_decals.jpg' },
+                { category: 'decals_labels', title: 'Bennet Creek Golf Club Decals', subtitle: 'Custom Decals', src: 'project_images/decals_labels/bennet_creek_golf_club_decals.jpg' },
+                { category: 'decals_labels', title: 'Camp Half-Blood Decals', subtitle: 'Die-Cut Decals', src: 'project_images/decals_labels/camp_halfblood_decals.jpg' },
+                { category: 'decals_labels', title: 'Canada Is Not For Sale', subtitle: 'Custom Decals', src: 'project_images/decals_labels/canadaIsNotForSale_decal.jpg' },
+                { category: 'decals_labels', title: 'Diabetes Awareness Decals', subtitle: 'Awareness Decals', src: 'project_images/decals_labels/diabetes_awareness_decals.jpg' },
+                { category: 'decals_labels', title: 'Hack The Box Decals', subtitle: 'Custom Decals', src: 'project_images/decals_labels/hack_the_box_decals.jpg' },
+                { category: 'decals_labels', title: 'Just Roll With It Labels', subtitle: 'Product Labels', src: 'project_images/decals_labels/just_roll_with_it_labels.jpg' },
+                { category: 'decals_labels', title: 'Lambert Engines Decals', subtitle: 'Industrial Decals', src: 'project_images/decals_labels/lambert_engines_decals.jpg' },
+                { category: 'decals_labels', title: 'Lisa Countertop Spray Labels', subtitle: 'Product Labels', src: 'project_images/decals_labels/lisas_countertop_spray_labels.jpg' },
+                { category: 'decals_labels', title: 'Little Caesars Labels', subtitle: 'Food Labels', src: 'project_images/decals_labels/littleCaesars_labels.jpg' },
+                { category: 'decals_labels', title: 'Maple Syrup Labels', subtitle: 'Product Labels', src: 'project_images/decals_labels/maple_syrup_labels.jpg' },
+                { category: 'decals_labels', title: 'Mohawk NDT Labels', subtitle: 'Industrial Decals', src: 'project_images/decals_labels/mohawk_ndt_labels.jpg' },
+                { category: 'decals_labels', title: 'Musky Decals', subtitle: 'Custom Decals', src: 'project_images/decals_labels/musky_decals.jpg' },
+                { category: 'decals_labels', title: 'Reenos Decals', subtitle: 'Custom Decals', src: 'project_images/decals_labels/reenos_decals.jpg' },
+                { category: 'decals_labels', title: 'Safety Decals', subtitle: 'Safety Labels', src: 'project_images/decals_labels/safety_decals.jpg' },
+
+                // ===== GRAPHIC DESIGN (18 files) =====
+                { category: 'graphic_design', title: 'Angel Car Design', subtitle: 'Graphic Design', src: 'project_images/graphic_design/angel_car.jpg' },
+                { category: 'graphic_design', title: 'Baymarine Trailer 1', subtitle: 'Vehicle Wrap Design', src: 'project_images/graphic_design/baymarine_trailer_1.jpg' },
+                { category: 'graphic_design', title: 'Baymarine Trailer 2', subtitle: 'Vehicle Wrap Design', src: 'project_images/graphic_design/baymarine_trailer_2.jpg' },
+                { category: 'graphic_design', title: 'Baymarine Trailer 3', subtitle: 'Vehicle Wrap Design', src: 'project_images/graphic_design/baymarine_trailer_3.jpg' },
+                { category: 'graphic_design', title: 'Bigode Car Design', subtitle: 'Graphic Design', src: 'project_images/graphic_design/bigode_car.jpg' },
+                { category: 'graphic_design', title: 'Bigode Van Design', subtitle: 'Graphic Design', src: 'project_images/graphic_design/bigode_van.jpg' },
+                { category: 'graphic_design', title: 'Concrete Paving Co Branding', subtitle: 'Brand Design', src: 'project_images/graphic_design/concretePavingCo.jpg' },
+                { category: 'graphic_design', title: 'Flower Sled Design', subtitle: 'Graphic Design', src: 'project_images/graphic_design/flowerSled.jpg' },
+                { category: 'graphic_design', title: 'Glengary Design', subtitle: 'Graphic Design', src: 'project_images/graphic_design/glengary.jpg' },
+                { category: 'graphic_design', title: 'Hairy Times Fireworks', subtitle: 'Event Graphics', src: 'project_images/graphic_design/hairyTimesFireworks.jpg' },
+                { category: 'graphic_design', title: 'Janbar Electric Branding', subtitle: 'Brand Design', src: 'project_images/graphic_design/janbarElectric.jpg' },
+                { category: 'graphic_design', title: 'Jodi Brown Design', subtitle: 'Graphic Design', src: 'project_images/graphic_design/jodiBrown.jpg' },
+                { category: 'graphic_design', title: 'Limitless Storefront Design', subtitle: 'Storefront Graphics', src: 'project_images/graphic_design/limitless_storefront.jpg' },
+                { category: 'graphic_design', title: 'Pink Blue Sled Design', subtitle: 'Graphic Design', src: 'project_images/graphic_design/pinkBlueSled.jpg' },
+                { category: 'graphic_design', title: 'Quinte Fire Boat', subtitle: 'Vehicle Graphics', src: 'project_images/graphic_design/quinteFireBoat.jpg' },
+                { category: 'graphic_design', title: 'Quinte Mobile Truck Medic', subtitle: 'Vehicle Graphics', src: 'project_images/graphic_design/quinteMobileTruckMedic.jpg' },
+                { category: 'graphic_design', title: "Reid's Concrete Branding", subtitle: 'Brand Design', src: 'project_images/graphic_design/ReidsConcrete.jpg' },
+                { category: 'graphic_design', title: 'Sprague Truck Design', subtitle: 'Vehicle Graphics', src: 'project_images/graphic_design/sprague_truck.jpg' },
+
+                // ===== SMALL FORMAT (2 files) =====
+                { category: 'small_format', title: 'Rosemary Buscard Menus', subtitle: 'Small Format Print', src: 'project_images/small_format/rosemary_buscard_menus.jpg' },
+                { category: 'small_format', title: 'Rosemary Menus', subtitle: 'Small Format Print', src: 'project_images/small_format/rosemary_menus.jpg' },
+
+                // ===== PROMO ITEMS (4 files) =====
+                { category: 'promo', title: 'Custom Branded Hats', subtitle: 'Promotional Items', src: 'project_images/promo/hats.jpg' },
+                { category: 'promo', title: 'Quinte Health Water Bottles', subtitle: 'Promotional Items', src: 'project_images/promo/quinteHealth_water_bottles.jpg' },
+                { category: 'promo', title: 'Trent Truck Beanies', subtitle: 'Promo Apparel', src: 'project_images/promo/trentTruck_beanies.jpg' },
+                { category: 'promo', title: 'Trent Truck Mousepad', subtitle: 'Promotional Items', src: 'project_images/promo/trentTruck_mousepad.jpg' }
+            ];
+
+            const strip = document.getElementById('galleryStrip');
+            const tabs = document.querySelectorAll('.gallery-tab');
+            if (!strip) return;
+
+            let currentFiltered = portfolioData;
+            let lightboxIndex = 0;
+
+            // Create Lightbox DOM structure dynamically
+            const lightbox = document.createElement('div');
+            lightbox.className = 'lightbox-overlay';
+            lightbox.innerHTML = `
+                <button class="lightbox-arrow lightbox-arrow-left" aria-label="Previous image">&#10094;</button>
+                <button class="lightbox-arrow lightbox-arrow-right" aria-label="Next image">&#10095;</button>
+                <div class="lightbox-image-wrapper">
+                    <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+                    <img src="" alt="Portfolio preview">
+                    <div class="lightbox-caption"></div>
+                    <div class="lightbox-counter"></div>
+                </div>
+            `;
+            document.body.appendChild(lightbox);
+
+            const lbImg = lightbox.querySelector('img');
+            const lbCaption = lightbox.querySelector('.lightbox-caption');
+            const lbCounter = lightbox.querySelector('.lightbox-counter');
+            const lbClose = lightbox.querySelector('.lightbox-close');
+            const lbPrev = lightbox.querySelector('.lightbox-arrow-left');
+            const lbNext = lightbox.querySelector('.lightbox-arrow-right');
+
+            function renderStrip(items) {
+                strip.innerHTML = '';
+                if (items.length === 0) {
+                    strip.innerHTML = '<p style="color: var(--lightgrey); padding: 2rem; width: 100%; text-align: center;">No items found in this category.</p>';
+                    return;
+                }
+                items.forEach((item, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'gallery-card';
+                    card.innerHTML = `
+                        <img src="${item.src}" alt="${item.title}" loading="lazy">
+                        <div class="gallery-card-overlay">
+                            <div class="gallery-card-info">
+                                <h4>${item.title}</h4>
+                                <span>${item.subtitle}</span>
+                            </div>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => {
+                        lightboxIndex = index;
+                        openLightbox();
+                    });
+                    strip.appendChild(card);
+                });
+            }
+
+            function openLightbox() {
+                const item = currentFiltered[lightboxIndex];
+                if (!item) return;
+                lbImg.src = item.src;
+                lbCaption.textContent = item.title + ' — ' + item.subtitle;
+                lbCounter.textContent = (lightboxIndex + 1) + ' of ' + currentFiltered.length;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            lbClose.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            lbPrev.addEventListener('click', (e) => {
+                e.stopPropagation();
+                lightboxIndex = (lightboxIndex - 1 + currentFiltered.length) % currentFiltered.length;
+                openLightbox();
+            });
+
+            lbNext.addEventListener('click', (e) => {
+                e.stopPropagation();
+                lightboxIndex = (lightboxIndex + 1) % currentFiltered.length;
+                openLightbox();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') lbPrev.click();
+                if (e.key === 'ArrowRight') lbNext.click();
+            });
+
+            // Filter Tab Events
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const cat = tab.getAttribute('data-category');
+                    if (cat === 'all') {
+                        currentFiltered = portfolioData;
+                    } else {
+                        currentFiltered = portfolioData.filter(item => item.category === cat);
+                    }
+                    renderStrip(currentFiltered);
+                });
+            });
+
+            // Initial render
+            renderStrip(portfolioData);
         })();
     </script>
 </body>
