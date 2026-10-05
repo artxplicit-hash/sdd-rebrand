@@ -904,6 +904,85 @@
             width: 100%;
         }
 
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(22, 25, 30, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(24, 195, 200, 0.3);
+            color: var(--teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+            padding: 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-arrow:hover {
+            background: var(--teal);
+            color: #2B3139;
+            border-color: var(--teal);
+            box-shadow: 0 0 25px rgba(24, 195, 200, 0.45);
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .gallery-arrow:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .gallery-arrow svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.2s ease;
+        }
+
+        .gallery-arrow-left {
+            left: -22px;
+        }
+
+        .gallery-arrow-right {
+            right: -22px;
+        }
+
+        @media (max-width: 1280px) {
+            .gallery-arrow-left {
+                left: 8px;
+            }
+            .gallery-arrow-right {
+                right: 8px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-arrow {
+                width: 42px;
+                height: 42px;
+            }
+            .gallery-arrow svg {
+                width: 18px;
+                height: 18px;
+            }
+            .gallery-arrow-left {
+                left: 6px;
+            }
+            .gallery-arrow-right {
+                right: 6px;
+            }
+        }
+
         .gallery-strip {
             display: flex;
             gap: 1.25rem;
@@ -994,7 +1073,7 @@
 
         .lightbox-image-wrapper {
             position: relative;
-            max-width: 90vw;
+            max-width: min(1050px, calc(100vw - 160px));
             max-height: 85vh;
             display: flex;
             align-items: center;
@@ -1050,6 +1129,8 @@
             top: 50%;
             transform: translateY(-50%);
             background: rgba(43, 49, 57, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             color: var(--white);
             width: 56px;
@@ -1061,19 +1142,33 @@
             cursor: pointer;
             transition: all 0.2s ease;
             z-index: 10001;
+            padding: 0;
         }
 
+        .lightbox-arrow svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Static placement brought inward toward images using max image width (1050px) guide */
         .lightbox-arrow-left {
-            left: 2rem;
+            left: max(1.5rem, calc(50vw - 605px));
         }
 
         .lightbox-arrow-right {
-            right: 2rem;
+            right: max(1.5rem, calc(50vw - 605px));
         }
 
         .lightbox-arrow:hover {
             background: var(--teal);
             color: #2B3139;
+            border-color: var(--teal);
+            box-shadow: 0 0 25px rgba(24, 195, 200, 0.4);
         }
 
         .lightbox-counter {
@@ -1433,10 +1528,27 @@
             margin-top: 0.15rem;
         }
 
+        .review-platform-icon {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+            opacity: 0.85;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .review-card:hover .review-platform-icon {
+            opacity: 1;
+            transform: scale(1.08);
+        }
+
         .review-google-icon {
-            width: 20px;
-            height: 20px;
-            opacity: 0.5;
+            width: 22px;
+            height: 22px;
+        }
+
+        .review-facebook-icon {
+            width: 22px;
+            height: 22px;
         }
 
         .review-stars svg {
@@ -1930,12 +2042,26 @@
                 width: 260px;
             }
 
+            .lightbox-image-wrapper {
+                max-width: calc(100vw - 32px);
+            }
+
+            .lightbox-arrow {
+                width: 44px;
+                height: 44px;
+            }
+
+            .lightbox-arrow svg {
+                width: 20px;
+                height: 20px;
+            }
+
             .lightbox-arrow-left {
-                left: -10px;
+                left: 8px;
             }
 
             .lightbox-arrow-right {
-                right: -10px;
+                right: 8px;
             }
 
             .stats-grid {
@@ -2184,7 +2310,13 @@
 
             <!-- Horizontal Scrolling Gallery Strip -->
             <div class="gallery-strip-wrapper reveal">
+                <button class="gallery-arrow gallery-arrow-left" id="galleryArrowLeft" aria-label="Scroll gallery left">
+                    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
                 <div class="gallery-strip" id="galleryStrip"></div>
+                <button class="gallery-arrow gallery-arrow-right" id="galleryArrowRight" aria-label="Scroll gallery right">
+                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
             </div>
         </div>
     </section>
@@ -2218,17 +2350,20 @@
             <div class="google-reviews-header reveal">
                 <div class="section-label">Reviews</div>
                 <h2 class="section-title">What Our Clients Say</h2>
-                <p class="section-subtitle">Real reviews from real customers — see what people are saying about The Graphics Shop.</p>
+                <p class="section-subtitle">Real reviews from real customers — see what people are saying about The Graphics Shop on Google and Facebook.</p>
                 <div class="google-reviews-badge">
-                    <svg viewBox="0 0 24 24">
+                    <svg viewBox="0 0 24 24" style="width: 20px; height: 20px;">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
                         <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                         <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                         <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                     </svg>
+                    <svg viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+                        <path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
                     <span class="badge-text">
                         <span class="badge-rating" id="avgRatingDisplay">5.0</span>
-                        <span>Average on Google</span>
+                        <span>Average on Google &amp; Facebook</span>
                     </span>
                 </div>
             </div>
@@ -2303,12 +2438,12 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="quote-signage-height">Height (inches/cm)</label>
-                                <input type="text" id="quote-signage-height" name="height" placeholder='e.g. 24" or 60cm'>
+                                <label for="quote-signage-width">Width (inches/cm)</label>
+                                <input type="text" id="quote-signage-width" name="width" placeholder='e.g. 24"'>
                             </div>
                             <div class="form-group">
                                 <label for="quote-signage-length">Length (inches/cm)</label>
-                                <input type="text" id="quote-signage-length" name="length" placeholder='e.g. 36" or 90cm'>
+                                <input type="text" id="quote-signage-length" name="length" placeholder='e.g. 36"'>
                             </div>
                         </div>
                         <div class="form-group">
@@ -2407,7 +2542,7 @@
                             </div>
                             <div class="contact-detail-text">
                                 <h4>Phone</h4>
-                                <p><a href="tel:2898932553" style="color: inherit; text-decoration: none;">289 893 2553</a></p>
+                                <p><a href="tel:9029576369" style="color: inherit; text-decoration: none;">902 957 6369</a></p>
                             </div>
                         </div>
 
@@ -2621,75 +2756,162 @@
         // ===== GOOGLE REVIEWS WIDGET =====
         (function () {
             const reviewsData = [
+                // ===== GOOGLE REVIEWS =====
                 {
-                    name: 'Diana M.',
+                    name: 'Richard Leger',
+                    platform: 'google',
                     rating: 5,
-                    text: 'The Graphics Shop did an amazing job on our fleet wrap. From the design to the final installation, everything was top-notch. Our vehicles look incredible and we get compliments constantly. Highly recommend for any vehicle graphics needs!',
-                    date: '2 months ago',
-                    projectType: 'Fleet Graphics'
+                    date: '10 weeks ago',
+                    text: 'Luke does a great job for any advertising option I need. He is prompt and very professional. This is my go to company for all my business needs!!'
                 },
                 {
-                    name: 'Robert K.',
+                    name: 'Yo D',
+                    platform: 'google',
                     rating: 5,
-                    text: 'Needed custom window graphics for our storefront and they exceeded all expectations. The team was professional, quick to respond, and the quality of the materials is outstanding. Our shop looks so much more modern and inviting now.',
-                    date: '3 weeks ago',
-                    projectType: 'Storefront Graphics'
+                    date: '13 weeks ago',
+                    text: 'Luke was incredible, all we wanted was a sticker for our 4 x 4. He designed an incredible gorgeous piece of art. Thanks. We will be back!'
                 },
                 {
-                    name: 'Linda S.',
+                    name: 'Rad E',
+                    platform: 'google',
                     rating: 5,
-                    text: 'We have been using The Graphics Shop for all our signage and decals for over two years now. The attention to detail is unmatched and the vinyl holds up incredibly well even after harsh Nova Scotia winters. A reliable, quality operation.',
-                    date: '1 month ago',
-                    projectType: 'Signage & Decals'
+                    date: '19 weeks ago',
+                    text: 'I had the opportunity to work with Luke at SDD on a company vehicle decal design and installation. The entire process was professional, prompt, and seamless. Luke took the time to design, refine, and install a final product that matched exactly what I envisioned. Highly recommended, thank you!'
                 },
                 {
-                    name: 'Michael T.',
+                    name: 'Steve W',
+                    platform: 'google',
                     rating: 5,
-                    text: 'Ordered custom decals for our small business and the turnaround time was incredibly fast. The quality is excellent — crisp prints, clean edges, and the laminate finish has kept them looking new for months. Will definitely order again.',
-                    date: '5 days ago',
-                    projectType: 'Custom Decals'
+                    date: '24 weeks ago',
+                    text: 'Always fast and reliable.'
                 },
                 {
-                    name: 'Sarah J.',
+                    name: 'Angeli Scotti',
+                    platform: 'google',
                     rating: 5,
-                    text: 'We hired The Graphics Shop for our company truck graphics and couldn\'t be happier. The design process was smooth and the final product exceeded our expectations. Great communication throughout the entire project.',
-                    date: '6 days ago',
-                    projectType: 'Vehicle Graphics'
+                    date: 'May 7, 2022',
+                    text: 'Amazing work and very friendly. Will always be my first choice'
                 },
                 {
-                    name: 'David L.',
+                    name: 'The Flying Scotsman',
+                    platform: 'google',
                     rating: 5,
-                    text: 'Fantastic work on our trade show booth graphics! Everything was perfectly cut and applied. The team was so easy to work with and delivered everything ahead of schedule. Will definitely use them again for future events.',
-                    date: '2 weeks ago',
-                    projectType: 'Trade Show Graphics'
+                    date: 'Nov 25, 2021',
+                    text: 'This place is great ! Friendly , very smart at there work and made exactly what I needed at a great price !! A++++ Thank-you Team 🙏'
                 },
                 {
-                    name: 'Amanda R.',
+                    name: 'Jenna Molotkow',
+                    platform: 'google',
                     rating: 5,
-                    text: 'The wall murals they created for our office are absolutely stunning. It\'s amazing how they transformed our workspace with such creative designs. Our employees and clients are always impressed.',
-                    date: '3 days ago',
-                    projectType: 'Wall Murals'
+                    date: 'Jul 9, 2020',
+                    text: 'I have had a really great experience working with this company. They are amazing at branding and getting exactly what you need as a company. Luke was super professional and very easy to work with. I highly recommended them !'
                 },
                 {
-                    name: 'Chris P.',
+                    name: 'John Pedersen',
+                    platform: 'google',
                     rating: 5,
-                    text: 'Best vinyl shop in the area, hands down. I\'ve been buying custom stickers and decals from them for my small business and the quality is always consistent. Fair pricing and excellent customer service every time.',
-                    date: '1 week ago',
-                    projectType: 'Custom Stickers'
+                    date: 'Feb 14, 2020',
+                    text: 'Used them since they lived in north Oshawa..... big tasks or small, they are responsive and honest'
                 },
                 {
-                    name: 'Jennifer B.',
+                    name: 'Blair G',
+                    platform: 'google',
                     rating: 5,
-                    text: 'We needed urgent last-minute banners for our charity event and The Graphics Shop went above and beyond to deliver on time. The quality was outstanding and the event was a huge success thanks to their work!',
-                    date: '4 weeks ago',
-                    projectType: 'Banners'
+                    date: 'Apr 4, 2019',
+                    text: 'Have used Specialty both for work and personal. Great product, on time and as quoted. Would definitely recommend!'
                 },
                 {
-                    name: 'Mark W.',
+                    name: 'Rhonda Bittorf',
+                    platform: 'google',
                     rating: 5,
-                    text: 'I\'ve been working with The Graphics Shop for my restaurant\'s menu boards and window decals. They consistently deliver high quality work and are always willing to help with design tweaks. A true professional team.',
-                    date: '10 days ago',
-                    projectType: 'Restaurant Graphics'
+                    date: 'Apr 4, 2019',
+                    text: 'Five-star rating on Google Reviews! Wonderful service and top-notch craftsmanship.'
+                },
+
+                // ===== FACEBOOK REVIEWS =====
+                {
+                    name: "R. Anthony & Son's Inc",
+                    platform: 'facebook',
+                    rating: 5,
+                    date: 'May 26',
+                    text: 'Luke did our first trailer 10 years ago, we contacted him after buying a new trailer. His communication skills are great and very easy to work with, his skill level also his attention to detail is unmatched! This is definitely a 5 star business. We thank you Luke ~ R.Anthony & Son\'s Inc.'
+                },
+                {
+                    name: 'Lori Barriault',
+                    platform: 'facebook',
+                    rating: 5,
+                    date: 'Apr 28, 2021',
+                    text: 'love my design it turned out beautifully, very fast service and very professional, can\'t wait till our next vehicle gets done'
+                },
+                {
+                    name: 'Nicholas Seguin',
+                    platform: 'facebook',
+                    rating: 5,
+                    date: 'Oct 6, 2019',
+                    text: 'I highly recommend Specialty Decals & Design! If you are looking to wrap your vehicle or any type of graphic design, these are your people!!'
+                },
+                {
+                    name: 'Tania Hegadorn-Marsh',
+                    platform: 'facebook',
+                    rating: 5,
+                    date: 'Nov 14, 2018',
+                    text: 'Excellent service and quality'
+                },
+                {
+                    name: 'Kerri Elizabeth Goheen',
+                    platform: 'facebook',
+                    rating: 5,
+                    date: 'Jun 10, 2018',
+                    text: 'I\'m very happy with how this turned out! 100% recommend:) Thank you!'
+                },
+                {
+                    name: 'Kelly Deline',
+                    platform: 'facebook',
+                    rating: 5,
+                    date: 'Mar 26, 2018',
+                    text: 'very impressed with the decal i got from them turned out amazing.'
+                },
+                {
+                    name: 'Mel Messina',
+                    platform: 'facebook',
+                    rating: 5,
+                    date: 'Feb 24, 2017',
+                    text: 'Top notch! Quality product and great turn around time! It was a pleasure dealing with Darlene! Very professional, worth every penny! Will return again and again 😊 Thanks so much!'
+                },
+                {
+                    name: 'Brooke Di Rienzo',
+                    platform: 'facebook',
+                    rating: 5,
+                    date: 'Feb 6, 2017',
+                    text: 'Amazing work, quick turn around time.....highly recommend!!!!'
+                },
+                {
+                    name: 'Jessica Jane',
+                    platform: 'facebook',
+                    rating: 5,
+                    date: 'Feb 3, 2017',
+                    text: 'Wonderful products and wonderful service. Staff took the time to send me mock-ups that accurately represented the end products. They were easily installed, and we couldn\'t have asked for better decals in our daughter\'s nursery. 😊 Thank you!'
+                },
+                {
+                    name: 'Candice Calleja',
+                    platform: 'facebook',
+                    rating: 5,
+                    date: 'Dec 23, 2016',
+                    text: 'Just had my logo put on my car window and I LOVE it! It looks great thank you so much!'
+                },
+                {
+                    name: 'Jackie Scrivanich',
+                    platform: 'facebook',
+                    rating: 5,
+                    date: 'Nov 20, 2016',
+                    text: 'Fantastic work. This company was able to work with what I wanted and give me ideas until we agreed upon a design. Quick turn around time. Great prices. Highly recommend. 5 stars'
+                },
+                {
+                    name: 'Brent Vipond',
+                    platform: 'facebook',
+                    rating: 5,
+                    date: 'Sep 24, 2016',
+                    text: 'Couldn\'t be more pleased with what I\'ve received. Communication was top-notch, quality of product received was great, and turnaround time for product/response time for messages was super quick. Would definitely do business with again!'
                 }
             ];
 
@@ -2727,6 +2949,10 @@
                         stars += '<svg viewBox="0 0 24 24"><path class="star-filled" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
                     }
 
+                    var platformIcon = rev.platform === 'facebook'
+                        ? '<svg class="review-platform-icon review-facebook-icon" viewBox="0 0 24 24" aria-label="Facebook Review" title="Facebook Review"><path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>'
+                        : '<svg class="review-platform-icon review-google-icon" viewBox="0 0 24 24" aria-label="Google Review" title="Google Review"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>';
+
                     html += '<div class="review-slide">';
                     html += '<div class="review-card reveal visible">';
                     html += '<div class="review-header">';
@@ -2736,7 +2962,7 @@
                     html += '<div class="review-author-name">' + rev.name + '</div>';
                     html += '<div class="review-date">' + rev.date + '</div>';
                     html += '</div></div>';
-                    html += '<svg class="review-google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>';
+                    html += platformIcon;
                     html += '</div>';
                     html += '<div class="review-stars">' + stars + '</div>';
                     html += '<p class="review-text">' + rev.text + '</p>';
@@ -3000,17 +3226,60 @@
 
             const strip = document.getElementById('galleryStrip');
             const tabs = document.querySelectorAll('.gallery-tab');
+            const galleryArrowLeft = document.getElementById('galleryArrowLeft');
+            const galleryArrowRight = document.getElementById('galleryArrowRight');
             if (!strip) return;
 
             let currentFiltered = portfolioData;
             let lightboxIndex = 0;
 
+            // Gallery Browsing Arrow controls
+            function getScrollStep() {
+                const firstCard = strip.querySelector('.gallery-card');
+                const cardWidth = firstCard ? firstCard.offsetWidth + 20 : 340;
+                return Math.max(cardWidth, Math.floor(strip.clientWidth * 0.75));
+            }
+
+            function updateGalleryArrows() {
+                if (!galleryArrowLeft || !galleryArrowRight) return;
+                const canScroll = strip.scrollWidth > strip.clientWidth + 10;
+                galleryArrowLeft.style.display = canScroll ? 'flex' : 'none';
+                galleryArrowRight.style.display = canScroll ? 'flex' : 'none';
+            }
+
+            if (galleryArrowLeft && galleryArrowRight) {
+                galleryArrowLeft.addEventListener('click', () => {
+                    const step = getScrollStep();
+                    if (strip.scrollLeft <= 10) {
+                        strip.scrollTo({ left: strip.scrollWidth, behavior: 'smooth' });
+                    } else {
+                        strip.scrollBy({ left: -step, behavior: 'smooth' });
+                    }
+                });
+
+                galleryArrowRight.addEventListener('click', () => {
+                    const step = getScrollStep();
+                    const maxScroll = strip.scrollWidth - strip.clientWidth;
+                    if (strip.scrollLeft >= maxScroll - 10) {
+                        strip.scrollTo({ left: 0, behavior: 'smooth' });
+                    } else {
+                        strip.scrollBy({ left: step, behavior: 'smooth' });
+                    }
+                });
+
+                window.addEventListener('resize', updateGalleryArrows);
+            }
+
             // Create Lightbox DOM structure dynamically
             const lightbox = document.createElement('div');
             lightbox.className = 'lightbox-overlay';
             lightbox.innerHTML = `
-                <button class="lightbox-arrow lightbox-arrow-left" aria-label="Previous image">&#10094;</button>
-                <button class="lightbox-arrow lightbox-arrow-right" aria-label="Next image">&#10095;</button>
+                <button class="lightbox-arrow lightbox-arrow-left" aria-label="Previous image">
+                    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                <button class="lightbox-arrow lightbox-arrow-right" aria-label="Next image">
+                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
                 <div class="lightbox-image-wrapper">
                     <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
                     <img src="" alt="Portfolio preview">
@@ -3031,6 +3300,7 @@
                 strip.innerHTML = '';
                 if (items.length === 0) {
                     strip.innerHTML = '<p style="color: var(--lightgrey); padding: 2rem; width: 100%; text-align: center;">No items found in this category.</p>';
+                    updateGalleryArrows();
                     return;
                 }
                 items.forEach((item, index) => {
@@ -3051,6 +3321,8 @@
                     });
                     strip.appendChild(card);
                 });
+                updateGalleryArrows();
+                setTimeout(updateGalleryArrows, 50);
             }
 
             function openLightbox() {
@@ -3104,6 +3376,8 @@
                         currentFiltered = portfolioData.filter(item => item.category === cat);
                     }
                     renderStrip(currentFiltered);
+                    strip.scrollTo({ left: 0, behavior: 'smooth' });
+                    updateGalleryArrows();
                 });
             });
 
