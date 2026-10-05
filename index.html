@@ -2445,8 +2445,9 @@
                 <!-- Signage & Decals Quote -->
                 <div class="quote-card reveal reveal-delay-1">
                     <h3 style="font-family: var(--font-barlow-condensed); font-weight: 700; color: var(--teal); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.08em;">Signage &amp; Decals Quote</h3>
-                    <form class="quote-form" action="https://formsubmit.co/info@thegraphicsshop.ca" method="POST" enctype="multipart/form-data">
+                    <form class="quote-form" action="send-quote.php" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="_subject" value="New Signage & Decals Quote Request">
+                        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
                         <div class="form-group">
                             <label for="quote-signage-name">Name *</label>
                             <input type="text" id="quote-signage-name" name="name" placeholder="Your Name" required>
@@ -2502,14 +2503,16 @@
                             <input type="file" id="quote-signage-artwork" name="artwork" accept=".pdf,.ai,.eps,.svg,.png,.jpg,.jpeg,.psd">
                         </div>
                         <button type="submit" class="form-submit" style="background: var(--teal);">Submit Signage &amp; Decals Quote</button>
+                        <div class="form-status" aria-live="polite" style="display:none; margin-top: 1rem; padding: 0.9rem 1rem; border-radius: 10px; font-size: 0.9rem; font-weight: 500; text-align: center;"></div>
                     </form>
                 </div>
 
                 <!-- Vehicle Graphics Quote -->
                 <div class="quote-card reveal reveal-delay-2">
                     <h3 style="font-family: var(--font-barlow-condensed); font-weight: 700; color: var(--teal); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.08em;">Vehicle Graphics Quote</h3>
-                    <form class="quote-form" action="https://formsubmit.co/info@thegraphicsshop.ca" method="POST" enctype="multipart/form-data">
+                    <form class="quote-form" action="send-quote.php" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="_subject" value="New Vehicle Graphics Quote Request">
+                        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
                         <div class="form-group">
                             <label for="quote-vehicle-name">Name *</label>
                             <input type="text" id="quote-vehicle-name" name="name" placeholder="Your Name" required>
@@ -2553,6 +2556,7 @@
                             <input type="file" id="quote-vehicle-artwork" name="artwork" accept=".pdf,.ai,.eps,.svg,.png,.jpg,.jpeg,.psd">
                         </div>
                         <button type="submit" class="form-submit" style="background: var(--teal);">Submit Vehicle Graphics Quote</button>
+                        <div class="form-status" aria-live="polite" style="display:none; margin-top: 1rem; padding: 0.9rem 1rem; border-radius: 10px; font-size: 0.9rem; font-weight: 500; text-align: center;"></div>
                     </form>
                 </div>
             </div>
@@ -2794,6 +2798,57 @@
             shapes.forEach((shape, i) => {
                 const speed = (i + 1) * 8;
                 shape.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+
+        // ===== QUOTE FORM SUBMISSION (SERVER-SIDE PHP) =====
+        document.querySelectorAll('.quote-form').forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const submitBtn = form.querySelector('.form-submit');
+                const statusEl = form.querySelector('.form-status');
+                const originalText = submitBtn.textContent;
+
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.7';
+                submitBtn.textContent = 'Sending...';
+                if (statusEl) {
+                    statusEl.style.display = 'none';
+                }
+
+                try {
+                    const formData = new FormData(form);
+                    const response = await fetch(form.getAttribute('action'), {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const result = await response.json();
+
+                    if (response.ok && result.success) {
+                        if (statusEl) {
+                            statusEl.textContent = result.message || 'Thank you! Your quote request has been sent.';
+                            statusEl.style.background = 'rgba(24, 195, 200, 0.15)';
+                            statusEl.style.border = '1px solid rgba(24, 195, 200, 0.4)';
+                            statusEl.style.color = 'var(--teal-light)';
+                            statusEl.style.display = 'block';
+                        }
+                        form.reset();
+                    } else {
+                        throw new Error((result && result.message) || 'Failed to send quote request.');
+                    }
+                } catch (err) {
+                    if (statusEl) {
+                        statusEl.textContent = err.message || 'Unable to send quote request. Please email info@thegraphicsshop.ca directly.';
+                        statusEl.style.background = 'rgba(234, 67, 53, 0.15)';
+                        statusEl.style.border = '1px solid rgba(234, 67, 53, 0.4)';
+                        statusEl.style.color = '#ff8a80';
+                        statusEl.style.display = 'block';
+                    }
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = '1';
+                    submitBtn.textContent = originalText;
+                }
             });
         });
 
