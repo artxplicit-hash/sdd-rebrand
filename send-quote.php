@@ -32,7 +32,7 @@ if ($name === '' || $email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) 
 
 $to = 'info@thegraphicsshop.ca';
 $fromEmail = 'info@thegraphicsshop.ca';
-$subject = $rawSubject . ' — ' . $name;
+$subject = $rawSubject . ' - ' . $name;
 
 // Collect quote-specific fields
 $fields = [
@@ -57,27 +57,23 @@ if (isset($_POST['substrate']) || isset($_POST['quantity']) || isset($_POST['wid
 
 // Build HTML email body
 $rowsHtml = '';
-$plainLines = [];
 foreach ($fields as $label => $value) {
     $safeLabel = htmlspecialchars($label, ENT_QUOTES, 'UTF-8');
     $safeValue = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-    $rowsHtml .= "<tr><td style='padding:8px 12px;border-bottom:1px solid #2B3139;font-weight:bold;color:#18C3C8;width:140px;'>{$safeLabel}</td><td style='padding:8px 12px;border-bottom:1px solid #2B3139;color:#FFFFFF;'>{$safeValue}</td></tr>";
-    $plainLines[] = "{$label}: {$value}";
+    $rowsHtml .= "<tr><td style='padding:8px 12px;border-bottom:1px solid #2B3139;font-weight:bold;color:#18C3C8;width:140px;'>{$safeLabel}</td><td style='padding:8px 12px;border-bottom:1px solid #2B3139;color:#FFFFFF;'>{$safeValue}</td></tr>\n";
 }
 
 $safeAbout = nl2br(htmlspecialchars($about, ENT_QUOTES, 'UTF-8'));
-$plainLines[] = "\nAbout the Job:\n" . $about;
 
-$htmlBody = "<!DOCTYPE html><html><body style='font-family:Arial,sans-serif;background:#16191E;color:#FFFFFF;padding:24px;'>
-<div style='max-width:600px;margin:0 auto;background:#2B3139;border-radius:12px;padding:24px;border:1px solid rgba(24,195,200,0.3);'>
-    <h2 style='margin-top:0;color:#18C3C8;'>" . htmlspecialchars($rawSubject, ENT_QUOTES, 'UTF-8') . "</h2>
-    <table style='width:100%;border-collapse:collapse;background:#16191E;border-radius:8px;overflow:hidden;margin-bottom:20px;'>
-        {$rowsHtml}
-    </table>
-    <h3 style='color:#18C3C8;margin-bottom:8px;'>About the Job</h3>
-    <div style='background:#16191E;padding:14px;border-radius:8px;color:#FFFFFF;line-height:1.6;'>{$safeAbout}</div>
-</div>
-</body></html>";
+$htmlBody = "<!DOCTYPE html>\n<html>\n<body style='font-family:Arial,sans-serif;background:#16191E;color:#FFFFFF;padding:24px;'>\n"
+    . "<div style='max-width:600px;margin:0 auto;background:#2B3139;border-radius:12px;padding:24px;border:1px solid rgba(24,195,200,0.3);'>\n"
+    . "<h2 style='margin-top:0;color:#18C3C8;'>" . htmlspecialchars($rawSubject, ENT_QUOTES, 'UTF-8') . "</h2>\n"
+    . "<table style='width:100%;border-collapse:collapse;background:#16191E;border-radius:8px;overflow:hidden;margin-bottom:20px;'>\n"
+    . $rowsHtml
+    . "</table>\n"
+    . "<h3 style='color:#18C3C8;margin-bottom:8px;'>About the Job</h3>\n"
+    . "<div style='background:#16191E;padding:14px;border-radius:8px;color:#FFFFFF;line-height:1.6;'>{$safeAbout}</div>\n"
+    . "</div>\n</body>\n</html>";
 
 // Check for optional artwork attachment
 $hasAttachment = false;
@@ -111,7 +107,7 @@ if (isset($_FILES['artwork']) && $_FILES['artwork']['error'] !== UPLOAD_ERR_NO_F
     $rawContent = file_get_contents($_FILES['artwork']['tmp_name']);
     if ($rawContent !== false) {
         $hasAttachment = true;
-        $attachmentData = chunk_split(base64_encode($rawContent));
+        $attachmentData = rtrim(chunk_split(base64_encode($rawContent), 76, "\n"));
         $attachmentName = preg_replace('/[^a-zA-Z0-9._-]/', '_', $origName);
         if (!empty($_FILES['artwork']['type'])) {
             $attachmentType = clean_line($_FILES['artwork']['type']);
@@ -120,35 +116,33 @@ if (isset($_FILES['artwork']) && $_FILES['artwork']['error'] !== UPLOAD_ERR_NO_F
 }
 
 $boundaryMixed = '=_Mixed_' . md5((string)microtime(true));
-$boundaryAlt   = '=_Alt_' . md5((string)microtime(true) . 'alt');
 
 $headers = [];
 $headers[] = "From: The Graphics Shop <{$fromEmail}>";
-$headers[] = "Reply-To: \"{$name}\" <{$email}>";
+$headers[] = "Reply-To: {$email}";
 $headers[] = "MIME-Version: 1.0";
 
 if ($hasAttachment) {
     $headers[] = "Content-Type: multipart/mixed; boundary=\"{$boundaryMixed}\"";
 
-    $message  = "--{$boundaryMixed}\r\n";
-    $message .= "Content-Type: text/html; charset=UTF-8\r\n";
-    $message .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
-    $message .= $htmlBody . "\r\n\r\n";
+    $message  = "--{$boundaryMixed}\n";
+    $message .= "Content-Type: text/html; charset=UTF-8\n";
+    $message .= "Content-Transfer-Encoding: 8bit\n\n";
+    $message .= $htmlBody . "\n\n";
 
-    $message .= "--{$boundaryMixed}\r\n";
-    $message .= "Content-Type: {$attachmentType}; name=\"{$attachmentName}\"\r\n";
-    $message .= "Content-Disposition: attachment; filename=\"{$attachmentName}\"\r\n";
-    $message .= "Content-Transfer-Encoding: base64\r\n\r\n";
-    $message .= $attachmentData . "\r\n";
-    $message .= "--{$boundaryMixed}--\r\n";
+    $message .= "--{$boundaryMixed}\n";
+    $message .= "Content-Type: {$attachmentType}; name=\"{$attachmentName}\"\n";
+    $message .= "Content-Disposition: attachment; filename=\"{$attachmentName}\"\n";
+    $message .= "Content-Transfer-Encoding: base64\n\n";
+    $message .= $attachmentData . "\n";
+    $message .= "--{$boundaryMixed}--\n";
 } else {
     $headers[] = "Content-Type: text/html; charset=UTF-8";
     $headers[] = "Content-Transfer-Encoding: 8bit";
     $message = $htmlBody;
 }
 
-$encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
-$sent = @mail($to, $encodedSubject, $message, implode("\r\n", $headers), "-f{$fromEmail}");
+$sent = @mail($to, $subject, $message, implode("\n", $headers), "-f{$fromEmail}");
 
 if ($sent) {
     echo json_encode([
